@@ -1,6 +1,5 @@
 package com.example.tie2.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,10 +8,11 @@ import java.util.List;
 @RestController
 public class TelevisionController {
 
-
-    @GetMapping("/television/{id}") // do we have to add ID here ? and if not, then when ? //
-    // defining a single endpoint using @GetMapping annotation with the path getTelevision - when a get request is made to this endpoint the getTelevision will be executed.
+//TODO: need to make a database for the retrieval of televisions;//
+    @GetMapping("/television/{id}")
     public ResponseEntity<Television> getTelevisionById(@PathVariable(value = "id") Long televisionId, Television television) {
+
+        Television television1 = television;
         return ResponseEntity.ok(television); // the ResponseEntity.ok(television) call creates a response with an HTTP status of 200 OK and includes television as the response body
     }
 
