@@ -15,7 +15,7 @@ public class TelevisionController {
 
     public TelevisionController() {
         televisions = new ArrayList<>();
-        Television example = new Television("Samsung 22374", 3345);
+        Television example = new Television("Samsung 22374", 3345); //pulling from Television class//
         televisions.add(example);
     }
 
@@ -36,14 +36,9 @@ public class TelevisionController {
     }
 
     @PostMapping("/postTelevision") //TODO: add id here //
-    public ResponseEntity<Object> postTelevision(Television television) {
-        television = new Television("Samsung 3", 90762639);
-        return ResponseEntity.created(null).body(television);
-    }
-
-    @PostMapping("/postAllTelevisions")
-    public ResponseEntity<List<String>> postAllTelevisions() {
-        return ResponseEntity.created(null).body(allTelevisions);
+    public ResponseEntity<Television> postTelevision(@RequestBody Television newTelevision) {
+        televisions.add(newTelevision);
+        return new ResponseEntity<>(newTelevision, HttpStatus.CREATED);
     }
 
     @PutMapping("/update/{id}")
