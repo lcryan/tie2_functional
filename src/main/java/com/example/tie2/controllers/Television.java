@@ -4,6 +4,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 public class Television {
     String televisionName;
+    int id;
 
     public void setTelevisionName(String televisionName) {
         this.televisionName = televisionName;
@@ -12,8 +13,6 @@ public class Television {
     public void setId(int id) {
         this.id = id;
     }
-
-    int id;
 
 
     public String getTelevisionName() {

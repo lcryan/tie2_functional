@@ -44,6 +44,7 @@ public class TelevisionController {
 
     @PutMapping("/update/{id}")
     public ResponseEntity<Television> updateTelevision(@PathVariable int id, String televisionName) {
+        // do we need iterate here ???// // TODO: check in postman if functional //
         if (id >= 0 && id < televisions.size()) {
             Television televisionToUpdate = televisions.get(id);
             televisionToUpdate.setTelevisionName("LG-BB80KL");
