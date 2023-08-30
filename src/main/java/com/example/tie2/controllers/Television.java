@@ -32,6 +32,8 @@ public class Television {
 
 
 /*
+
+// with existing database //
 @Entity
 @Table(name = “books”)
 public class Book {
