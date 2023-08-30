@@ -1,7 +1,9 @@
 package com.example.tie2.controllers;
 
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.HttpStatus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,18 +19,20 @@ public class TelevisionController {
         televisions.add(example);
     }
 
-    //TODO :  add private final TelevisionRepository repository; check code from lesson in Robert-Jan folder//
     //TODO: need to make a database for the retrieval of televisions;//
-    @GetMapping("/televisions/{id}")
-    public ResponseEntity<Television> getTelevisionById(@PathVariable(value = "id") Long id, Television television) {
-
-        return ResponseEntity.ok(television); // the ResponseEntity.ok(television) call creates a response with an HTTP status of 200 OK and includes television as the response body
+    @GetMapping("/televisions/{id}") //gets back one single television //
+    public ResponseEntity<Television> getTelevision(@PathVariable int id) {
+        if (id >= 0 && id < televisions.size()) {
+            Television example = televisions.get(id);
+            return new ResponseEntity<>(example, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
     }
 
-    @GetMapping("/allTelevisions") // no id needed here! //
-    public ResponseEntity<List<String>> getAllTelevisions(List<String> allTelevisions) {
-        return ResponseEntity.ok(allTelevisions);
-
+    @GetMapping("/televisions") //gets back all televisions of the database//
+    public ResponseEntity<List<Television>> getTelevisions() {
+        return new ResponseEntity<>(televisions, HttpStatus.OK); // could we also use ResponseEntity.ok ?
     }
 
     @PostMapping("/postTelevision") //TODO: add id here //
@@ -38,7 +42,7 @@ public class TelevisionController {
     }
 
     @PostMapping("/postAllTelevisions")
-    public ResponseEntity<List<String>> postAllTelevisions(List<String> allTelevisions) {
+    public ResponseEntity<List<String>> postAllTelevisions() {
         return ResponseEntity.created(null).body(allTelevisions);
     }
 
