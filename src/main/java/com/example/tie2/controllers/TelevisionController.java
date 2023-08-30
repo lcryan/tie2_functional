@@ -36,7 +36,7 @@ public class TelevisionController {
         return new ResponseEntity<>(televisions, HttpStatus.OK); // could we also use ResponseEntity.ok ?
     }
 
-    @PostMapping("/postTelevision") //TODO: add id here //
+    @PostMapping("/postTelevision")
     public ResponseEntity<Television> postTelevision(@RequestBody Television newTelevision) {
         televisions.add(newTelevision);
         return new ResponseEntity<>(newTelevision, HttpStatus.CREATED);
@@ -54,8 +54,8 @@ public class TelevisionController {
     }
 
     @DeleteMapping("/delete/{id}") // hier kan je ook request params doen, als nodig //
-    public ResponseEntity<Object> deleteTelevision(@PathVariable long id, @RequestBody Television television) {
+    public ResponseEntity<Object> deleteTelevision(@PathVariable int id, @RequestBody Television television) {
         return ResponseEntity.noContent().build(); // 204 status
-    }
+    } // TODO : needs to be finalized //
 }
 
