@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.servlet.mvc.method.annotation.ServletResponseMethodArgumentResolver;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,10 +43,14 @@ public class TelevisionController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<String> putTelevision(@PathVariable long id, @RequestBody Television television) {
-        // how to retrieve the actual television here ??? // //TODO: probably need a database to retrieve this from. //
-
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<Television> updateTelevision(@PathVariable int id, String televisionName) {
+        if (id >= 0 && id < televisions.size()) {
+            Television televisionToUpdate = televisions.get(id);
+            televisionToUpdate.setTelevisionName("LG-BB80KL");
+            return ResponseEntity.ok(televisionToUpdate);
+        } else {
+            return ResponseEntity.noContent().build();
+        }
     }
 
     @DeleteMapping("/delete/{id}") // hier kan je ook request params doen, als nodig //
