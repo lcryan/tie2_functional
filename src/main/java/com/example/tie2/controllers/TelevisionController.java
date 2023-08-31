@@ -65,7 +65,7 @@ public class TelevisionController {
             Television televisionToDelete = televisions.remove(id - 1); // is id or id -1 here the correct answer - have to check both here.
             return ResponseEntity.noContent().build();
         } else {
-            return ResponseEntity.badRequest(); // this is not  functional - have to look for another option //
+            return ResponseEntity.badRequest().body(television); // this could just give back the toBeDeleted object and a message could be added here through the exceptioncontroller maybe//
         }
     }
 }
