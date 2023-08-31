@@ -53,7 +53,7 @@ public class TelevisionController {
             updatedTelevision.setTelevisionName(televisionDetails.getTelevisionName());
             updatedTelevision.setHD(televisionDetails.getHD());
             updatedTelevision.setTotalStock(televisionDetails.getTotalStock());
-            return ResponseEntity.ok(updatedTelevision, HttpStatus.OK);
+            return new ResponseEntity<>(updatedTelevision, HttpStatus.OK);
         } else {
             return ResponseEntity.noContent().build();
         }
