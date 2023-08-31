@@ -38,7 +38,7 @@ public class TelevisionController {
         return new ResponseEntity<>(televisions, HttpStatus.OK);
     }
 
-    @PostMapping("/televisions")
+    @PostMapping("/televisions") //functional on postman - checked //
     public ResponseEntity<Television> postTelevision(@RequestBody Television newTelevision) {
         televisions.add(newTelevision);
         return new ResponseEntity<>(newTelevision, HttpStatus.CREATED);
