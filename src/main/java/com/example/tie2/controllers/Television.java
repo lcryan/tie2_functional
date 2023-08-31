@@ -1,17 +1,10 @@
 package com.example.tie2.controllers;
 
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-
 public class Television {
     String televisionName;
-    int id;
 
     public void setTelevisionName(String televisionName) {
         this.televisionName = televisionName;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
 
@@ -19,13 +12,10 @@ public class Television {
         return televisionName;
     }
 
-    public long getId() {
-        return id;
-    }
 
-    public Television(String televisionName, int id) {
+    public Television(String televisionName) {
         this.televisionName = televisionName;
-        this.id = id;
+
     }
 }
 
