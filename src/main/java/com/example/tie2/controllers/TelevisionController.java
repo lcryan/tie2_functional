@@ -44,8 +44,8 @@ public class TelevisionController {
         return new ResponseEntity<>(newTelevision, HttpStatus.CREATED);
     }
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<Television> updateTelevision(@PathVariable int id, String televisionName) {
+    @PutMapping("/televisions/{id}")
+    public ResponseEntity<Television> updateTelevision(@PathVariable int id) {
         // do we need iterate here ???// // TODO: check in postman if functional //
         if (id >= 0 && id < televisions.size()) {
             Television televisionToUpdate = televisions.get(id);
