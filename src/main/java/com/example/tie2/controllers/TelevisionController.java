@@ -9,7 +9,9 @@ import java.util.List;
 
 @RestController
 public class TelevisionController {
-
+    //TODO: 1. check, if all @methods are functional via postman //
+    //TODO : 2. add exceptioncontroller to @methods, if id not found or similar"
+    //TODO: 3. //
     private List<Television> televisions;
 
     public TelevisionController() {
@@ -44,21 +46,30 @@ public class TelevisionController {
         return new ResponseEntity<>(newTelevision, HttpStatus.CREATED);
     }
 
-    @PutMapping("/televisions/{id}")
+    @PutMapping("/televisions/{id}") // functional on postman //
     public ResponseEntity<Television> updateTelevision(@PathVariable int id) {
-        // do we need iterate here ???// // TODO: check in postman if functional //
         if (id >= 0 && id < televisions.size()) {
             Television televisionToUpdate = televisions.get(id);
-            televisionToUpdate.setTelevisionName("LG-BB80KL");
+            televisionToUpdate.setTelevisionName("LG-33-497");
+            televisionToUpdate.setHD(true);
+            televisionToUpdate.setTotalStock(33);
             return ResponseEntity.ok(televisionToUpdate);
         } else {
             return ResponseEntity.noContent().build();
         }
     }
 
-    @DeleteMapping("/delete/{id}") // hier kan je ook request params doen, als nodig //
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Object> deleteTelevision(@PathVariable int id, @RequestBody Television television) {
-        return ResponseEntity.noContent().build(); // 204 status
-    } // TODO : needs to be finalized //
+        if (id >= 0 && id < televisions.size()) {
+            Television televisionToDelete = televisions.remove(id - 1); // is id or id -1 here the correct answer - have to check both here.
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.badRequest(); // this is not  functional - have to look for another option //
+        }
+    }
 }
+
+
+
 
