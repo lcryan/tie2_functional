@@ -47,13 +47,13 @@ public class TelevisionController {
     }
 
     @PutMapping("/televisions/{id}") // functional on postman //
-    public ResponseEntity<Television> updateTelevision(@PathVariable int id) {
+    public ResponseEntity<Television> updateTelevision(@PathVariable int id, @RequestBody Television televisionDetails) {
         if (id >= 0 && id < televisions.size()) {
-            Television televisionToUpdate = televisions.get(id);
-            televisionToUpdate.setTelevisionName("LG-33-497");
-            televisionToUpdate.setHD(true);
-            televisionToUpdate.setTotalStock(33);
-            return ResponseEntity.ok(televisionToUpdate);
+            Television updatedTelevision = televisions.get(id);
+            updatedTelevision.setTelevisionName(televisionDetails.getTelevisionName());
+            updatedTelevision.setHD(televisionDetails.getHD());
+            updatedTelevision.setTotalStock(televisionDetails.getTotalStock());
+            return ResponseEntity.ok(updatedTelevision, HttpStatus.OK);
         } else {
             return ResponseEntity.noContent().build();
         }
