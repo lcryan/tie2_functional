@@ -1,49 +1,76 @@
 package com.example.tie2.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.HttpStatus;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 public class TelevisionController {
+    //TODO: 1. check, if all @methods are functional via postman //
+    //TODO : 2. add exceptioncontroller to @methods, if id not found or similar"
+    //TODO: 3. //
+    private List<Television> televisions;
 
-
-    @GetMapping("/television/{id}") // do we have to add ID here ? and if not, then when ? //
-    // defining a single endpoint using @GetMapping annotation with the path getTelevision - when a get request is made to this endpoint the getTelevision will be executed.
-    public ResponseEntity<Television> getTelevisionById(@PathVariable(value = "id") Long televisionId, Television television) {
-        return ResponseEntity.ok(television); // the ResponseEntity.ok(television) call creates a response with an HTTP status of 200 OK and includes television as the response body
+    public TelevisionController() {
+        televisions = new ArrayList<>();
+        Television example = new Television("Samsung 22374", false, 4567); //pulling from Television class//
+        Television example2 = new Television("LG-BB8", true, 78);
+        Television example3 = new Television("Philips YoungGen-TV789", false, 89);
+        televisions.add(example);
+        televisions.add(example2);
+        televisions.add(example3);
     }
 
-    @GetMapping("/getAllTelevisions") // same question here - do we need id ?? //
-    public ResponseEntity<List<String>> getAllTelevisions(List<String> allTelevisions) {
-        return ResponseEntity.ok(allTelevisions);
-
+    //TODO: need to make a database for the retrieval of televisions;//
+    @GetMapping("/televisions/{id}") //gets back one single television // functional check //
+    public ResponseEntity<Television> getOneTelevision(@PathVariable int id) {
+        if (id >= 0 && id < televisions.size()) {
+            Television getByIdTelevision = televisions.get(id);
+            return new ResponseEntity<>(getByIdTelevision, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
     }
 
-    @PostMapping("/postTelevision")
-    public ResponseEntity<Object> postTelevision() {
-        String television = "Samsung BB6547";
-        return ResponseEntity.created(null).body(television);
+    @GetMapping("/televisions") //gets back all televisions of the database// //functional - check //
+    public ResponseEntity<List<Television>> getTelevisions() {
+        return new ResponseEntity<>(televisions, HttpStatus.OK);
     }
 
-    @PostMapping("/postAllTelevisions")
-    public ResponseEntity<List<String>> postAllTelevisions(List<String> allTelevisions) {
-        return ResponseEntity.created(null).body(allTelevisions);
+    @PostMapping("/televisions") //functional on postman - checked //
+    public ResponseEntity<Television> postTelevision(@RequestBody Television newTelevision) {
+        televisions.add(newTelevision);
+        return new ResponseEntity<>(newTelevision, HttpStatus.CREATED);
     }
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<String> putTelevision(@PathVariable long id, @RequestBody String updatedTelevision) {
-        // how to retrieve the actual television here ??? //
-
-        return ResponseEntity.noContent().build();
+    @PutMapping("/televisions/{id}") // functional on postman //
+    public ResponseEntity<Television> updateTelevision(@PathVariable int id, @RequestBody Television televisionDetails) {
+        if (id >= 0 && id < televisions.size()) {
+            Television updatedTelevision = televisions.get(id);
+            updatedTelevision.setTelevisionName(televisionDetails.getTelevisionName());
+            updatedTelevision.setHD(televisionDetails.getHD());
+            updatedTelevision.setTotalStock(televisionDetails.getTotalStock());
+            return new ResponseEntity<>(updatedTelevision, HttpStatus.OK);
+        } else {
+            return ResponseEntity.noContent().build();
+        }
     }
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteTelevision(@PathVariable long id, @RequestBody String deletedTelevision) {
-        return ResponseEntity.noContent().build();
+    @DeleteMapping("/televisions/{id}")
+    public ResponseEntity<Object> deleteTelevision(@PathVariable int id) {
+        if (id >= 0 && id < televisions.size()) {
+            Television televisionToDelete = televisions.remove(id);
+            return new ResponseEntity<>(televisionToDelete, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
     }
 }
 
-// notes: maybe better to change updated and deletedTelevision into general television ?? //
+
+
+
+
