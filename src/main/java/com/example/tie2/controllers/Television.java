@@ -30,6 +30,8 @@ public class Television {
     }
 
 
+
+
     public void setTelevisionName(String televisionName) {
         this.televisionName = televisionName;
     }
@@ -39,6 +41,9 @@ public class Television {
         return televisionName;
     }
 
+    public boolean getHD() {
+        return HD;
+    }
 
     public Television(String televisionName, boolean HD, int totalStock) {
         this.televisionName = televisionName;
