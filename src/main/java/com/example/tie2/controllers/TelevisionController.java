@@ -28,9 +28,8 @@ public class TelevisionController {
     @GetMapping("/televisions/{id}") //gets back one single television //
     public ResponseEntity<Television> getOneTelevision(@PathVariable int id) {
         if (id >= 0 && id < televisions.size()) {
-            Television example = televisions.get(id);
-            ResponseEntity<Television> televisionResponseEntity = new ResponseEntity<>(example, HttpStatus.OK);
-            return televisionResponseEntity;
+            Television getByIdTelevision = televisions.get(id);
+            return new ResponseEntity<>(getByIdTelevision, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
