@@ -62,13 +62,14 @@ public class TelevisionController {
     @DeleteMapping("/televisions/{id}")
     public ResponseEntity<Object> deleteTelevision(@PathVariable int id) {
         if (id >= 0 && id < televisions.size()) {
-            Television televisionToDelete = televisions.remove(id); // is id or id -1 here the correct answer - have to check both here.
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND); // cannot get back the NOT_FOUND
+            Television televisionToDelete = televisions.remove(id);
+            return new ResponseEntity<>(televisionToDelete, HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(id, HttpStatus.OK);
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
 }
+
 
 
 
