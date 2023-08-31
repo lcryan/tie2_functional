@@ -16,24 +16,29 @@ public class TelevisionController {
 
     public TelevisionController() {
         televisions = new ArrayList<>();
-        Television example = new Television("Samsung 22374", 3345); //pulling from Television class//
+        Television example = new Television("Samsung 22374"); //pulling from Television class//
+        Television example2 = new Television("LG-BB8");
+        Television example3 = new Television("Philips YoungGen-TV789");
         televisions.add(example);
+        televisions.add(example2);
+        televisions.add(example3);
     }
 
     //TODO: need to make a database for the retrieval of televisions;//
     @GetMapping("/televisions/{id}") //gets back one single television //
-    public ResponseEntity<Television> getTelevision(@PathVariable int id) {
+    public ResponseEntity<Television> getOneTelevision(@PathVariable int id) {
         if (id >= 0 && id < televisions.size()) {
             Television example = televisions.get(id);
-            return new ResponseEntity<>(example, HttpStatus.OK);
+            ResponseEntity<Television> televisionResponseEntity = new ResponseEntity<>(example, HttpStatus.OK);
+            return televisionResponseEntity;
         } else {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
 
-    @GetMapping("/televisions") //gets back all televisions of the database//
+    @GetMapping("/televisions") //gets back all televisions of the database// //functional - check //
     public ResponseEntity<List<Television>> getTelevisions() {
-        return new ResponseEntity<>(televisions, HttpStatus.OK); // could we also use ResponseEntity.ok ?
+        return new ResponseEntity<>(televisions, HttpStatus.OK);
     }
 
     @PostMapping("/postTelevision")
