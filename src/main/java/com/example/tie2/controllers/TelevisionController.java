@@ -60,12 +60,12 @@ public class TelevisionController {
     }
 
     @DeleteMapping("/televisions/{id}")
-    public ResponseEntity<Object> deleteTelevision(@PathVariable int id, @RequestBody Television television) {
+    public ResponseEntity<Object> deleteTelevision(@PathVariable int id) {
         if (id >= 0 && id < televisions.size()) {
-            Television televisionToDelete = televisions.remove(id - 1); // is id or id -1 here the correct answer - have to check both here.
-            return ResponseEntity.noContent().build();
+            Television televisionToDelete = televisions.remove(id); // is id or id -1 here the correct answer - have to check both here.
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND); // cannot get back the NOT_FOUND
         } else {
-            return ResponseEntity.badRequest().body(television); // this could just give back the toBeDeleted object and a message could be added here through the exceptioncontroller maybe//
+            return new ResponseEntity<>(id, HttpStatus.OK);
         }
     }
 }
