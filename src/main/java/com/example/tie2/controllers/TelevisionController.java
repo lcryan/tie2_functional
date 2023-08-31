@@ -59,7 +59,7 @@ public class TelevisionController {
         }
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/televisions/{id}")
     public ResponseEntity<Object> deleteTelevision(@PathVariable int id, @RequestBody Television television) {
         if (id >= 0 && id < televisions.size()) {
             Television televisionToDelete = televisions.remove(id - 1); // is id or id -1 here the correct answer - have to check both here.
