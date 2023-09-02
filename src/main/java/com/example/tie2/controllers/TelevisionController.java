@@ -32,7 +32,7 @@ public class TelevisionController {
             Television getByIdTelevision = televisions.get(id);
             return new ResponseEntity<>(getByIdTelevision, HttpStatus.OK);
         } else {
-            throw new TelevisionNotFoundException("Sorry, but we couldn't find your requested television.Please try again.");
+            throw new TelevisionNotFoundException("The requested object television cannot be found."); //prints this message, if television not found//
             /*return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);*/
         }
     }
