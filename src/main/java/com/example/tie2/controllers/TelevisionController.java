@@ -65,7 +65,7 @@ public class TelevisionController {
             Television televisionToDelete = televisions.remove(id);
             return new ResponseEntity<>(televisionToDelete, HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT); // wrong in EdHub //
         }
     }
 }
