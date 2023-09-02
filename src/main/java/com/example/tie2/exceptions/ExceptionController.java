@@ -13,6 +13,3 @@ public class ExceptionController extends RuntimeException {
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
     }
 }
-
-
-//TODO: 1. write the according annotations for the ExceptionController. 2. Make an exceptionHandler within the ExceptionController class with annotations and response entity. //
