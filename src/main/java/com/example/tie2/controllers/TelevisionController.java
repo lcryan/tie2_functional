@@ -11,7 +11,6 @@ import java.util.List;
 @RestController
 public class TelevisionController {
     private List<Television> televisions;
-
     public TelevisionController() {
         televisions = new ArrayList<>();
         Television example = new Television("Samsung 22374", false, 4567); //pulling from Television class//
@@ -21,7 +20,6 @@ public class TelevisionController {
         televisions.add(example2);
         televisions.add(example3);
     }
-
 
     @GetMapping("/televisions/{id}") //gets back one single television // functional check //
     public ResponseEntity<Television> getOneTelevision(@PathVariable int id) {
