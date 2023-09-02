@@ -1,5 +1,6 @@
 package com.example.tie2.controllers;
 
+import com.example.tie2.exceptions.TelevisionNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
@@ -31,7 +32,8 @@ public class TelevisionController {
             Television getByIdTelevision = televisions.get(id);
             return new ResponseEntity<>(getByIdTelevision, HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            throw new TelevisionNotFoundException("Sorry, but we couldn't find your requested television.Please try again.");
+            /*return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);*/
         }
     }
 
