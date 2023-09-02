@@ -10,9 +10,6 @@ import java.util.List;
 
 @RestController
 public class TelevisionController {
-    //TODO: 1. check, if all @methods are functional via postman //
-    //TODO : 2. add exceptioncontroller to @methods, if id not found or similar"
-    //TODO: 3. //
     private List<Television> televisions;
 
     public TelevisionController() {
@@ -25,7 +22,7 @@ public class TelevisionController {
         televisions.add(example3);
     }
 
-    //TODO: need to make a database for the retrieval of televisions;//
+
     @GetMapping("/televisions/{id}") //gets back one single television // functional check //
     public ResponseEntity<Television> getOneTelevision(@PathVariable int id) {
         if (id >= 0 && id < televisions.size()) {
@@ -33,7 +30,7 @@ public class TelevisionController {
             return new ResponseEntity<>(getByIdTelevision, HttpStatus.OK);
         } else {
             throw new TelevisionNotFoundException("The requested object television cannot be found."); //prints this message, if television not found//
-            /*return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);*/
+            /*return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);*/  //uncommented - to check, if throw Exception works //
         }
     }
 
@@ -67,7 +64,7 @@ public class TelevisionController {
             Television televisionToDelete = televisions.remove(id);
             return new ResponseEntity<>(televisionToDelete, HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT); // wrong in EdHub //
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         }
     }
 }
