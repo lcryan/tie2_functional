@@ -22,7 +22,7 @@ public class TelevisionController {
 
 
     @GetMapping("/televisions/{id}") //gets back one single television // functional check //
-    public ResponseEntity<Object> getOneTelevision(@PathVariable Long id) {
+    public ResponseEntity<Television> getOneTelevision(@PathVariable Long id) {
         Optional<Television> television = televisionRepository.findById(id);
         if (id >= 0 && id < televisions.size()) {
             Television getByIdTelevision = televisions.get(id);
