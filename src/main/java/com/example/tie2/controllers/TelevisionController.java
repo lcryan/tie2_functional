@@ -1,6 +1,8 @@
 package com.example.tie2.controllers;
 
 import com.example.tie2.exceptions.TelevisionNotFoundException;
+import com.example.tie2.repositories.TelevisionRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
@@ -9,8 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@RequestMapping("/televisions")
 public class TelevisionController {
     private List<Television> televisions;
+
     public TelevisionController() {
         televisions = new ArrayList<>();
         Television example = new Television("Samsung 22374", false, 4567); //pulling from Television class//
