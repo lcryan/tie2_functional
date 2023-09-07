@@ -2,31 +2,28 @@ package com.example.tie2.controllers;
 
 import com.example.tie2.exceptions.TelevisionNotFoundException;
 import com.example.tie2.repositories.TelevisionRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.tie2.models.Television;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/televisions")
 public class TelevisionController {
-    private List<Television> televisions;
 
-    public TelevisionController() {
-        televisions = new ArrayList<>();
-        Television example = new Television("Samsung 22374", false, 4567); //pulling from Television class//
-        Television example2 = new Television("LG-BB8", true, 78);
-        Television example3 = new Television("Philips YoungGen-TV789", false, 89);
-        televisions.add(example);
-        televisions.add(example2);
-        televisions.add(example3);
+    private final TelevisionRepository televisionRepository;
+
+    public TelevisionController(TelevisionRepository televisionRepository) {
+        this.televisionRepository = televisionRepository;
     }
 
+
     @GetMapping("/televisions/{id}") //gets back one single television // functional check //
-    public ResponseEntity<Television> getOneTelevision(@PathVariable int id) {
+    public ResponseEntity<Object> getOneTelevision(@PathVariable Long id) {
+        Optional<Television> television = televisionRepository.findById(id);
         if (id >= 0 && id < televisions.size()) {
             Television getByIdTelevision = televisions.get(id);
             return new ResponseEntity<>(getByIdTelevision, HttpStatus.OK);
@@ -37,13 +34,17 @@ public class TelevisionController {
     }
 
     @GetMapping("/televisions") //gets back all televisions of the database// //functional - check //
-    public ResponseEntity<List<Television>> getTelevisions() {
-        return new ResponseEntity<>(televisions, HttpStatus.OK);
+    public ResponseEntity<List<Television>> getAllTelevisions(@RequestParam(value = "brand", required = false) String brand) {
+        List<Television> televisions;
+
+        if (brand == null) {
+            televisions = televisionRepository.findAll();
+        }
     }
 
     @PostMapping("/televisions") //functional on postman - checked //
-    public ResponseEntity<Television> postTelevision(@RequestBody Television newTelevision) {
-        televisions.add(newTelevision);
+    public ResponseEntity<Object> postTelevision(@RequestBody Television television) {
+        televisionRepository.save(television);
         return new ResponseEntity<>(newTelevision, HttpStatus.CREATED);
     }
 
