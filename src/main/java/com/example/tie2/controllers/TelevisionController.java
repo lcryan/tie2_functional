@@ -6,7 +6,6 @@ import com.example.tie2.models.Television;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
@@ -26,16 +25,14 @@ public class TelevisionController {
     }
 
     @GetMapping("/{id}") // get one television by Id //
-    public ResponseEntity<Television> getOneTelevision(@PathVariable Long id) {
-        Television television = televisionRepository.findById(id).orElse(null);
-
-        if (television != null) {
+    public ResponseEntity<Optional<Television>> getOneTelevision(@PathVariable Long id) {
+        Optional<Television> television = televisionRepository.findById(id);
+        if (television.isPresent()) {
             return ResponseEntity.ok(television); // this returns a television by id - the television id exists in this case //
         } else {
-            throw new TelevisionNotFoundException("Sorry, but we couldn't find your requested television.Please try again.");
+            throw new TelevisionNotFoundException("Object not populated");
         }
     }
-
 
     @PostMapping
     public ResponseEntity<Television> createOneTelevision(@RequestBody Television television) {
