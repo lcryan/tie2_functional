@@ -3,7 +3,9 @@ package com.example.tie2.controllers;
 import com.example.tie2.exceptions.TelevisionNotFoundException;
 import com.example.tie2.repositories.TelevisionRepository;
 import com.example.tie2.models.Television;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -30,7 +32,7 @@ public class TelevisionController {
         if (television.isPresent()) {
             return ResponseEntity.ok(television); // this returns a television by id - the television id exists in this case //
         } else {
-            throw new TelevisionNotFoundException("Object not populated");
+            throw new TelevisionNotFoundException("Requested object couldn't be found.");
         }
     }
 
@@ -41,6 +43,18 @@ public class TelevisionController {
                 fromCurrentRequest(). //comment test //
                         path("/" + television.getId()).toUriString()); // here we make an uri string from the object //
         return ResponseEntity.created(uri).body(television);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Optional<Television>> deleteOneTelevision(@PathVariable Long id) {
+        Optional<Television> televisionOptional = televisionRepository.findById(id);
+        if (televisionOptional.isPresent()) {
+            Television television = televisionOptional.get();
+            televisionRepository.delete(television);
+            return ResponseEntity.ok().build();
+        } else {
+            throw new TelevisionNotFoundException("Requested object not found.");
+        }
     }
 }
 
