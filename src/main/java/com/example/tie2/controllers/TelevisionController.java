@@ -40,35 +40,10 @@ public class TelevisionController {
         if (brand == null) {
             televisions = televisionRepository.findAll();
         }
-    }
+    } else
 
-    @PostMapping("/televisions") //functional on postman - checked //
-    public ResponseEntity<Object> postTelevision(@RequestBody Television television) {
-        televisionRepository.save(television);
-        return new ResponseEntity<>(newTelevision, HttpStatus.CREATED);
-    }
+    {
 
-    @PutMapping("/televisions/{id}") // functional on postman //
-    public ResponseEntity<Television> updateTelevision(@PathVariable int id, @RequestBody Television televisionDetails) {
-        if (id >= 0 && id < televisions.size()) {
-            Television updatedTelevision = televisions.get(id);
-            updatedTelevision.setTelevisionName(televisionDetails.getTelevisionName());
-            updatedTelevision.setHD(televisionDetails.getHD());
-            updatedTelevision.setTotalStock(televisionDetails.getTotalStock());
-            return new ResponseEntity<>(updatedTelevision, HttpStatus.OK);
-        } else {
-            return ResponseEntity.noContent().build();
-        }
-    }
-
-    @DeleteMapping("/televisions/{id}")
-    public ResponseEntity<Object> deleteTelevision(@PathVariable int id) {
-        if (id >= 0 && id < televisions.size()) {
-            Television televisionToDelete = televisions.remove(id);
-            return new ResponseEntity<>(televisionToDelete, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
     }
 }
 
