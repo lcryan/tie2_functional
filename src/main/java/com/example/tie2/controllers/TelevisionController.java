@@ -38,7 +38,7 @@ public class TelevisionController {
     public ResponseEntity<Television> createOneTelevision(@RequestBody Television television) {
         televisionRepository.save(television); // here an id is made for the new object television, which we are going to create//
         URI uri = URI.create(ServletUriComponentsBuilder.
-                fromCurrentRequest().
+                fromCurrentRequest(). //comment test //
                 path("/" + television.getId()).toUriString()); // here we make an uri string from the object //
         return ResponseEntity.created(uri).body(television);
     }
