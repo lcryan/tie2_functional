@@ -45,15 +45,34 @@ public class TelevisionController {
         return ResponseEntity.created(uri).body(television);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Optional<Television>> deleteOneTelevision(@PathVariable Long id) {
+    @PutMapping("/{id}")
+    public ResponseEntity<Television> updateOneTelevision(@PathVariable Long id) {
+
         Optional<Television> televisionOptional = televisionRepository.findById(id);
         if (televisionOptional.isPresent()) {
             Television television = televisionOptional.get();
-            televisionRepository.delete(television);
-            return ResponseEntity.ok().build();
+
+            television.setName(television.getName());
+            television.setBrand(television.getBrand());
+
+            television = televisionRepository.save(television);
+
+            return ResponseEntity.ok(television);
+
         } else {
-            throw new TelevisionNotFoundException("Requested object not found.");
+            throw new TelevisionNotFoundException("Television not found");
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Optional<Television>> deleteOneTelevision(@PathVariable Long id) {
+        Optional<Television> televisionOptional = televisionRepository.findById(id); //we have to make the first variable here to store the optional//
+        if (televisionOptional.isPresent()) {
+            Television television = televisionOptional.get(); // once there is an optional with id, we get() that one out and have to store it in a new variable to be able to delete the actual television that we found by id //
+            televisionRepository.delete(television); // removal of television //
+            return ResponseEntity.ok().build(); // functional in postman //
+        } else {
+            throw new TelevisionNotFoundException("Requested object not found."); // functional in postman //
         }
     }
 }
