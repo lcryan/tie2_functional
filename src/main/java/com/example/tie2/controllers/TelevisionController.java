@@ -3,7 +3,9 @@ package com.example.tie2.controllers;
 import com.example.tie2.exceptions.TelevisionNotFoundException;
 import com.example.tie2.repositories.TelevisionRepository;
 import com.example.tie2.models.Television;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -30,7 +32,7 @@ public class TelevisionController {
         if (television.isPresent()) {
             return ResponseEntity.ok(television); // this returns a television by id - the television id exists in this case //
         } else {
-            throw new TelevisionNotFoundException("Object not populated");
+            throw new TelevisionNotFoundException("Requested object couldn't be found.");
         }
     }
 
@@ -42,10 +44,39 @@ public class TelevisionController {
                         path("/" + television.getId()).toUriString()); // here we make an uri string from the object //
         return ResponseEntity.created(uri).body(television);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Television> updateOneTelevision(@PathVariable Long id) {
+
+        Optional<Television> televisionOptional = televisionRepository.findById(id);
+        if (televisionOptional.isPresent()) {
+            Television television = televisionOptional.get();
+
+            television.setName(television.getName());
+            television.setBrand(television.getBrand());
+
+            television = televisionRepository.save(television);
+
+            return ResponseEntity.ok(television);
+
+        } else {
+            throw new TelevisionNotFoundException("Television not found");
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Optional<Television>> deleteOneTelevision(@PathVariable Long id) {
+        Optional<Television> televisionOptional = televisionRepository.findById(id); //we have to make the first variable here to store the optional//
+        if (televisionOptional.isPresent()) {
+            Television television = televisionOptional.get(); // once there is an optional with id, we get() that one out and have to store it in a new variable to be able to delete the actual television that we found by id //
+            televisionRepository.delete(television); // removal of television //
+            return ResponseEntity.ok().build(); // functional in postman //
+        } else {
+            throw new TelevisionNotFoundException("Requested object not found."); // functional in postman //
+        }
+    }
 }
 
-
-
-
-
+// 1.TODO : my database doesn't set itself up in the resources, as the database doesn't get saved - still has to be done additionally /
+// 2.TODO: Try to impliment the following: Voeg een GET method toe om te zoeken op substrings in naam (pad ="/students/fullname?query=<substring>")
 
