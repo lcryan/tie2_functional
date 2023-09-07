@@ -22,7 +22,7 @@ public class TelevisionController {
 
     @GetMapping
     public ResponseEntity<List<Television>> getTelevision() {
-        return ResponseEntity.ok(televisionRepository.findAll());
+        return ResponseEntity.ok(televisionRepository.findAll()); // gives back all televisions //
     }
 
     @PostMapping
