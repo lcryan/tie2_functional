@@ -77,8 +77,6 @@ public class TelevisionController {
     }
 }
 
-
-
-
-
+// 1.TODO : my database doesn't set itself up in the resources, as the database doesn't get saved - still has to be done additionally /
+// 2.TODO: Try to impliment the following: Voeg een GET method toe om te zoeken op substrings in naam (pad ="/students/fullname?query=<substring>")
 
