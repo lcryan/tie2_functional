@@ -1,5 +1,6 @@
 package com.example.tie2.controllers;
 
+import com.example.tie2.exceptions.TelevisionNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
@@ -9,11 +10,7 @@ import java.util.List;
 
 @RestController
 public class TelevisionController {
-    //TODO: 1. check, if all @methods are functional via postman //
-    //TODO : 2. add exceptioncontroller to @methods, if id not found or similar"
-    //TODO: 3. //
     private List<Television> televisions;
-
     public TelevisionController() {
         televisions = new ArrayList<>();
         Television example = new Television("Samsung 22374", false, 4567); //pulling from Television class//
@@ -24,14 +21,14 @@ public class TelevisionController {
         televisions.add(example3);
     }
 
-    //TODO: need to make a database for the retrieval of televisions;//
     @GetMapping("/televisions/{id}") //gets back one single television // functional check //
     public ResponseEntity<Television> getOneTelevision(@PathVariable int id) {
         if (id >= 0 && id < televisions.size()) {
             Television getByIdTelevision = televisions.get(id);
             return new ResponseEntity<>(getByIdTelevision, HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            throw new TelevisionNotFoundException("The requested object television cannot be found."); //prints this message, if television not found//
+            /*return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);*/  //uncommented - to check, if throw Exception works //
         }
     }
 
@@ -65,7 +62,7 @@ public class TelevisionController {
             Television televisionToDelete = televisions.remove(id);
             return new ResponseEntity<>(televisionToDelete, HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         }
     }
 }
