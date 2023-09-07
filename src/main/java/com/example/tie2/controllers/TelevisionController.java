@@ -20,10 +20,22 @@ public class TelevisionController {
     @Autowired
     private TelevisionRepository televisionRepository;
 
-    @GetMapping
-    public ResponseEntity<List<Television>> getTelevision() {
+    @GetMapping // getting all Televisions //
+    public ResponseEntity<List<Television>> getTelevisions() {
         return ResponseEntity.ok(televisionRepository.findAll()); // gives back all televisions //
     }
+
+    @GetMapping("/{id}") // get one television by Id //
+    public ResponseEntity<Television> getOneTelevision(@PathVariable Long id) {
+        Television television = televisionRepository.findById(id).orElse(null);
+
+        if (television != null) {
+            return ResponseEntity.ok(television); // this returns a television by id - the television id exists in this case //
+        } else {
+            throw new TelevisionNotFoundException("Sorry, but we couldn't find your requested television.Please try again.");
+        }
+    }
+
 
     @PostMapping
     public ResponseEntity<Television> createOneTelevision(@RequestBody Television television) {
