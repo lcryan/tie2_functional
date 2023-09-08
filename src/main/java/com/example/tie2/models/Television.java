@@ -1,7 +1,9 @@
 package com.example.tie2.models;
+
 import jakarta.persistence.*;
 
 import javax.sound.midi.SysexMessage;
+import java.time.LocalDate;
 
 @Entity
 @Table
@@ -55,6 +57,9 @@ public class Television {
     private Integer originalStock;
     @Column(name = "sold")
     private Integer sold;
+
+    @Column(name = "dateOfPurchase")
+    private LocalDate dateOfPurchase;
 
 
     public Television(Long id, String type, String brand, String name, double price, double availableSize, double refreshRate, String screenType, String screenQuality, boolean smartTv, boolean wifi, boolean voiceControl, boolean hdr, boolean bluetooth, boolean ambiLight, Integer originalStock, Integer sold) {
