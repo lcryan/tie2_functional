@@ -65,7 +65,9 @@ public class Television {
     @Column(name = "currentStock")
     private LocalDateTime currentStock;
 
-
+    @Column
+    @Convert(converter = EnergyConverter.class)
+    Energylabel energylabel;
 
 
     public Television(Long id, String type, String brand, String name, double price, double availableSize, double refreshRate, String screenType, String screenQuality, boolean smartTv, boolean wifi, boolean voiceControl, boolean hdr, boolean bluetooth, boolean ambiLight, Integer originalStock, Integer sold, LocalDate dateOfPurchase, LocalDateTime currentStock) {
@@ -232,10 +234,7 @@ public class Television {
 }
 
 //3.TODO: add different values than String, int, boolean or double - look at the bonus assignment below:
-/*
-Een television heeft best veel variabelen, maar er zit nog weinig variatie in de types. Het zijn enkel Strings, Booleans of nummers. Probeer andere datatypes te gebruiken zoals:
-
-        een Datum voor sold (verkoopDatum) of originalStock (inkoopDatum) (er zijn in Java verschillende opties om een datum te maken)
+/*       een Datum voor sold (verkoopDatum) of originalStock (inkoopDatum) (er zijn in Java verschillende opties om een datum te maken)
         Een enumeratie voor een of meerdere van availableSize, refreshRate, screenType en screenQuality
         Zoek zelf op Baeldung, W3, GeeksForGeeks, etc op hoe je zulke datatypes maakt.
         Let er ook op hoe dit in je database komt te staan, is dit anders dan andere datatypes?
