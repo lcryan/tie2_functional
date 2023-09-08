@@ -66,6 +66,8 @@ public class Television {
     private LocalDateTime currentStock;
 
 
+
+
     public Television(Long id, String type, String brand, String name, double price, double availableSize, double refreshRate, String screenType, String screenQuality, boolean smartTv, boolean wifi, boolean voiceControl, boolean hdr, boolean bluetooth, boolean ambiLight, Integer originalStock, Integer sold, LocalDate dateOfPurchase, LocalDateTime currentStock) {
         this.id = id;
         this.type = type;
