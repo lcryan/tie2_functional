@@ -65,10 +65,12 @@ public class Television {
     @Column(name = "currentStock")
     private LocalDateTime currentStock;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "EnergyLabel")
+    private EnergyLabel energyLabel; // pulling from enum class //
 
 
-
-    public Television(Long id, String type, String brand, String name, double price, double availableSize, double refreshRate, String screenType, String screenQuality, boolean smartTv, boolean wifi, boolean voiceControl, boolean hdr, boolean bluetooth, boolean ambiLight, Integer originalStock, Integer sold, LocalDate dateOfPurchase, LocalDateTime currentStock) {
+    public Television(Long id, String type, String brand, String name, double price, double availableSize, double refreshRate, String screenType, String screenQuality, boolean smartTv, boolean wifi, boolean voiceControl, boolean hdr, boolean bluetooth, boolean ambiLight, Integer originalStock, Integer sold, LocalDate dateOfPurchase, LocalDateTime currentStock, EnergyLabel energyLabel) {
         this.id = id;
         this.type = type;
         this.brand = brand;
@@ -88,6 +90,7 @@ public class Television {
         this.sold = sold;
         this.dateOfPurchase = dateOfPurchase;
         this.currentStock = currentStock;
+        this.energyLabel = energyLabel;
     }
 
     public Television() {
@@ -112,6 +115,30 @@ public class Television {
 
     public String getBrand() {
         return brand;
+    }
+
+    public LocalDate getDateOfPurchase() {
+        return dateOfPurchase;
+    }
+
+    public void setDateOfPurchase(LocalDate dateOfPurchase) {
+        this.dateOfPurchase = dateOfPurchase;
+    }
+
+    public LocalDateTime getCurrentStock() {
+        return currentStock;
+    }
+
+    public void setCurrentStock(LocalDateTime currentStock) {
+        this.currentStock = currentStock;
+    }
+
+    public EnergyLabel getEnergyLabel() {
+        return energyLabel;
+    }
+
+    public void setEnergyLabel(EnergyLabel energyLabel) {
+        this.energyLabel = energyLabel;
     }
 
     public void setBrand(String brand) {
@@ -231,13 +258,3 @@ public class Television {
     }
 }
 
-//3.TODO: add different values than String, int, boolean or double - look at the bonus assignment below:
-/*
-Een television heeft best veel variabelen, maar er zit nog weinig variatie in de types. Het zijn enkel Strings, Booleans of nummers. Probeer andere datatypes te gebruiken zoals:
-
-        een Datum voor sold (verkoopDatum) of originalStock (inkoopDatum) (er zijn in Java verschillende opties om een datum te maken)
-        Een enumeratie voor een of meerdere van availableSize, refreshRate, screenType en screenQuality
-        Zoek zelf op Baeldung, W3, GeeksForGeeks, etc op hoe je zulke datatypes maakt.
-        Let er ook op hoe dit in je database komt te staan, is dit anders dan andere datatypes?
-        Let er ook op dat je deze datatypes goed in postman invoert. Ook dit kun je op internet vinden, maar kun je ook met de ouderwetse gis-en-mis-methode vinden.
-        Let op: je mag ook andere types proberen, maar je kunt (nog) geen lijsten of andere soorten collecties gebruiken. Elke variabele wordt een kolom in de databasetabel. In zo'n kolom kan maar 1 waarde staan, niet en hele lijst van waardes.*/
