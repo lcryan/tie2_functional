@@ -52,8 +52,8 @@ public class TelevisionController {
         if (televisionOptional.isPresent()) {
             Television television = televisionOptional.get();
 
-            television.setName(television.getName());
-            television.setBrand(television.getBrand());
+            television.setName(television.getName()); // TODO: this has to be more generic //
+            television.setBrand(television.getBrand()); // TODO: see above - has to be more scalable //
 
             television = televisionRepository.save(television);
 
@@ -77,6 +77,5 @@ public class TelevisionController {
     }
 }
 
-// 1.TODO : my database doesn't set itself up in the resources, as the database doesn't get saved - still has to be done additionally /
 // 2.TODO: Try to impliment the following: Voeg een GET method toe om te zoeken op substrings in naam (pad ="/students/fullname?query=<substring>")
 
