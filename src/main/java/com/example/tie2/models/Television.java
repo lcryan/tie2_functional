@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import javax.sound.midi.SysexMessage;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table
@@ -61,8 +62,11 @@ public class Television {
     @Column(name = "dateOfPurchase")
     private LocalDate dateOfPurchase;
 
+    @Column(name = "currentStock")
+    private LocalDateTime currentStock;
 
-    public Television(Long id, String type, String brand, String name, double price, double availableSize, double refreshRate, String screenType, String screenQuality, boolean smartTv, boolean wifi, boolean voiceControl, boolean hdr, boolean bluetooth, boolean ambiLight, Integer originalStock, Integer sold) {
+
+    public Television(Long id, String type, String brand, String name, double price, double availableSize, double refreshRate, String screenType, String screenQuality, boolean smartTv, boolean wifi, boolean voiceControl, boolean hdr, boolean bluetooth, boolean ambiLight, Integer originalStock, Integer sold, LocalDate dateOfPurchase, LocalDateTime currentStock) {
         this.id = id;
         this.type = type;
         this.brand = brand;
@@ -80,6 +84,8 @@ public class Television {
         this.ambiLight = ambiLight;
         this.originalStock = originalStock;
         this.sold = sold;
+        this.dateOfPurchase = dateOfPurchase;
+        this.currentStock = currentStock;
     }
 
     public Television() {
