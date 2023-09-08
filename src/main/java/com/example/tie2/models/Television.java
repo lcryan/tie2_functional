@@ -65,9 +65,6 @@ public class Television {
     @Column(name = "currentStock")
     private LocalDateTime currentStock;
 
-    @Column
-    @Convert(converter = EnergyConverter.class)
-    Energylabel energylabel;
 
 
     public Television(Long id, String type, String brand, String name, double price, double availableSize, double refreshRate, String screenType, String screenQuality, boolean smartTv, boolean wifi, boolean voiceControl, boolean hdr, boolean bluetooth, boolean ambiLight, Integer originalStock, Integer sold, LocalDate dateOfPurchase, LocalDateTime currentStock) {
