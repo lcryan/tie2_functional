@@ -65,9 +65,12 @@ public class Television {
     @Column(name = "currentStock")
     private LocalDateTime currentStock;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "EnergyLabel")
+    private EnergyLabel energyLabel; // pulling from enum class //
 
 
-    public Television(Long id, String type, String brand, String name, double price, double availableSize, double refreshRate, String screenType, String screenQuality, boolean smartTv, boolean wifi, boolean voiceControl, boolean hdr, boolean bluetooth, boolean ambiLight, Integer originalStock, Integer sold, LocalDate dateOfPurchase, LocalDateTime currentStock) {
+    public Television(Long id, String type, String brand, String name, double price, double availableSize, double refreshRate, String screenType, String screenQuality, boolean smartTv, boolean wifi, boolean voiceControl, boolean hdr, boolean bluetooth, boolean ambiLight, Integer originalStock, Integer sold, LocalDate dateOfPurchase, LocalDateTime currentStock, EnergyLabel energyLabel) {
         this.id = id;
         this.type = type;
         this.brand = brand;
@@ -87,6 +90,7 @@ public class Television {
         this.sold = sold;
         this.dateOfPurchase = dateOfPurchase;
         this.currentStock = currentStock;
+        this.energyLabel = energyLabel;
     }
 
     public Television() {
@@ -111,6 +115,30 @@ public class Television {
 
     public String getBrand() {
         return brand;
+    }
+
+    public LocalDate getDateOfPurchase() {
+        return dateOfPurchase;
+    }
+
+    public void setDateOfPurchase(LocalDate dateOfPurchase) {
+        this.dateOfPurchase = dateOfPurchase;
+    }
+
+    public LocalDateTime getCurrentStock() {
+        return currentStock;
+    }
+
+    public void setCurrentStock(LocalDateTime currentStock) {
+        this.currentStock = currentStock;
+    }
+
+    public EnergyLabel getEnergyLabel() {
+        return energyLabel;
+    }
+
+    public void setEnergyLabel(EnergyLabel energyLabel) {
+        this.energyLabel = energyLabel;
     }
 
     public void setBrand(String brand) {
