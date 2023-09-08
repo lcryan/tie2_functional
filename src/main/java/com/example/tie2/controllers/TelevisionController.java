@@ -46,21 +46,13 @@ public class TelevisionController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Television> updateOneTelevision(@PathVariable Long id) {
-
-        Optional<Television> televisionOptional = televisionRepository.findById(id);
-        if (televisionOptional.isPresent()) {
-            Television television = televisionOptional.get();
-
-            television.setName(television.getName()); // TODO: this has to be more generic //
-            television.setBrand(television.getBrand()); // TODO: see above - has to be more scalable //
-
-            television = televisionRepository.save(television);
-
+    public ResponseEntity<Television> updateTelevision(@PathVariable Long id, @RequestBody Television television) {
+        Optional<Television> optionalTelevision = televisionRepository.findById(id);
+        if (optionalTelevision.isPresent()) {
+            televisionRepository.save(television);
             return ResponseEntity.ok(television);
-
         } else {
-            throw new TelevisionNotFoundException("Television not found");
+            throw new TelevisionNotFoundException(); // could we also make an "update couldn't be processed ? //
         }
     }
 
@@ -77,5 +69,5 @@ public class TelevisionController {
     }
 }
 
-// 2.TODO: Try to impliment the following: Voeg een GET method toe om te zoeken op substrings in naam (pad ="/students/fullname?query=<substring>")
+// 2.TODO: Try to implement the following: Voeg een GET method toe om te zoeken op substrings in naam (pad ="/students/fullname?query=<substring>")
 
