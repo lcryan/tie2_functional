@@ -69,5 +69,5 @@ public class TelevisionController {
     }
 }
 
-// 2.TODO: Try to implement the following: Voeg een GET method toe om te zoeken op substrings in naam (pad ="/students/fullname?query=<substring>")
+
 
