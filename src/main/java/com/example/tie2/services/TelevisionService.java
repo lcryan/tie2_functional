@@ -23,7 +23,7 @@ public class TelevisionService {
         for (Television television : televisions) {
             TelevisionDto televisionDto = new TelevisionDto();
             televisionDto.setBrand(television.getBrand());
-            //TODO: finish stuff here //
+            // TODO : add all attributes here //
         }
         return televisionDtos;
     }
