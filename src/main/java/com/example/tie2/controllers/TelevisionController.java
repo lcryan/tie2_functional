@@ -1,5 +1,6 @@
 package com.example.tie2.controllers;
 
+import com.example.tie2.dtos.TelevisionDto;
 import com.example.tie2.exceptions.TelevisionNotFoundException;
 import com.example.tie2.repositories.TelevisionRepository;
 import com.example.tie2.models.Television;
@@ -22,8 +23,8 @@ public class TelevisionController {
     private TelevisionRepository televisionRepository;
 
     @GetMapping // getting all Televisions //
-    public ResponseEntity<List<Television>> getTelevisions() {
-        return ResponseEntity.ok(televisionRepository.findAll()); // gives back all televisions //
+    public ResponseEntity<List<TelevisionDto>> getTelevisions() {
+        return
     }
 
     @GetMapping("/{id}") // get one television by Id //
