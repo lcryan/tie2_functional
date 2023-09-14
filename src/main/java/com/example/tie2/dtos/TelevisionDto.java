@@ -47,6 +47,9 @@ public class TelevisionDto {
 
     private EnergyLabel energyLabel; // pulling from enum class //
 
+    public TelevisionDto() {
+    }
+
     public Long getId() {
         return id;
     }
