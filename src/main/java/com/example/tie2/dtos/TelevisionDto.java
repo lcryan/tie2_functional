@@ -6,7 +6,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class TelevisionDto {
-
     private Long id;
     private String television;
 
