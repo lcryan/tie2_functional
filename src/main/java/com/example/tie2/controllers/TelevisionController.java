@@ -4,9 +4,6 @@ import com.example.tie2.dtos.TelevisionDto;
 import com.example.tie2.exceptions.TelevisionNotFoundException;
 import com.example.tie2.repositories.TelevisionRepository;
 import com.example.tie2.models.Television;
-import org.apache.coyote.Response;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -19,16 +16,18 @@ import java.util.Optional;
 @RequestMapping("/televisions")
 public class TelevisionController {
 
-    @Autowired
-    private TelevisionRepository televisionRepository;
+    private final TelevisionRepository televisionRepository;
 
-    @GetMapping // getting all Televisions //
-    public ResponseEntity<List<TelevisionDto>> getTelevisions() {
-        for(Television television : televisions) {
-
-        }
+    public TelevisionController(TelevisionRepository televisionRepository) {
+        this.televisionRepository = televisionRepository;
     }
 
+    /*  @GetMapping // getting all Televisions //
+      public ResponseEntity<List<TelevisionDto>> getAllTelevisions() {
+          for(Television television : televisions) {
+          }
+      }*/
+// TODO : get all televisions //
     @GetMapping("/{id}") // get one television by Id //
     public ResponseEntity<Optional<Television>> getOneTelevision(@PathVariable Long id) {
         Optional<Television> television = televisionRepository.findById(id);
