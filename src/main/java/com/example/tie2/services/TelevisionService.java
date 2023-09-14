@@ -15,11 +15,11 @@ public class TelevisionService {
 
     public TelevisionService(TelevisionRepository televisionRepository) {
         this.televisionRepository = televisionRepository;
-    }
+    } // this is an autowired construction injection - use this instead of @Autowired! //
 
     public List<TelevisionDto> getAllTelevisions() {
         List<Television> televisions = televisionRepository.findAll();
-        List<TelevisionDto> televisionDtos = new ArrayList<>(); // altijd meervoud !! //
+        List<TelevisionDto> televisionDtos = new ArrayList<>(); // watch out: in case you have a list, don't forget to use plural - here: televisions//
         for (Television television : televisions) {
             TelevisionDto televisionDto = new TelevisionDto();
             televisionDto.setBrand(television.getBrand());
@@ -28,3 +28,10 @@ public class TelevisionService {
         return televisionDtos;
     }
 }
+
+
+// TODO here: 1. make function to get all televisions;
+//  2. a function to get one television;
+//  3. a function to post one television;
+//  4. a function to delete one television;
+//  5. a function to update one television //
