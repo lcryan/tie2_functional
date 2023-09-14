@@ -39,7 +39,8 @@ public class TelevisionService {
             throw new TelevisionNotFoundException("No television found with the following id " + id + ".");
         }
     }
-// ******* helper functions ******* //
+
+// ******* helper methods ******* //
 
     private TelevisionDto transferTelevisionToTelevisionDto(Television television) {
         TelevisionDto televisionDto = new TelevisionDto();
