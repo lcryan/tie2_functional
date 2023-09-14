@@ -1,12 +1,14 @@
 package com.example.tie2.services;
 
 import com.example.tie2.dtos.TelevisionDto;
+import com.example.tie2.exceptions.TelevisionNotFoundException;
 import com.example.tie2.models.Television;
 import com.example.tie2.repositories.TelevisionRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TelevisionService {
@@ -43,12 +45,23 @@ public class TelevisionService {
         }
         return televisionDtos;
     }
+
+    public TelevisionDto getOneTelevision(Long id) {
+        Optional<Television> optionalTelevision =televisionRepository.findById(id);
+        if (optionalTelevision.isPresent()) {
+            Television televisionDto = optionalTelevision.get();
+            return new TelevisionDto(televisionDto);
+
+
+        } else {
+            throw new TelevisionNotFoundException("No television found with the following id " + id + ".");
+        }
+    }
+
 }
 
 
 // TODO here:
-//  1A.finish getAllTelevisions!
-//  1. make function to get all televisions;
 //  2. a function to get one television;
 //  3. a function to post one television;
 //  4. a function to delete one television;
