@@ -94,7 +94,6 @@ public class Television {
     }
 
     public Television() {
-
     }
 
     public Long getId() {
