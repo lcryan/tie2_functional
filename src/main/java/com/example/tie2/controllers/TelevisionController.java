@@ -24,7 +24,9 @@ public class TelevisionController {
 
     @GetMapping // getting all Televisions //
     public ResponseEntity<List<TelevisionDto>> getTelevisions() {
-        return
+        for(Television television : televisions) {
+
+        }
     }
 
     @GetMapping("/{id}") // get one television by Id //
