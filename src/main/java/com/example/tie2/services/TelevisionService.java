@@ -32,8 +32,8 @@ public class TelevisionService {
     public TelevisionDto getOneTelevision(Long id) {
         Optional<Television> optionalTelevision = televisionRepository.findById(id);
         if (optionalTelevision.isPresent()) {
-            Television televisionDto = optionalTelevision.get();
-
+            Television television = optionalTelevision.get();
+            return transferTelevisionToTelevisionDto(television);
 
         } else {
             throw new TelevisionNotFoundException("No television found with the following id " + id + ".");
