@@ -12,7 +12,7 @@ public class Television {
     @Id
     @GeneratedValue
     private Long id;
-
+    private String television;
     @Column(name = "type")
     private String type;
 
@@ -94,6 +94,14 @@ public class Television {
     }
 
     public Television() {
+    }
+
+    public String getTelevision() {
+        return television;
+    }
+
+    public void setTelevision(String television) {
+        this.television = television;
     }
 
     public Long getId() {
