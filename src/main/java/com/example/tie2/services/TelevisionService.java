@@ -86,6 +86,14 @@ public class TelevisionService {
         television.setTelevision(televisionDto.getTelevision());
         return television;
     }
+
+    public List<Television> transferTelevisionDtoListToTelevisionList(List<TelevisionDto> televisionDtos) {
+        List<Television> televisions = new ArrayList<>();
+        for (TelevisionDto televisionDto : televisionDtos) {
+            televisions.add(transferTelevisionDtoToTelevision(televisionDto));
+        }
+        return televisions;
+    }
 }
 
 
