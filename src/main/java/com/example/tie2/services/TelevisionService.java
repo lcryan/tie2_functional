@@ -1,6 +1,7 @@
 package com.example.tie2.services;
 
 import com.example.tie2.dtos.TelevisionDto;
+import com.example.tie2.dtos.TelevisionInputDto;
 import com.example.tie2.exceptions.TelevisionNotFoundException;
 import com.example.tie2.models.Television;
 import com.example.tie2.repositories.TelevisionRepository;
@@ -64,7 +65,9 @@ public class TelevisionService {
 
 // ******* helper methods here: ******* //
 
-    private TelevisionDto transferTelevisionToTelevisionDto(Television television) {
+
+    // transferring Television to TelevisionDto //
+    public TelevisionDto transferTelevisionToTelevisionDto(Television television) {
         TelevisionDto televisionDto = new TelevisionDto();
         televisionDto.setId(television.getId());
         televisionDto.setBrand(television.getBrand());
@@ -87,35 +90,28 @@ public class TelevisionService {
         return televisionDto;
     }
 
-    private Television transferTelevisionDtoToTelevision(TelevisionDto televisionDto) {
-        Television television = new Television();
-        television.setId(televisionDto.getId());
-        television.setBrand(televisionDto.getBrand());
-        television.setName(televisionDto.getName());
-        television.setPrice(televisionDto.getPrice());
-        television.setAvailableSize(televisionDto.getAvailableSize());
-        television.setScreenQuality(televisionDto.getScreenQuality());
-        television.setSmartTv(televisionDto.isSmartTv());
-        television.setWifi(televisionDto.isWifi());
-        television.setVoiceControl(televisionDto.isVoiceControl());
-        television.setHdr(televisionDto.isHdr());
-        television.setBluetooth(televisionDto.isBluetooth());
-        television.setAmbiLight(televisionDto.isAmbiLight());
-        television.setOriginalStock(televisionDto.getOriginalStock());
-        television.setSold(televisionDto.getSold());
-        television.setDateOfPurchase(televisionDto.getDateOfPurchase());
-        television.setCurrentStock(televisionDto.getCurrentStock());
-        television.setEnergyLabel(televisionDto.getEnergyLabel());
-        television.setTelevision(televisionDto.getTelevision());
+    // transferring TelevisionInputDto to Television //
+    public Television transferTelevisionInputDtoToTelevision(TelevisionInputDto televisionInputDto) {
+        var television = new Television();
+        television.setId(televisionInputDto.getId());
+        television.setBrand(televisionInputDto.getBrand());
+        television.setName(televisionInputDto.getName());
+        television.setPrice(televisionInputDto.getPrice());
+        television.setAvailableSize(televisionInputDto.getAvailableSize());
+        television.setScreenQuality(televisionInputDto.getScreenQuality());
+        television.setSmartTv(televisionInputDto.isSmartTv());
+        television.setWifi(televisionInputDto.isWifi());
+        television.setVoiceControl(televisionInputDto.isVoiceControl());
+        television.setHdr(televisionInputDto.isHdr());
+        television.setBluetooth(televisionInputDto.isBluetooth());
+        television.setAmbiLight(televisionInputDto.isAmbiLight());
+        television.setOriginalStock(televisionInputDto.getOriginalStock());
+        television.setSold(televisionInputDto.getSold());
+        television.setDateOfPurchase(televisionInputDto.getDateOfPurchase());
+        television.setCurrentStock(televisionInputDto.getCurrentStock());
+        television.setEnergyLabel(televisionInputDto.getEnergyLabel());
+        television.setTelevision(televisionInputDto.getTelevision());
         return television;
-    }
-
-    public List<Television> transferTelevisionDtoListToTelevisionList(List<TelevisionDto> televisionDtos) {
-        List<Television> televisions = new ArrayList<>();
-        for (TelevisionDto televisionDto : televisionDtos) {
-            televisions.add(transferTelevisionDtoToTelevision(televisionDto));
-        }
-        return televisions;
     }
 }
 
