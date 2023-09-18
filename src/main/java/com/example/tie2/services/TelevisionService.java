@@ -38,7 +38,7 @@ public class TelevisionService {
         newTelevision = transferTelevisionDtoToTelevision(televisionDto);
         Television savedTelevision = televisionRepository.save(newTelevision);
         return savedTelevision.getId();
-    }
+    } // TODO: here it has to be the Input DTO with added validation requirements //
 
     public TelevisionDto getOneTelevision(Long id) {
         Optional<Television> optionalTelevision = televisionRepository.findById(id);
