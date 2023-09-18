@@ -2,7 +2,6 @@ package com.example.tie2.models;
 
 import jakarta.persistence.*;
 
-import javax.sound.midi.SysexMessage;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
