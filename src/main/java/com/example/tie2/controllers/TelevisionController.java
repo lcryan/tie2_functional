@@ -40,6 +40,11 @@ public class TelevisionController {
             return ResponseEntity.created(uri).body("Television created.");
         }
     }
+
+    @GetMapping("/televisions/{id}")
+    public ResponseEntity<TelevisionDto> getTelevision(@PathVariable Long id) {
+        return ResponseEntity.ok(televisionService.getOneTelevision(id));
+    }
 }
 
 /*    private final TelevisionRepository televisionRepository;
@@ -87,5 +92,5 @@ public class TelevisionController {
     }
 }*/
 
-// TODO : make a patch mapping //
+
 
