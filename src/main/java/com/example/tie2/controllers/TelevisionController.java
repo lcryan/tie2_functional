@@ -30,13 +30,9 @@ public class TelevisionController {
     }
 
     @PostMapping("/televisions")
-    public ResponseEntity<TelevisionDto> createTelevision(@Valid @RequestBody TelevisionInputDto televisionInputDto, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            throw new TelevisionNotFoundException("Bad request");
-        } else {
-            TelevisionDto televisionDto = televisionService.createTelevision(televisionInputDto);
-            return ResponseEntity.created(null).body(televisionDto);
-        }
+    public ResponseEntity<TelevisionDto> createTelevision(@Valid @RequestBody TelevisionInputDto televisionInputDto) {
+        TelevisionDto televisionDto = televisionService.createTelevision(televisionInputDto);
+        return ResponseEntity.created(null).body(televisionDto);
     }
 
     @GetMapping("/televisions/{id}")

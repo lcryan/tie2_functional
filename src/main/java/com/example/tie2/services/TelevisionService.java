@@ -32,11 +32,10 @@ public class TelevisionService {
         return televisionDtos;
     }
 
-    public TelevisionDto createTelevision(@Valid TelevisionInputDto televisionInputDto) {
-        Television newTelevision;
-        newTelevision = transferTelevisionInputDtoToTelevision(televisionInputDto);
-        Television television = televisionRepository.save(newTelevision);
-        return transferTelevisionToTelevisionDto(television);
+    public TelevisionDto createTelevision(TelevisionInputDto televisionInputDto) {
+        Television newTv = transferTelevisionInputDtoToTelevision(televisionInputDto);
+        televisionRepository.save(newTv);
+        return transferTelevisionToTelevisionDto(newTv);
     }
 
     public TelevisionDto getOneTelevision(Long id) {
@@ -95,14 +94,13 @@ public class TelevisionService {
         televisionDto.setDateOfPurchase(television.getDateOfPurchase());
         televisionDto.setCurrentStock(television.getCurrentStock());
         televisionDto.setEnergyLabel(television.getEnergyLabel());
-        televisionDto.setTelevision(television.getTelevision());
+
         return televisionDto;
     }
 
     // transferring TelevisionInputDto to Television //
     public Television transferTelevisionInputDtoToTelevision(TelevisionInputDto televisionInputDto) {
         var television = new Television();
-        television.setId(televisionInputDto.getId());
         television.setBrand(televisionInputDto.getBrand());
         television.setName(televisionInputDto.getName());
         television.setPrice(televisionInputDto.getPrice());
@@ -119,9 +117,9 @@ public class TelevisionService {
         television.setDateOfPurchase(televisionInputDto.getDateOfPurchase());
         television.setCurrentStock(televisionInputDto.getCurrentStock());
         television.setEnergyLabel(televisionInputDto.getEnergyLabel());
-        television.setTelevision(televisionInputDto.getTelevision());
         return television;
     }
 }
 
+// checked okay //
 

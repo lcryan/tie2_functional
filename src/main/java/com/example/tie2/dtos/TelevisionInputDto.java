@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 
 public class TelevisionInputDto {
     private Long id;
-    private String television;
     @NotEmpty(message = "Field cannot be empty.Type needed.")
     private String type;
 
@@ -60,13 +59,6 @@ public class TelevisionInputDto {
         this.id = id;
     }
 
-    public String getTelevision() {
-        return television;
-    }
-
-    public void setTelevision(String television) {
-        this.television = television;
-    }
 
     public String getType() {
         return type;

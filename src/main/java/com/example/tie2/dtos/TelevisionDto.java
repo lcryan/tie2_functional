@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 
 public class TelevisionDto {
     private Long id;
-    private String television;
 
     private String type;
 
@@ -49,14 +48,6 @@ public class TelevisionDto {
     private EnergyLabel energyLabel; // pulling from enum class //
 
     public TelevisionDto() {
-    }
-
-    public String getTelevision() {
-        return television;
-    }
-
-    public void setTelevision(String television) {
-        this.television = television;
     }
 
     public Long getId() {
