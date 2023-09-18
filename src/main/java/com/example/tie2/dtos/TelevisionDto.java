@@ -1,99 +1,53 @@
-package com.example.tie2.models;
+package com.example.tie2.dtos;
 
-import jakarta.persistence.*;
+import com.example.tie2.models.EnergyLabel;
 
-import javax.sound.midi.SysexMessage;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-@Entity
-@Table
-public class Television {
-    @Id
-    @GeneratedValue
+public class TelevisionDto {
     private Long id;
     private String television;
-    @Column(name = "type")
+
     private String type;
 
-    @Column(name = "brand")
     private String brand;
 
-    @Column(name = "name")
     private String name;
 
-    @Column(name = "price")
     private double price;
 
-    @Column(name = "availableSize")
     private double availableSize;
 
-    @Column(name = "refreshRate")
     private double refreshRate;
 
-    @Column(name = "screenType")
     private String screenType;
 
-    @Column(name = "screenQuality")
     private String screenQuality;
 
-    @Column(name = "smartTv")
     private boolean smartTv;
 
-    @Column(name = "wifi")
     private boolean wifi;
 
-    @Column(name = "voiceControl")
     private boolean voiceControl;
 
-    @Column(name = "hdr")
     private boolean hdr;
-    @Column(name = "bluetooth")
+
     private boolean bluetooth;
 
-    @Column(name = "ambiLight")
     private boolean ambiLight;
 
-    @Column(name = "originalStock")
     private Integer originalStock;
-    @Column(name = "sold")
+
     private Integer sold;
 
-    @Column(name = "dateOfPurchase")
     private LocalDate dateOfPurchase;
 
-    @Column(name = "currentStock")
     private LocalDateTime currentStock;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "EnergyLabel")
     private EnergyLabel energyLabel; // pulling from enum class //
 
-
-    public Television(Long id, String type, String brand, String name, double price, double availableSize, double refreshRate, String screenType, String screenQuality, boolean smartTv, boolean wifi, boolean voiceControl, boolean hdr, boolean bluetooth, boolean ambiLight, Integer originalStock, Integer sold, LocalDate dateOfPurchase, LocalDateTime currentStock, EnergyLabel energyLabel) {
-        this.id = id;
-        this.type = type;
-        this.brand = brand;
-        this.name = name;
-        this.price = price;
-        this.availableSize = availableSize;
-        this.refreshRate = refreshRate;
-        this.screenType = screenType;
-        this.screenQuality = screenQuality;
-        this.smartTv = smartTv;
-        this.wifi = wifi;
-        this.voiceControl = voiceControl;
-        this.hdr = hdr;
-        this.bluetooth = bluetooth;
-        this.ambiLight = ambiLight;
-        this.originalStock = originalStock;
-        this.sold = sold;
-        this.dateOfPurchase = dateOfPurchase;
-        this.currentStock = currentStock;
-        this.energyLabel = energyLabel;
-    }
-
-    public Television() {
+    public TelevisionDto() {
     }
 
     public String getTelevision() {
@@ -122,30 +76,6 @@ public class Television {
 
     public String getBrand() {
         return brand;
-    }
-
-    public LocalDate getDateOfPurchase() {
-        return dateOfPurchase;
-    }
-
-    public void setDateOfPurchase(LocalDate dateOfPurchase) {
-        this.dateOfPurchase = dateOfPurchase;
-    }
-
-    public LocalDateTime getCurrentStock() {
-        return currentStock;
-    }
-
-    public void setCurrentStock(LocalDateTime currentStock) {
-        this.currentStock = currentStock;
-    }
-
-    public EnergyLabel getEnergyLabel() {
-        return energyLabel;
-    }
-
-    public void setEnergyLabel(EnergyLabel energyLabel) {
-        this.energyLabel = energyLabel;
     }
 
     public void setBrand(String brand) {
@@ -263,5 +193,28 @@ public class Television {
     public void setSold(Integer sold) {
         this.sold = sold;
     }
-}
 
+    public LocalDate getDateOfPurchase() {
+        return dateOfPurchase;
+    }
+
+    public void setDateOfPurchase(LocalDate dateOfPurchase) {
+        this.dateOfPurchase = dateOfPurchase;
+    }
+
+    public LocalDateTime getCurrentStock() {
+        return currentStock;
+    }
+
+    public void setCurrentStock(LocalDateTime currentStock) {
+        this.currentStock = currentStock;
+    }
+
+    public EnergyLabel getEnergyLabel() {
+        return energyLabel;
+    }
+
+    public void setEnergyLabel(EnergyLabel energyLabel) {
+        this.energyLabel = energyLabel;
+    }
+}
