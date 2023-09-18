@@ -65,16 +65,4 @@ public class TelevisionController {
 
 
 
-/*    @PutMapping("/{id}")
-    public ResponseEntity<Television> updateTelevision(@PathVariable Long id, @RequestBody Television television) {
-        Optional<Television> optionalTelevision = televisionRepository.findById(id);
-        if (optionalTelevision.isPresent()) {
-            televisionRepository.save(television);
-            return ResponseEntity.ok(television);
-        } else {
-            throw new TelevisionNotFoundException(); // could we also make an "update couldn't be processed ? //
-        }
-    }*/
-
-
 

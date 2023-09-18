@@ -125,6 +125,3 @@ public class TelevisionService {
 }
 
 
-// TODO:
-
-//  5. a function to update one television //
