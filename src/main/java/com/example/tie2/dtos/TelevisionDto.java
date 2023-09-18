@@ -1,6 +1,7 @@
 package com.example.tie2.dtos;
 
 import com.example.tie2.models.EnergyLabel;
+import com.example.tie2.models.Television;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -218,3 +219,4 @@ public class TelevisionDto {
         this.energyLabel = energyLabel;
     }
 }
+
