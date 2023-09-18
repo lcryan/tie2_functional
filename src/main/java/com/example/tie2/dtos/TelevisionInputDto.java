@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 
 public class TelevisionInputDto {
 
-
     private Long id;
     private String television;
 

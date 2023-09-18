@@ -6,10 +6,8 @@ import com.example.tie2.exceptions.TelevisionNotFoundException;
 import com.example.tie2.models.Television;
 import com.example.tie2.repositories.TelevisionRepository;
 import jakarta.validation.Valid;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,12 +32,12 @@ public class TelevisionService {
         return televisionDtos;
     }
 
-    public Long createTelevision(TelevisionDto televisionDto) {
+    public Long createTelevision(@Valid TelevisionInputDto televisionDto) {
         Television newTelevision;
-        newTelevision = transferTelevisionDtoToTelevision(televisionDto);
+        newTelevision = transferTelevisionInputDtoToTelevision(televisionDto);
         Television savedTelevision = televisionRepository.save(newTelevision);
         return savedTelevision.getId();
-    } // TODO: here it has to be the Input DTO with added validation requirements //
+    }
 
     public TelevisionDto getOneTelevision(Long id) {
         Optional<Television> optionalTelevision = televisionRepository.findById(id);
@@ -52,14 +50,25 @@ public class TelevisionService {
         }
     }
 
-    public String deleteTelevision(Long id) {
+    public void deleteTelevision(Long id) {
         if (televisionRepository.existsById(id)) {
-            Optional<Television> deletedTelevision = televisionRepository.findById(id);
-            Television televisionD = deletedTelevision.get();
+            Optional<Television> toBeDeletedTelevision = televisionRepository.findById(id);
+            Television televisionD = toBeDeletedTelevision.get();
             televisionRepository.delete(televisionD);
-            return "Item of making television with id: " + " has been deleted.";
         } else {
             throw new TelevisionNotFoundException("Television item with id: " + " cannot be found.");
+        }
+    }
+
+    public TelevisionDto updateTele(@PathVariable Long id, TelevisionInputDto televisionInputDto) {
+        if (televisionRepository.findById(id).isPresent()) {
+            Television television = televisionRepository.findById(id).get();
+            Television televisionU = transferTelevisionInputDtoToTelevision(televisionInputDto);
+            televisionU.setId(television.getId());
+            televisionRepository.save(televisionU);
+            return transferTelevisionToTelevisionDto(televisionU);
+        } else {
+            throw new TelevisionNotFoundException("item couldn't be found");
         }
     }
 
@@ -117,5 +126,5 @@ public class TelevisionService {
 
 
 // TODO:
-//  4. a function to delete one television;
+
 //  5. a function to update one television //
