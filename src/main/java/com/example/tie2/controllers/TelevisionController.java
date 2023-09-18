@@ -2,41 +2,57 @@ package com.example.tie2.controllers;
 
 import com.example.tie2.dtos.TelevisionDto;
 import com.example.tie2.exceptions.TelevisionNotFoundException;
-import com.example.tie2.repositories.TelevisionRepository;
-import com.example.tie2.models.Television;
+import com.example.tie2.services.TelevisionService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
-@RequestMapping("/televisions")
 public class TelevisionController {
 
-    private final TelevisionRepository televisionRepository;
+    private final TelevisionService televisionService;
+
+    public TelevisionController(TelevisionService televisionService) {
+        this.televisionService = televisionService;
+    }
+
+    // getting all Televisions through service //
+    @GetMapping("/televisions")
+    public ResponseEntity<List<TelevisionDto>> getAllTelevisions() {
+        return ResponseEntity.ok(televisionService.getAllTelevisions());
+    }
+
+    @PostMapping("/televisions")
+    public ResponseEntity<String> createTelevision(@Valid @RequestBody TelevisionDto televisionDto, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            throw new TelevisionNotFoundException("Bad request");
+        } else {
+            Long createdId = televisionService.createTelevision(televisionDto);
+            URI uri = URI.create(ServletUriComponentsBuilder
+                    .fromCurrentRequest()
+                    .path("/televisions/" + createdId)
+                    .toUriString());
+            return ResponseEntity.created(uri).body("Television created.");
+        }
+    }
+}
+
+/*    private final TelevisionRepository televisionRepository;
 
     public TelevisionController(TelevisionRepository televisionRepository) {
         this.televisionRepository = televisionRepository;
     }
 
-    /*  @GetMapping // getting all Televisions //
+    *//*  @GetMapping // getting all Televisions //
       public ResponseEntity<List<TelevisionDto>> getAllTelevisions() {
           for(Television television : televisions) {
           }
-      }*/
-// TODO : get all televisions //
-    @GetMapping("/{id}") // get one television by Id //
-    public ResponseEntity<Optional<Television>> getOneTelevision(@PathVariable Long id) {
-        Optional<Television> television = televisionRepository.findById(id);
-        if (television.isPresent()) {
-            return ResponseEntity.ok(television); // this returns a television by id - the television id exists in this case //
-        } else {
-            throw new TelevisionNotFoundException("Requested object couldn't be found.");
-        }
-    }
+      }*//*
 
     @PostMapping
     public ResponseEntity<Television> createOneTelevision(@RequestBody Television television) {
@@ -69,7 +85,7 @@ public class TelevisionController {
             throw new TelevisionNotFoundException("Requested object not found."); // functional in postman //
         }
     }
-}
+}*/
 
 // TODO : make a patch mapping //
 
