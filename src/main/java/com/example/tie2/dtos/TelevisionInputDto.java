@@ -10,10 +10,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class TelevisionInputDto {
-
     private Long id;
     private String television;
-
     @NotEmpty(message = "Field cannot be empty.Type needed.")
     private String type;
 

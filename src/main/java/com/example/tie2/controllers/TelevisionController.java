@@ -30,16 +30,12 @@ public class TelevisionController {
     }
 
     @PostMapping("/televisions")
-    public ResponseEntity<String> createTelevision(@Valid @RequestBody TelevisionInputDto televisionInputDto, BindingResult bindingResult) {
+    public ResponseEntity<TelevisionDto> createTelevision(@Valid @RequestBody TelevisionInputDto televisionInputDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             throw new TelevisionNotFoundException("Bad request");
         } else {
-            Long createdId = televisionService.createTelevision(televisionInputDto);
-            URI uri = URI.create(ServletUriComponentsBuilder
-                    .fromCurrentRequest()
-                    .path("/televisions/" + createdId)
-                    .toUriString());
-            return ResponseEntity.created(uri).body("Television created.");
+            TelevisionDto televisionDto = televisionService.createTelevision(televisionInputDto);
+            return ResponseEntity.created(null).body(televisionDto);
         }
     }
 

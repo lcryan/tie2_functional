@@ -32,11 +32,11 @@ public class TelevisionService {
         return televisionDtos;
     }
 
-    public Long createTelevision(@Valid TelevisionInputDto televisionDto) {
+    public TelevisionDto createTelevision(@Valid TelevisionInputDto televisionInputDto) {
         Television newTelevision;
-        newTelevision = transferTelevisionInputDtoToTelevision(televisionDto);
-        Television savedTelevision = televisionRepository.save(newTelevision);
-        return savedTelevision.getId();
+        newTelevision = transferTelevisionInputDtoToTelevision(televisionInputDto);
+        Television television = televisionRepository.save(newTelevision);
+        return transferTelevisionToTelevisionDto(television);
     }
 
     public TelevisionDto getOneTelevision(Long id) {
