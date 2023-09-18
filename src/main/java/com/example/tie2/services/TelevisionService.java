@@ -40,7 +40,7 @@ public class TelevisionService {
         return savedTelevision.getId();
     }
 
-/*    public TelevisionDto getOneTelevision(Long id) {
+    public TelevisionDto getOneTelevision(Long id) {
         Optional<Television> optionalTelevision = televisionRepository.findById(id);
         if (optionalTelevision.isPresent()) {
             Television television = optionalTelevision.get();
@@ -49,7 +49,7 @@ public class TelevisionService {
         } else {
             throw new TelevisionNotFoundException("No television found with the following id " + id + ".");
         }
-    }*/
+    }
 
 // ******* helper methods here: ******* //
 
