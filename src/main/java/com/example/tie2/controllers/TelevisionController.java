@@ -2,16 +2,11 @@ package com.example.tie2.controllers;
 
 import com.example.tie2.dtos.TelevisionDto;
 import com.example.tie2.dtos.TelevisionInputDto;
-import com.example.tie2.exceptions.TelevisionNotFoundException;
-import com.example.tie2.models.Television;
 import com.example.tie2.services.TelevisionService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,7 +45,7 @@ public class TelevisionController {
     @PutMapping("/televisions/{id}")
 
     public ResponseEntity<TelevisionDto> updateTelevision(@PathVariable Long id, @Valid @RequestBody TelevisionInputDto televisionInputDto) {
-        TelevisionDto televisionInputDto1 = televisionService.updateTele(id, televisionInputDto);
+        TelevisionDto televisionInputDto1 = televisionService.updateTelevision(id, televisionInputDto);
         return ResponseEntity.ok().body(televisionInputDto1);
     }
 }

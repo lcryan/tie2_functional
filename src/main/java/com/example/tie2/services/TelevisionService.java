@@ -5,7 +5,6 @@ import com.example.tie2.dtos.TelevisionInputDto;
 import com.example.tie2.exceptions.TelevisionNotFoundException;
 import com.example.tie2.models.Television;
 import com.example.tie2.repositories.TelevisionRepository;
-import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -59,13 +58,17 @@ public class TelevisionService {
         }
     }
 
-    public TelevisionDto updateTele(@PathVariable Long id, TelevisionInputDto televisionInputDto) {
-        if (televisionRepository.findById(id).isPresent()) {
-            Television television = televisionRepository.findById(id).get();
-            Television televisionU = transferTelevisionInputDtoToTelevision(televisionInputDto);
-            televisionU.setId(television.getId());
-            televisionRepository.save(televisionU);
-            return transferTelevisionToTelevisionDto(televisionU);
+    public TelevisionDto updateTelevision(@PathVariable Long id, TelevisionInputDto upTelevision) {
+        Optional<Television> optionalTelevision = televisionRepository.findById(id);
+        if (optionalTelevision.isPresent()) {
+            Television televisionOne = optionalTelevision.get();
+
+            televisionOne.setBrand(upTelevision.getBrand());
+            // enz. //
+            Television updatedTelevision = televisionRepository.save(televisionOne);
+
+            return transferTelevisionToTelevisionDto(updatedTelevision);
+
         } else {
             throw new TelevisionNotFoundException("item couldn't be found");
         }

@@ -1,7 +1,7 @@
 package com.example.tie2.dtos;
 
 import com.example.tie2.models.EnergyLabel;
-import jakarta.validation.constraints.NotBlank;
+
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
