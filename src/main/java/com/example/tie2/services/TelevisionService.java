@@ -51,6 +51,17 @@ public class TelevisionService {
         }
     }
 
+    public String deleteTelevision(Long id) {
+        if (televisionRepository.existsById(id)) {
+            Optional<Television> deletedTelevision = televisionRepository.findById(id);
+            Television televisionD = deletedTelevision.get();
+            televisionRepository.delete(televisionD);
+            return "Item of making television with id: " + " has been deleted.";
+        } else {
+            throw new TelevisionNotFoundException("Television item with id: " + " cannot be found.");
+        }
+    }
+
 // ******* helper methods here: ******* //
 
     private TelevisionDto transferTelevisionToTelevisionDto(Television television) {
@@ -110,7 +121,5 @@ public class TelevisionService {
 
 
 // TODO:
-//  2. a function to get one television;
-
 //  4. a function to delete one television;
 //  5. a function to update one television //
