@@ -4,7 +4,11 @@ import com.example.tie2.dtos.TelevisionDto;
 import com.example.tie2.exceptions.TelevisionNotFoundException;
 import com.example.tie2.models.Television;
 import com.example.tie2.repositories.TelevisionRepository;
+import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +33,14 @@ public class TelevisionService {
         return televisionDtos;
     }
 
-    public TelevisionDto getOneTelevision(Long id) {
+    public Long createTelevision(TelevisionDto televisionDto) {
+        Television newTelevision;
+        newTelevision = transferTelevisionDtoToTelevision(televisionDto);
+        Television savedTelevision = televisionRepository.save(newTelevision);
+        return savedTelevision.getId();
+    }
+
+/*    public TelevisionDto getOneTelevision(Long id) {
         Optional<Television> optionalTelevision = televisionRepository.findById(id);
         if (optionalTelevision.isPresent()) {
             Television television = optionalTelevision.get();
@@ -38,9 +49,9 @@ public class TelevisionService {
         } else {
             throw new TelevisionNotFoundException("No television found with the following id " + id + ".");
         }
-    }
+    }*/
 
-// ******* helper methods ******* //
+// ******* helper methods here: ******* //
 
     private TelevisionDto transferTelevisionToTelevisionDto(Television television) {
         TelevisionDto televisionDto = new TelevisionDto();
@@ -98,8 +109,8 @@ public class TelevisionService {
 }
 
 
-// TODO here: // 1. make helper functions for TelevisionDto to Television model - and the other way around //
+// TODO:
 //  2. a function to get one television;
-//  3. a function to post one television;
+
 //  4. a function to delete one television;
 //  5. a function to update one television //
