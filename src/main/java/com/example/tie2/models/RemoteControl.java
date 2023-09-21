@@ -1,4 +1,4 @@
 package com.example.tie2.models;
 
-public class RemoteController {
+public class RemoteControl {
 }
