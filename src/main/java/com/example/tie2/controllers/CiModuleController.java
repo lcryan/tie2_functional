@@ -1,2 +1,4 @@
-package com.example.tie2.controllers;public class CiModuleController {
+package com.example.tie2.controllers;
+
+public class CiModuleController {
 }
