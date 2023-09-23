@@ -79,7 +79,7 @@ public class CiModuleService {
 
     // -------------------------------------------------------------- //
 
-    // HELPER METHODS for conversion model - dto - input dto - model //
+    // HELPER METHODS for conversion CIMODULE:  model - dto - input dto - model //
 
     public CiModuleDto transferCiModuleToCiModuleDto(CiModule ciModule) {
         CiModuleDto ciModuleDto = new CiModuleDto();
