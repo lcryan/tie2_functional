@@ -2,12 +2,15 @@ package com.example.tie2.services;
 
 import com.example.tie2.dtos.CiModuleDto;
 import com.example.tie2.dtos.CiModuleInputDto;
+import com.example.tie2.exceptions.RecordNotFoundException;
 import com.example.tie2.models.CiModule;
 import com.example.tie2.repositories.CiModuleRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CiModuleService {
@@ -29,7 +32,54 @@ public class CiModuleService {
         return ciModuleDtos;
     }
 
-    // helper methods for conversion model - dto - input dto - model //
+    public CiModuleDto createCiModule(CiModuleInputDto ciModuleInputDto) {
+        CiModule newCiModule = transferCiModuleInputDtoToCiModule(ciModuleInputDto);
+        ciModuleRepository.save(newCiModule);
+        return transferCiModuleToCiModuleDto(newCiModule);
+    }
+
+    public CiModuleDto getOneCiModule(Long id) {
+        Optional<CiModule> optionalCiModule = ciModuleRepository.findById(id);
+        if (optionalCiModule.isPresent()) {
+            CiModule ciModule = optionalCiModule.get();
+            return transferCiModuleToCiModuleDto(ciModule);
+        } else {
+            throw new RecordNotFoundException("Item of type Ci-Module with id: " + id + " could not be found.");
+        }
+    }
+
+    public void deleteCiModule(Long id) {
+        if (ciModuleRepository.existsById(id)) {
+            Optional<CiModule> toBeDeletedCiModule = ciModuleRepository.findById(id);
+            CiModule ciModuleD = toBeDeletedCiModule.get();
+            ciModuleRepository.delete(ciModuleD);
+        } else {
+            throw new RecordNotFoundException("Item of type Ci-Module with id: " + id + " could not be found.");
+        }
+    }
+
+    public CiModuleDto updateCiModule(@PathVariable Long id, CiModuleInputDto upCiModule) {
+        Optional<CiModule> optionalCiModule = ciModuleRepository.findById(id);
+        if (optionalCiModule.isPresent()) {
+            CiModule ciModuleOne = optionalCiModule.get();
+
+            ciModuleOne.setId(upCiModule.getId());
+            ciModuleOne.setName(upCiModule.getName());
+            ciModuleOne.setType(upCiModule.getType());
+            ciModuleOne.setPrice(upCiModule.getPrice());
+
+            CiModule updatedCiModule = ciModuleRepository.save(ciModuleOne);
+
+            return transferCiModuleToCiModuleDto(updatedCiModule);
+        } else {
+            throw new RecordNotFoundException("Item of type Ci-Module with id: " + id + " could not be found.");
+        }
+    }
+
+
+    // -------------------------------------------------------------- //
+
+    // HELPER METHODS for conversion model - dto - input dto - model //
 
     public CiModuleDto transferCiModuleToCiModuleDto(CiModule ciModule) {
         CiModuleDto ciModuleDto = new CiModuleDto();
