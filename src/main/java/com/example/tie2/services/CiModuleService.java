@@ -3,18 +3,28 @@ package com.example.tie2.services;
 import com.example.tie2.dtos.CiModuleDto;
 import com.example.tie2.dtos.CiModuleInputDto;
 import com.example.tie2.models.CiModule;
+import com.example.tie2.repositories.CiModuleRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class CiModuleService {
 
-    private final CiModuleService ciModuleService;
+    private final CiModuleRepository ciModuleRepository;
 
-    public CiModuleService(CiModuleService ciModuleService) {
-        this.ciModuleService = ciModuleService;
+    public CiModuleService(CiModuleRepository ciModuleRepository) {
+
+        this.ciModuleRepository = ciModuleRepository;
     }
 
-    // helper methods for conversion model - dto- input dto //
+    public List<CiModuleDto> getAllCiModules() {
+        List<CiModule> ciModules = ciModuleRepository.findAll();
+        List<CiModuleDto> ciModuleDtos = new ArrayList<>();
+    }
+
+    // helper methods for conversion model - dto - input dto - model //
 
     public CiModuleDto transferCiModuleToCiModuleDto(CiModule ciModule) {
         CiModuleDto ciModuleDto = new CiModuleDto();
