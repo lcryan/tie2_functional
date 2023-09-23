@@ -22,6 +22,11 @@ public class CiModuleService {
     public List<CiModuleDto> getAllCiModules() {
         List<CiModule> ciModules = ciModuleRepository.findAll();
         List<CiModuleDto> ciModuleDtos = new ArrayList<>();
+        for (CiModule ciModule : ciModules) {
+            CiModuleDto ciModuleDto = transferCiModuleToCiModuleDto(ciModule);
+            ciModuleDtos.add(ciModuleDto);
+        }
+        return ciModuleDtos;
     }
 
     // helper methods for conversion model - dto - input dto - model //
