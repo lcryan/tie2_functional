@@ -1,7 +1,5 @@
 package com.example.tie2.dtos;
 
-import jakarta.persistence.Column;
-
 public class CiModuleDto {
     private Long id;
     private String name;
