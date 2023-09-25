@@ -25,7 +25,7 @@ public class RemoteControl {
     @Column(name = "price")
     private double price;
 
-    @OneToOne(mappedBy = "remote_control")
+    @OneToOne(mappedBy = "remoteControl")
     // this makes Television the "owner" of the OneToOne relation between RemoteControl and Television //
     private Television television;
 
