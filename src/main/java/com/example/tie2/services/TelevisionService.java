@@ -1,14 +1,12 @@
 package com.example.tie2.services;
 
 import com.example.tie2.dtos.TelevisionDto;
+import com.example.tie2.dtos.TelevisionInputDto;
 import com.example.tie2.exceptions.TelevisionNotFoundException;
 import com.example.tie2.models.Television;
 import com.example.tie2.repositories.TelevisionRepository;
-import jakarta.validation.Valid;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,14 +31,13 @@ public class TelevisionService {
         return televisionDtos;
     }
 
-    public Long createTelevision(TelevisionDto televisionDto) {
-        Television newTelevision;
-        newTelevision = transferTelevisionDtoToTelevision(televisionDto);
-        Television savedTelevision = televisionRepository.save(newTelevision);
-        return savedTelevision.getId();
+    public TelevisionDto createTelevision(TelevisionInputDto televisionInputDto) {
+        Television newTv = transferTelevisionInputDtoToTelevision(televisionInputDto);
+        televisionRepository.save(newTv);
+        return transferTelevisionToTelevisionDto(newTv);
     }
 
-/*    public TelevisionDto getOneTelevision(Long id) {
+    public TelevisionDto getOneTelevision(Long id) {
         Optional<Television> optionalTelevision = televisionRepository.findById(id);
         if (optionalTelevision.isPresent()) {
             Television television = optionalTelevision.get();
@@ -49,11 +46,39 @@ public class TelevisionService {
         } else {
             throw new TelevisionNotFoundException("No television found with the following id " + id + ".");
         }
-    }*/
+    }
+
+    public void deleteTelevision(Long id) {
+        if (televisionRepository.existsById(id)) {
+            Optional<Television> toBeDeletedTelevision = televisionRepository.findById(id);
+            Television televisionD = toBeDeletedTelevision.get();
+            televisionRepository.delete(televisionD);
+        } else {
+            throw new TelevisionNotFoundException("Television item with id: " + " cannot be found.");
+        }
+    }
+
+    public TelevisionDto updateTelevision(@PathVariable Long id, TelevisionInputDto upTelevision) {
+        Optional<Television> optionalTelevision = televisionRepository.findById(id);
+        if (optionalTelevision.isPresent()) {
+            Television televisionOne = optionalTelevision.get();
+
+            televisionOne.setBrand(upTelevision.getBrand());
+            // enz. // // here more adjustments can be added - due to lack of time, I have only added brand //
+            Television updatedTelevision = televisionRepository.save(televisionOne);
+
+            return transferTelevisionToTelevisionDto(updatedTelevision);
+
+        } else {
+            throw new TelevisionNotFoundException("item couldn't be found");
+        }
+    }
 
 // ******* helper methods here: ******* //
 
-    private TelevisionDto transferTelevisionToTelevisionDto(Television television) {
+
+    // transferring Television to TelevisionDto //
+    public TelevisionDto transferTelevisionToTelevisionDto(Television television) {
         TelevisionDto televisionDto = new TelevisionDto();
         televisionDto.setId(television.getId());
         televisionDto.setBrand(television.getBrand());
@@ -72,45 +97,32 @@ public class TelevisionService {
         televisionDto.setDateOfPurchase(television.getDateOfPurchase());
         televisionDto.setCurrentStock(television.getCurrentStock());
         televisionDto.setEnergyLabel(television.getEnergyLabel());
-        televisionDto.setTelevision(television.getTelevision());
+
         return televisionDto;
     }
 
-    private Television transferTelevisionDtoToTelevision(TelevisionDto televisionDto) {
-        Television television = new Television();
-        television.setId(televisionDto.getId());
-        television.setBrand(televisionDto.getBrand());
-        television.setName(televisionDto.getName());
-        television.setPrice(televisionDto.getPrice());
-        television.setAvailableSize(televisionDto.getAvailableSize());
-        television.setScreenQuality(televisionDto.getScreenQuality());
-        television.setSmartTv(televisionDto.isSmartTv());
-        television.setWifi(televisionDto.isWifi());
-        television.setVoiceControl(televisionDto.isVoiceControl());
-        television.setHdr(televisionDto.isHdr());
-        television.setBluetooth(televisionDto.isBluetooth());
-        television.setAmbiLight(televisionDto.isAmbiLight());
-        television.setOriginalStock(televisionDto.getOriginalStock());
-        television.setSold(televisionDto.getSold());
-        television.setDateOfPurchase(televisionDto.getDateOfPurchase());
-        television.setCurrentStock(televisionDto.getCurrentStock());
-        television.setEnergyLabel(televisionDto.getEnergyLabel());
-        television.setTelevision(televisionDto.getTelevision());
+    // transferring TelevisionInputDto to Television //
+    public Television transferTelevisionInputDtoToTelevision(TelevisionInputDto televisionInputDto) {
+        var television = new Television();
+        television.setBrand(televisionInputDto.getBrand());
+        television.setName(televisionInputDto.getName());
+        television.setPrice(televisionInputDto.getPrice());
+        television.setAvailableSize(televisionInputDto.getAvailableSize());
+        television.setScreenQuality(televisionInputDto.getScreenQuality());
+        television.setSmartTv(televisionInputDto.isSmartTv());
+        television.setWifi(televisionInputDto.isWifi());
+        television.setVoiceControl(televisionInputDto.isVoiceControl());
+        television.setHdr(televisionInputDto.isHdr());
+        television.setBluetooth(televisionInputDto.isBluetooth());
+        television.setAmbiLight(televisionInputDto.isAmbiLight());
+        television.setOriginalStock(televisionInputDto.getOriginalStock());
+        television.setSold(televisionInputDto.getSold());
+        television.setDateOfPurchase(televisionInputDto.getDateOfPurchase());
+        television.setCurrentStock(televisionInputDto.getCurrentStock());
+        television.setEnergyLabel(televisionInputDto.getEnergyLabel());
         return television;
-    }
-
-    public List<Television> transferTelevisionDtoListToTelevisionList(List<TelevisionDto> televisionDtos) {
-        List<Television> televisions = new ArrayList<>();
-        for (TelevisionDto televisionDto : televisionDtos) {
-            televisions.add(transferTelevisionDtoToTelevision(televisionDto));
-        }
-        return televisions;
     }
 }
 
 
-// TODO:
-//  2. a function to get one television;
 
-//  4. a function to delete one television;
-//  5. a function to update one television //
