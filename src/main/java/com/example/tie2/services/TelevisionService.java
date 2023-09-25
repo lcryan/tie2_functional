@@ -80,7 +80,7 @@ public class TelevisionService {
 
     // assigning remote control to television function //
 
-    public void assignRemoteControlToTelevision(String name, Long id) {
+    public void assignRemoteControlToTelevision(Long name, Long id) {
         Optional<Television> optionalTelevision = televisionRepository.findById(id);
         Optional<RemoteControl> optionalRemoteControl = remoteControlRepository.findById(id);
         if (optionalTelevision.isPresent() && optionalRemoteControl.isPresent()) {
