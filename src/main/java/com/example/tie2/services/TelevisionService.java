@@ -3,7 +3,9 @@ package com.example.tie2.services;
 import com.example.tie2.dtos.TelevisionDto;
 import com.example.tie2.dtos.TelevisionInputDto;
 import com.example.tie2.exceptions.TelevisionNotFoundException;
+import com.example.tie2.models.RemoteControl;
 import com.example.tie2.models.Television;
+import com.example.tie2.repositories.RemoteControlRepository;
 import com.example.tie2.repositories.TelevisionRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,9 +18,11 @@ import java.util.Optional;
 public class TelevisionService {
 
     private final TelevisionRepository televisionRepository;
+    private final RemoteControlRepository remoteControlRepository;
 
-    public TelevisionService(TelevisionRepository televisionRepository) {
+    public TelevisionService(TelevisionRepository televisionRepository, RemoteControlRepository remoteControlRepository) {
         this.televisionRepository = televisionRepository;
+        this.remoteControlRepository = remoteControlRepository;
     } // this is an autowired construction injection - use this instead of @Autowired! //
 
     public List<TelevisionDto> getAllTelevisions() {
@@ -71,6 +75,21 @@ public class TelevisionService {
 
         } else {
             throw new TelevisionNotFoundException("item couldn't be found");
+        }
+    }
+
+    // assigning remote control to television function //
+
+    public void assignRemoteControlToTelevision(String name, Long id) {
+        Optional<Television> optionalTelevision = televisionRepository.findById(id);
+        Optional<RemoteControl> optionalRemoteControl = remoteControlRepository.findById(id);
+        if (optionalTelevision.isPresent() && optionalRemoteControl.isPresent()) {
+
+            RemoteControl remoteControl = optionalRemoteControl.get();
+            Television television = optionalTelevision.get();
+
+            television.setRemoteControl(remoteControl);
+            televisionRepository.save(television);
         }
     }
 
