@@ -41,7 +41,7 @@ public class RemoteControlService {
             RemoteControl remoteControlD = toBeDeletedRemoteControl.get();
             remoteControlRepository.delete(remoteControlD);
         } else {
-            throw new RecordNotFoundException("Item of type Remote Control with id: " + id + " could not be found.")
+            throw new RecordNotFoundException("Item of type Remote Control with id: " + id + " could not be found.");
         }
     }
 
@@ -61,7 +61,7 @@ public class RemoteControlService {
             RemoteControl updatedRemoteControl = remoteControlRepository.save(remoteControlOne);
             return transferRemoteControlToRemoteControlDto(updatedRemoteControl);
         } else {
-            throw new RecordNotFoundException("Item of type Remote Control with id: " + id + " could not be found.")
+            throw new RecordNotFoundException("Item of type Remote Control with id: " + id + " could not be found.");
         }
     }
 
