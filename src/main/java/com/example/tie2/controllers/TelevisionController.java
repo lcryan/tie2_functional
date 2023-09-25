@@ -50,7 +50,7 @@ public class TelevisionController {
         return ResponseEntity.ok().body(televisionInputDtoOne);
     }
 
-    // remote control to television //
+    // assigning remote control to television //
     @PutMapping("/televisions/{id}/{remoteControl}")
     public ResponseEntity<Object> assignRemoteControlToTelevision(@PathVariable Long television, @RequestBody IdInputDto input, @PathVariable String remoteControl) {
         televisionService.assignRemoteControlToTelevision(television, input.id);

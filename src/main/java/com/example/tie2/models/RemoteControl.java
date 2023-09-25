@@ -7,7 +7,7 @@ import jakarta.persistence.Table;
 
 
 @Entity
-@Table
+@Table(name = "remote_controls")
 public class RemoteControl {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,10 +28,6 @@ public class RemoteControl {
     @OneToOne(mappedBy = "remoteControl")
     // this makes Television the "owner" of the OneToOne relation between RemoteControl and Television //
     private Television television;
-
-    public RemoteControl() {
-
-    }
 
     public Long getId() {
         return id;
