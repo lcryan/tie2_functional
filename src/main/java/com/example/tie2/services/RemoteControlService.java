@@ -31,10 +31,21 @@ public class RemoteControlService {
         return remoteControlDtoList;
     }
 
+
     public RemoteControlDto createRemoteControlDto(RemoteControlInputDto remoteControlInputDto) {
         RemoteControl newRemoteControl = transferRemoteControlInputDtoToRemoteControl(remoteControlInputDto);
         remoteControlRepository.save(newRemoteControl);
         return transferRemoteControlToRemoteControlDto(newRemoteControl);
+    }
+
+    public RemoteControlDto getOneRemoteControl(Long id) {
+        Optional<RemoteControl> optionalRemoteControl = remoteControlRepository.findById(id);
+        if (optionalRemoteControl.isPresent()) {
+            RemoteControl remoteControl = optionalRemoteControl.get();
+            return transferRemoteControlToRemoteControlDto(remoteControl);
+        } else {
+            throw new RecordNotFoundException("Item of type Remote Control with id: " + id + " could not be found.");
+        }
     }
 
     public void deleteRemoteControl(Long id) {
