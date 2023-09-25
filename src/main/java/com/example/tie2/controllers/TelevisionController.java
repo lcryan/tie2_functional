@@ -47,8 +47,8 @@ public class TelevisionController {
     @PutMapping("/televisions/{id}")
 
     public ResponseEntity<TelevisionDto> updateTelevision(@PathVariable Long id, @Valid @RequestBody TelevisionInputDto televisionInputDto) {
-        TelevisionDto televisionInputDto1 = televisionService.updateTelevision(id, televisionInputDto);
-        return ResponseEntity.ok().body(televisionInputDto1);
+        TelevisionDto televisionInputDtoOne = televisionService.updateTelevision(id, televisionInputDto);
+        return ResponseEntity.ok().body(televisionInputDtoOne);
     }
 
     // remote control to television //
