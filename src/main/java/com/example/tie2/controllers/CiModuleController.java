@@ -44,8 +44,8 @@ public class CiModuleController {
 
     @PutMapping("televisions/{id}")
 
-    public ResponseEntity<CiModuleDto> updateCiModule(@PathVariable Long id, @Valid @RequestBody CiModuleInputDto ciModuleInputDto) {
-        CiModuleDto ciModuleDtoOne = ciModuleService.updateCiModule(id, ciModuleInputDto);
+    public ResponseEntity<CiModuleDto> updateCiModule(@PathVariable Long id, @Valid @RequestBody CiModuleInputDto newCiModule) {
+        CiModuleDto ciModuleDtoOne = ciModuleService.updateCiModule(id, newCiModule);
         return ResponseEntity.ok().body(ciModuleDtoOne);
     }
 }
