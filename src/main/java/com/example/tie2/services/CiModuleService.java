@@ -23,13 +23,13 @@ public class CiModuleService {
     }
 
     public List<CiModuleDto> getAllCiModules() {
-        List<CiModule> ciModules = ciModuleRepository.findAll();
-        List<CiModuleDto> ciModuleDtos = new ArrayList<>();
-        for (CiModule ciModule : ciModules) {
+        List<CiModule> ciModuleList = ciModuleRepository.findAll();
+        List<CiModuleDto> ciModuleDtoList = new ArrayList<>();
+        for (CiModule ciModule : ciModuleList) {
             CiModuleDto ciModuleDto = transferCiModuleToCiModuleDto(ciModule);
-            ciModuleDtos.add(ciModuleDto);
+            ciModuleDtoList.add(ciModuleDto);
         }
-        return ciModuleDtos;
+        return ciModuleDtoList;
     }
 
     public CiModuleDto createCiModule(CiModuleInputDto ciModuleInputDto) {
