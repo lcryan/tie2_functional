@@ -69,7 +69,7 @@ public class Television {
     private EnergyLabel energyLabel; // pulling from enum class //
 
     @OneToOne
-    private RemoteControl remoteControl;
+    private RemoteControl remoteControl; // this lays the relation to Remote Control //
 
 
     public Television(Long id, String type, String brand, String name, double price, double availableSize, double refreshRate, String screenType, String screenQuality, boolean smartTv, boolean wifi, boolean voiceControl, boolean hdr, boolean bluetooth, boolean ambiLight, Integer originalStock, Integer sold, LocalDate dateOfPurchase, LocalDateTime currentStock, EnergyLabel energyLabel) {
@@ -264,6 +264,14 @@ public class Television {
 
     public void setSold(Integer sold) {
         this.sold = sold;
+    }
+
+    public RemoteControl getRemoteControl() {
+        return remoteControl;
+    }
+
+    public void setRemoteControl(RemoteControl remoteControl) {
+        this.remoteControl = remoteControl;
     }
 }
 
