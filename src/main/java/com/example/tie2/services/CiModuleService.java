@@ -63,6 +63,11 @@ public class CiModuleService {
         if (optionalCiModule.isPresent()) {
             CiModule ciModuleOne = optionalCiModule.get();
 
+            ciModuleOne.setId(upCiModule.getId());
+            ciModuleOne.setName(upCiModule.getName());
+            ciModuleOne.setType(upCiModule.getType());
+            ciModuleOne.setPrice(upCiModule.getPrice());
+
             CiModule updatedCiModule = ciModuleRepository.save(ciModuleOne);
 
             return transferCiModuleToCiModuleDto(updatedCiModule);

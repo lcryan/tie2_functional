@@ -12,6 +12,7 @@ public class RemoteControl {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String remoteControl;
     @Column(name = "name")
     private String name;
     @Column(name = "brand")
@@ -87,6 +88,14 @@ public class RemoteControl {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public String getRemoteControl() {
+        return remoteControl;
+    }
+
+    public void setRemoteControl(String remoteControl) {
+        this.remoteControl = remoteControl;
     }
 
     public Television getTelevision() {
