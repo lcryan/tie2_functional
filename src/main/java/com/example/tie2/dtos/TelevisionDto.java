@@ -46,6 +46,8 @@ public class TelevisionDto {
 
     private EnergyLabel energyLabel; // pulling from enum class //
 
+    public RemoteControlDto remoteControlDto;
+
     public TelevisionDto() {
     }
 
