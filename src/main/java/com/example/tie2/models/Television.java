@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Table
 public class Television {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String television;
     @Column(name = "type")
@@ -67,6 +67,9 @@ public class Television {
     @Enumerated(EnumType.STRING)
     @Column(name = "EnergyLabel")
     private EnergyLabel energyLabel; // pulling from enum class //
+
+    @OneToOne
+    private RemoteControl remoteControl;
 
 
     public Television(Long id, String type, String brand, String name, double price, double availableSize, double refreshRate, String screenType, String screenQuality, boolean smartTv, boolean wifi, boolean voiceControl, boolean hdr, boolean bluetooth, boolean ambiLight, Integer originalStock, Integer sold, LocalDate dateOfPurchase, LocalDateTime currentStock, EnergyLabel energyLabel) {
