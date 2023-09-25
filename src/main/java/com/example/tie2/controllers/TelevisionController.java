@@ -45,17 +45,16 @@ public class TelevisionController {
 
 
     @PutMapping("/televisions/{id}")
-
     public ResponseEntity<TelevisionDto> updateTelevision(@PathVariable Long id, @Valid @RequestBody TelevisionInputDto newTele) {
         TelevisionDto televisionInputDtoOne = televisionService.updateTelevision(id, newTele);
         return ResponseEntity.ok().body(televisionInputDtoOne);
     }
 
     // remote control to television //
-    @PutMapping("/televisions/{id}/remoteControl")
-    public ResponseEntity<Object> assignRemoteControlToTelevision(@PathVariable("id") Long id, @RequestBody IdInputDto newInput) {
-        televisionService.assignRemoteControlToTelevision(id, newInput.id);
-        return ResponseEntity.noContent().build();
+    @PutMapping("/televisions/{id}/{remoteControl}")
+    public ResponseEntity<Object> assignRemoteControlToTelevision(@PathVariable Long television, @RequestBody IdInputDto input, @PathVariable String remoteControl) {
+        televisionService.assignRemoteControlToTelevision(television, input.id);
+        return ResponseEntity.ok().build();
     }
 }
 

@@ -4,9 +4,6 @@ public class IdInputDto {
 
     public Long id;
 
-    public IdInputDto() {
-    }
-
     public Long getId() {
         return id;
     }

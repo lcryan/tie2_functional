@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 @Table
 public class WallBracket {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "name")
     private String name;
@@ -17,13 +17,6 @@ public class WallBracket {
     @Column(name = "price")
     private double price;
 
-    public WallBracket(Long id, String name, String size, boolean adjustable, double price) {
-        this.id = id;
-        this.name = name;
-        this.size = size;
-        this.adjustable = adjustable;
-        this.price = price;
-    }
 
     public WallBracket() {
 

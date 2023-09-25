@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
-@Table
+@Table(name = "televisions")
 public class Television {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -69,31 +69,8 @@ public class Television {
     private EnergyLabel energyLabel; // pulling from enum class //
 
     @OneToOne
+    @JoinColumn(name = "compatible with ci-module")
     private RemoteControl remoteControl; // this lays the relation to Remote Control //
-
-
-    public Television(Long id, String type, String brand, String name, double price, double availableSize, double refreshRate, String screenType, String screenQuality, boolean smartTv, boolean wifi, boolean voiceControl, boolean hdr, boolean bluetooth, boolean ambiLight, Integer originalStock, Integer sold, LocalDate dateOfPurchase, LocalDateTime currentStock, EnergyLabel energyLabel) {
-        this.id = id;
-        this.type = type;
-        this.brand = brand;
-        this.name = name;
-        this.price = price;
-        this.availableSize = availableSize;
-        this.refreshRate = refreshRate;
-        this.screenType = screenType;
-        this.screenQuality = screenQuality;
-        this.smartTv = smartTv;
-        this.wifi = wifi;
-        this.voiceControl = voiceControl;
-        this.hdr = hdr;
-        this.bluetooth = bluetooth;
-        this.ambiLight = ambiLight;
-        this.originalStock = originalStock;
-        this.sold = sold;
-        this.dateOfPurchase = dateOfPurchase;
-        this.currentStock = currentStock;
-        this.energyLabel = energyLabel;
-    }
 
     public Television() {
     }

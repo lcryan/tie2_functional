@@ -61,16 +61,8 @@ public class RemoteControlService {
     public RemoteControlDto updateRemoteControl(@PathVariable Long id, RemoteControlInputDto upRemoteControl) {
         Optional<RemoteControl> optionalRemoteControl = remoteControlRepository.findById(id);
         if (optionalRemoteControl.isPresent()) {
+
             RemoteControl remoteControlOne = optionalRemoteControl.get();
-
-            remoteControlOne.setId(upRemoteControl.getId());
-            remoteControlOne.setName(upRemoteControl.getName());
-            remoteControlOne.setBrand(upRemoteControl.getBrand());
-            remoteControlOne.setCompatibleWith(upRemoteControl.getCompatibleWith());
-            remoteControlOne.setBatteryType(upRemoteControl.getBatteryType());
-            remoteControlOne.setOriginalStock(upRemoteControl.getOriginalStock());
-            remoteControlOne.setPrice(upRemoteControl.getPrice());
-
             RemoteControl updatedRemoteControl = remoteControlRepository.save(remoteControlOne);
             return transferRemoteControlToRemoteControlDto(updatedRemoteControl);
         } else {

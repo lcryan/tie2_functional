@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 @Table
 public class CiModule {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "name")
     private String name;
