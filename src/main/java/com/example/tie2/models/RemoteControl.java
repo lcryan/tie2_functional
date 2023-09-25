@@ -29,6 +29,10 @@ public class RemoteControl {
     // this makes Television the "owner" of the OneToOne relation between RemoteControl and Television //
     private Television television;
 
+    public RemoteControl() {
+
+    }
+
     public Long getId() {
         return id;
     }

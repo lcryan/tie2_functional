@@ -69,7 +69,6 @@ public class Television {
     private EnergyLabel energyLabel; // pulling from enum class //
 
     @OneToOne
-    @JoinColumn(name = "compatible with ci-module")
     private RemoteControl remoteControl; // this lays the relation to Remote Control //
 
     public Television() {
