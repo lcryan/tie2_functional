@@ -25,6 +25,10 @@ public class RemoteControl {
     @Column(name = "price")
     private double price;
 
+    @OneToOne(mappedBy = "remote_control")
+    // this makes Television the "owner" of the OneToOne relation between RemoteControl and Television //
+    private Television television;
+
     public RemoteControl(Long id, String name, String brand, String compatibleWith, String batteryType, Integer originalStock, double price) {
         this.id = id;
         this.name = name;
@@ -93,5 +97,13 @@ public class RemoteControl {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public Television getTelevision() {
+        return television;
+    }
+
+    public void setTelevision(Television television) {
+        this.television = television;
     }
 }
