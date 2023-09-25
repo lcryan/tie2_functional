@@ -5,12 +5,14 @@ import com.example.tie2.dtos.RemoteControlInputDto;
 import com.example.tie2.exceptions.RecordNotFoundException;
 import com.example.tie2.models.RemoteControl;
 import com.example.tie2.repositories.RemoteControlRepository;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class RemoteControlService {
 
     private final RemoteControlRepository remoteControlRepository;
