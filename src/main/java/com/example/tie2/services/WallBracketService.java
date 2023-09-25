@@ -22,7 +22,7 @@ public class WallBracketService {
         this.wallBracketRepository = wallBracketRepository;
     }
 
-    public List<WallBracketDto> getAllWallBrackets(Long id) {
+    public List<WallBracketDto> getAllWallBrackets() {
         List<WallBracket> wallBracketList = wallBracketRepository.findAll();
         List<WallBracketDto> wallBracketDtoList = new ArrayList<>();
         for (WallBracket wallBracket : wallBracketList) {
