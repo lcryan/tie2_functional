@@ -16,10 +16,6 @@ public class CiModule {
     @Column(name = "price")
     private double price;
 
-    public CiModule() {
-
-    }
-
     public Long getId() {
         return id;
     }
