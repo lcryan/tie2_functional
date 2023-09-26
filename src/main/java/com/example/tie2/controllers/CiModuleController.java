@@ -37,7 +37,7 @@ public class CiModuleController {
     }
 
     @DeleteMapping("/cimodules/{id}")
-    public ResponseEntity<Optional<CiModuleDto>> deleteCiModule(@PathVariable Long id) {
+    public ResponseEntity<Object> deleteCiModule(@PathVariable Long id) {
         ciModuleService.deleteCiModule(id);
         return ResponseEntity.noContent().build();
     }

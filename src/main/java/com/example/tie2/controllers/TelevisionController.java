@@ -1,6 +1,7 @@
 package com.example.tie2.controllers;
 
 import com.example.tie2.dtos.IdInputDto;
+import com.example.tie2.dtos.RemoteControlDto;
 import com.example.tie2.dtos.TelevisionDto;
 import com.example.tie2.dtos.TelevisionInputDto;
 import com.example.tie2.models.RemoteControl;
@@ -23,37 +24,39 @@ public class TelevisionController {
 
     @GetMapping("/televisions")
     public ResponseEntity<List<TelevisionDto>> getAllTelevisions() {
-        return ResponseEntity.ok(televisionService.getAllTelevisions());
+        List<TelevisionDto> televisionDtoList = televisionService.getAllTelevisions();
+        return ResponseEntity.ok(televisionDtoList);
     }
 
     @PostMapping("/televisions")
-    public ResponseEntity<TelevisionDto> createTelevision(@Valid @RequestBody TelevisionInputDto televisionInputDto) {
-        TelevisionDto televisionDto = televisionService.createTelevision(televisionInputDto);
+    public ResponseEntity<Object> createTelevision(@Valid @RequestBody TelevisionInputDto inputDto) { // why do they use Object here instead of just TelevisionDto?? //
+        TelevisionDto televisionDto = televisionService.createTelevision(inputDto);
         return ResponseEntity.created(null).body(televisionDto);
     }
 
     @GetMapping("/televisions/{id}")
-    public ResponseEntity<TelevisionDto> getTelevision(@PathVariable Long id) {
-        return ResponseEntity.ok(televisionService.getOneTelevision(id));
+    public ResponseEntity<TelevisionDto> getTelevision(@PathVariable("id") Long id) {
+        TelevisionDto television = televisionService.getOneTelevision(id);
+        return ResponseEntity.ok().body(television);
     }
 
     @DeleteMapping("/televisions/{id}")
-    public ResponseEntity<Optional<TelevisionDto>> deleteOneTelevision(@PathVariable Long id) {
+    public ResponseEntity<Object> deleteOneTelevision(@PathVariable Long id) {
         televisionService.deleteTelevision(id); // calling on function in service //
         return ResponseEntity.noContent().build();
     }
 
 
     @PutMapping("/televisions/{id}")
-    public ResponseEntity<TelevisionDto> updateTelevision(@PathVariable Long id, @Valid @RequestBody TelevisionInputDto newTele) {
+    public ResponseEntity<Object> updateTelevision(@PathVariable Long id, @Valid @RequestBody TelevisionInputDto newTele) {
         TelevisionDto televisionInputDtoOne = televisionService.updateTelevision(id, newTele);
         return ResponseEntity.ok().body(televisionInputDtoOne);
     }
 
     // assigning remote control to television //
-    @PutMapping("/televisions/{id}/{remoteControl}")
-    public ResponseEntity<Object> assignRemoteControlToTelevision(@PathVariable Long television, @RequestBody IdInputDto input, @PathVariable String remoteControl) {
-        televisionService.assignRemoteControlToTelevision(television, input.id);
+    @PutMapping("/televisions/{id}/remotecontrol")
+    public ResponseEntity<Object> assignRemoteControlToTelevision(@PathVariable("id") Long id, @RequestBody IdInputDto input) {
+        televisionService.assignRemoteControlToTelevision(id, input.id);
         return ResponseEntity.ok().build();
     }
 }

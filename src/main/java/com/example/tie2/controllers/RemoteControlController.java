@@ -40,7 +40,7 @@ public class RemoteControlController {
     }
 
     @DeleteMapping("/remotecontrols/{id}")
-    public ResponseEntity<Optional<RemoteControlDto>> deleteRemoteControl(@PathVariable("id") Long id) { // see comment above //
+    public ResponseEntity<Object> deleteRemoteControl(@PathVariable("id") Long id) { // see comment above //
         remoteControlService.deleteRemoteControl(id);
         return ResponseEntity.noContent().build();
     }
