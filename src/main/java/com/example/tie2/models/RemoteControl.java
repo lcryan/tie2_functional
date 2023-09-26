@@ -27,7 +27,7 @@ public class RemoteControl {
 
     @OneToOne(mappedBy = "remoteControl") // relation correct on this end - checked with uitwerkingen !!  //
     // this makes Television the "owner" of the OneToOne relation between RemoteControl and Television //
-    private Television television;
+    Television television;
 
     public Long getId() {
         return id;
