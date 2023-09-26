@@ -1,10 +1,10 @@
 package com.example.tie2.controllers;
 
 import com.example.tie2.dtos.IdInputDto;
-import com.example.tie2.dtos.RemoteControlDto;
+
 import com.example.tie2.dtos.TelevisionDto;
 import com.example.tie2.dtos.TelevisionInputDto;
-import com.example.tie2.models.RemoteControl;
+
 import com.example.tie2.services.TelevisionService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
