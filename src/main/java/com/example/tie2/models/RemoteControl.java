@@ -12,7 +12,6 @@ public class RemoteControl {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String remoteControl;
     @Column(name = "name")
     private String name;
     @Column(name = "brand")
@@ -26,13 +25,9 @@ public class RemoteControl {
     @Column(name = "price")
     private double price;
 
-    @OneToOne(mappedBy = "remoteControl")
+    @OneToOne(mappedBy = "remoteControl") // relation correct on this end - checked with uitwerkingen !!  //
     // this makes Television the "owner" of the OneToOne relation between RemoteControl and Television //
     private Television television;
-
-    public RemoteControl() {
-
-    }
 
     public Long getId() {
         return id;
@@ -90,13 +85,6 @@ public class RemoteControl {
         this.price = price;
     }
 
-    public String getRemoteControl() {
-        return remoteControl;
-    }
-
-    public void setRemoteControl(String remoteControl) {
-        this.remoteControl = remoteControl;
-    }
 
     public Television getTelevision() {
         return television;
