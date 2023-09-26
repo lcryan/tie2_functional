@@ -16,14 +16,6 @@ public class CiModule {
     @Column(name = "price")
     private double price;
 
-
-    public CiModule(Long id, String name, double price, String type) {
-        this.id = id;
-        this.name = name;
-        this.price = price;
-        this.type = type;
-    }
-
     public CiModule() {
 
     }
