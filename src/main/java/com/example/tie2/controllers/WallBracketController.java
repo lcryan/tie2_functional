@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.ResourceBundle;
+
 
 @RestController
 public class WallBracketController {
@@ -22,22 +22,26 @@ public class WallBracketController {
 
     @GetMapping("/wallbrackets")
     public ResponseEntity<List<WallBracketDto>> getAllWallBrackets() {
-        return ResponseEntity.ok(wallBracketService.getAllWallBrackets());
+
+        List<WallBracketDto> wallBracketDtoList = wallBracketService.getAllWallBrackets();
+        return ResponseEntity.ok(wallBracketDtoList);
     }
 
     @PostMapping("/wallbrackets")
-    public ResponseEntity<WallBracketDto> createWallBracket(@Valid @RequestBody WallBracketInputDto wallBracketInputDto) {
-        WallBracketDto wallBracketDto = wallBracketService.createWallBracket(wallBracketInputDto);
-        return ResponseEntity.created(null).body(wallBracketDto);
+    public ResponseEntity<WallBracketDto> createWallBracket(@RequestBody WallBracketInputDto inputDto) {
+        WallBracketDto wallBracket = wallBracketService.createWallBracket(inputDto);
+        return ResponseEntity.created(null).body(wallBracket);
     }
 
     @GetMapping("/wallbrackets/{id}")
     public ResponseEntity<WallBracketDto> getWallBracket(@PathVariable Long id) {
-        return ResponseEntity.ok(wallBracketService.getOneWallBracket(id));
+
+        WallBracketDto wallBracketDto = wallBracketService.getOneWallBracket(id);
+        return ResponseEntity.ok(wallBracketDto);
     }
 
     @DeleteMapping("/wallbrackets/{id}")
-    public ResponseEntity<Optional<WallBracketDto>> deleteOneWallBracket(@PathVariable Long id) {
+    public ResponseEntity<Object> deleteOneWallBracket(@PathVariable Long id) {
         wallBracketService.deleteWallBracket(id);
         return ResponseEntity.noContent().build();
     }
