@@ -2,8 +2,11 @@ package com.example.tie2.services;
 
 import com.example.tie2.dtos.CiModuleDto;
 import com.example.tie2.dtos.CiModuleInputDto;
+import com.example.tie2.dtos.TelevisionDto;
+import com.example.tie2.dtos.TelevisionInputDto;
 import com.example.tie2.exceptions.RecordNotFoundException;
 import com.example.tie2.models.CiModule;
+import com.example.tie2.models.Television;
 import com.example.tie2.repositories.CiModuleRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,22 +21,21 @@ public class CiModuleService {
     private final CiModuleRepository ciModuleRepository;
 
     public CiModuleService(CiModuleRepository ciModuleRepository) {
-
         this.ciModuleRepository = ciModuleRepository;
     }
 
     public List<CiModuleDto> getAllCiModules() {
         List<CiModule> ciModuleList = ciModuleRepository.findAll();
         List<CiModuleDto> ciModuleDtoList = new ArrayList<>();
-        for (CiModule ciModule : ciModuleList) {
-            CiModuleDto ciModuleDto = transferCiModuleToCiModuleDto(ciModule);
+        for (CiModule ci : ciModuleList) {
+            CiModuleDto ciModuleDto = transferCiModuleToCiModuleDto(ci);
             ciModuleDtoList.add(ciModuleDto);
         }
         return ciModuleDtoList;
     }
 
-    public CiModuleDto createCiModule(CiModuleInputDto ciModuleInputDto) {
-        CiModule newCiModule = transferCiModuleInputDtoToCiModule(ciModuleInputDto);
+    public CiModuleDto createCiModule(CiModuleInputDto inputDto) {
+        CiModule newCiModule = transferCiModuleInputDtoToCiModule(inputDto);
         ciModuleRepository.save(newCiModule);
         return transferCiModuleToCiModuleDto(newCiModule);
     }
