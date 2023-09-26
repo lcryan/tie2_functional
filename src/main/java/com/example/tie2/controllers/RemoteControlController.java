@@ -27,25 +27,27 @@ public class RemoteControlController {
     }
 
     @PostMapping("/remotecontrols")
-    public ResponseEntity<RemoteControlDto> createRemoteControl(@Valid @RequestBody RemoteControlInputDto remoteControlInputDto) {
-        RemoteControlDto remoteControlDto = remoteControlService.createRemoteControlDto(remoteControlInputDto);
-        return ResponseEntity.created(null).body(remoteControlDto);
+    public ResponseEntity<RemoteControlDto> createRemoteControl(@RequestBody RemoteControlInputDto inputDto) {
+        RemoteControlDto remoteControlDtoOne = remoteControlService.createRemoteControlDto(inputDto);
+        return ResponseEntity.created(null).body(remoteControlDtoOne);
     }
 
     @GetMapping("/remotecontrols/{id}")
-    public ResponseEntity<RemoteControlDto> getRemoteControl(@PathVariable Long id) {
-        return ResponseEntity.ok(remoteControlService.getOneRemoteControl(id));
+    public ResponseEntity<RemoteControlDto> getRemoteControl(@PathVariable("id") Long id) { // this changes due to OneToOne relation //
+
+        RemoteControlDto remoteDto = remoteControlService.getOneRemoteControl(id);
+        return ResponseEntity.ok(remoteDto);
     }
 
     @DeleteMapping("/remotecontrols/{id}")
-    public ResponseEntity<Optional<RemoteControlDto>> deleteRemoteControl(@PathVariable Long id) {
+    public ResponseEntity<Optional<RemoteControlDto>> deleteRemoteControl(@PathVariable("id") Long id) { // see comment above //
         remoteControlService.deleteRemoteControl(id);
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/remotecontrols/{id}")
-    public ResponseEntity<RemoteControlDto> updateTelevision(@PathVariable Long id, @Valid @RequestBody RemoteControlInputDto remoteControlInputDto) {
-        RemoteControlDto remoteControlInputDto1 = remoteControlService.updateRemoteControl(id, remoteControlInputDto);
-        return ResponseEntity.ok().body(remoteControlInputDto1);
+    public ResponseEntity<RemoteControlInputDto> updateTelevision(@PathVariable("id") Long id, @RequestBody RemoteControlInputDto inputDto) {
+        remoteControlService.updateRemoteControl(id, inputDto);
+        return ResponseEntity.ok(inputDto);
     }
 }
