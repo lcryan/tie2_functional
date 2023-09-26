@@ -17,11 +17,6 @@ public class WallBracket {
     @Column(name = "price")
     private double price;
 
-
-    public WallBracket() {
-
-    }
-
     public Long getId() {
         return id;
     }
