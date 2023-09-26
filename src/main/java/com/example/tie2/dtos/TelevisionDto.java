@@ -14,11 +14,11 @@ public class TelevisionDto {
 
     private String name;
 
-    private double price;
+    private Double price;
 
-    private double availableSize;
+    private Double availableSize;
 
-    private double refreshRate;
+    private Double refreshRate;
 
     private String screenType;
 
@@ -83,27 +83,27 @@ public class TelevisionDto {
         this.name = name;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
-    public double getAvailableSize() {
+    public Double getAvailableSize() {
         return availableSize;
     }
 
-    public void setAvailableSize(double availableSize) {
+    public void setAvailableSize(Double availableSize) {
         this.availableSize = availableSize;
     }
 
-    public double getRefreshRate() {
+    public Double getRefreshRate() {
         return refreshRate;
     }
 
-    public void setRefreshRate(double refreshRate) {
+    public void setRefreshRate(Double refreshRate) {
         this.refreshRate = refreshRate;
     }
 
