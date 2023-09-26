@@ -20,7 +20,8 @@ public class CiModuleController {
 
     @GetMapping("/cimodules")
     public ResponseEntity<List<CiModuleDto>> getAllCiModules() {
-        return ResponseEntity.ok(ciModuleService.getAllCiModules());
+        List<CiModuleDto> ciModuleDtoList = ciModuleService.getAllCiModules();
+        return ResponseEntity.ok(ciModuleDtoList);
     }
 
     @PostMapping("/cimodules")

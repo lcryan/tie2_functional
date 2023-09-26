@@ -22,7 +22,8 @@ public class RemoteControlController {
 
     @GetMapping("/remotecontrols")
     public ResponseEntity<List<RemoteControlDto>> getAllRemoteControls() {
-        return ResponseEntity.ok(remoteControlService.getAllRemoteControls());
+        List<RemoteControlDto> remoteControlDtoList = remoteControlService.getAllRemoteControls();
+        return ResponseEntity.ok(remoteControlDtoList);
     }
 
     @PostMapping("/remotecontrols")
