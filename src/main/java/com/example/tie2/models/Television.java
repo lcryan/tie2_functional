@@ -11,10 +11,8 @@ public class Television {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String television;
     @Column(name = "type")
     private String type;
-
     @Column(name = "brand")
     private String brand;
 
@@ -69,17 +67,10 @@ public class Television {
     private EnergyLabel energyLabel; // pulling from enum class //
 
     @OneToOne
-    private RemoteControl remoteControl; // this lays the relation to Remote Control //
+    private RemoteControl remoteControl; // this lays the relation to Remote Control // // correct! checked with solution //
+
 
     public Television() {
-    }
-
-    public String getTelevision() {
-        return television;
-    }
-
-    public void setTelevision(String television) {
-        this.television = television;
     }
 
     public Long getId() {
