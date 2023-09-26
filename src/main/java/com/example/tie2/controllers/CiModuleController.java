@@ -18,29 +18,29 @@ public class CiModuleController {
         this.ciModuleService = ciModuleService;
     }
 
-    @GetMapping("/ciModules")
+    @GetMapping("/cimodules")
     public ResponseEntity<List<CiModuleDto>> getAllCiModules() {
         return ResponseEntity.ok(ciModuleService.getAllCiModules());
     }
 
-    @PostMapping("/ciModules")
+    @PostMapping("/cimodules")
     public ResponseEntity<CiModuleDto> createNewCiModule(@Valid @RequestBody CiModuleInputDto ciModuleInputDto) {
         CiModuleDto ciModuleDto = ciModuleService.createCiModule(ciModuleInputDto);
         return ResponseEntity.created(null).body(ciModuleDto);
     }
 
-    @GetMapping("/ciModules/{id}")
+    @GetMapping("/cimodules/{id}")
     public ResponseEntity<CiModuleDto> getCiModule(@PathVariable Long id) {
         return ResponseEntity.ok(ciModuleService.getOneCiModule(id));
     }
 
-    @DeleteMapping("/ciModules/{id}")
+    @DeleteMapping("/cimodules/{id}")
     public ResponseEntity<Optional<CiModuleDto>> deleteCiModule(@PathVariable Long id) {
         ciModuleService.deleteCiModule(id);
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("ciModules/{id}")
+    @PutMapping("cimodules/{id}")
     public ResponseEntity<CiModuleDto> updateCiModule(@PathVariable Long id, @Valid @RequestBody CiModuleInputDto newCiModule) {
         CiModuleDto ciModuleDtoOne = ciModuleService.updateCiModule(id, newCiModule);
         return ResponseEntity.ok().body(ciModuleDtoOne);
