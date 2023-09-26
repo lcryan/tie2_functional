@@ -1,6 +1,7 @@
 package com.example.tie2.dtos;
 
 import com.example.tie2.models.EnergyLabel;
+import com.example.tie2.models.RemoteControl;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -209,6 +210,10 @@ public class TelevisionDto {
 
     public void setEnergyLabel(EnergyLabel energyLabel) {
         this.energyLabel = energyLabel;
+    }
+
+    public void setRemoteControlDto(RemoteControlDto remoteControlDto) {
+        this.remoteControlDto = remoteControlDto;
     }
 }
 
