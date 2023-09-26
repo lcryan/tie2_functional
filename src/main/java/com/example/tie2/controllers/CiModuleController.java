@@ -25,14 +25,15 @@ public class CiModuleController {
     }
 
     @PostMapping("/cimodules")
-    public ResponseEntity<CiModuleDto> createNewCiModule(@Valid @RequestBody CiModuleInputDto ciModuleInputDto) {
-        CiModuleDto ciModuleDto = ciModuleService.createCiModule(ciModuleInputDto);
-        return ResponseEntity.created(null).body(ciModuleDto);
+    public ResponseEntity<CiModuleDto> createNewCiModule(@RequestBody CiModuleInputDto inputDto) {
+        CiModuleDto inputCiModule = ciModuleService.createCiModule(inputDto);
+        return ResponseEntity.created(null).body(inputCiModule);
     }
 
     @GetMapping("/cimodules/{id}")
     public ResponseEntity<CiModuleDto> getCiModule(@PathVariable Long id) {
-        return ResponseEntity.ok(ciModuleService.getOneCiModule(id));
+        CiModuleDto ciModuleDto = ciModuleService.getOneCiModule(id);
+        return ResponseEntity.ok(ciModuleDto);
     }
 
     @DeleteMapping("/cimodules/{id}")
