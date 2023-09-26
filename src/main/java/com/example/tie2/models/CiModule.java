@@ -3,7 +3,7 @@ package com.example.tie2.models;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "ci_modules")
+@Table
 public class CiModule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -3,7 +3,7 @@ package com.example.tie2.models;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "wall_brackets")
+@Table
 public class WallBracket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

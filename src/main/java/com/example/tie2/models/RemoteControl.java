@@ -7,7 +7,7 @@ import jakarta.persistence.Table;
 
 
 @Entity
-@Table(name = "remote_controls")
+@Table
 public class RemoteControl {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
