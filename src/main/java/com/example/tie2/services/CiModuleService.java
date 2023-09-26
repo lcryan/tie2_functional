@@ -2,11 +2,10 @@ package com.example.tie2.services;
 
 import com.example.tie2.dtos.CiModuleDto;
 import com.example.tie2.dtos.CiModuleInputDto;
-import com.example.tie2.dtos.TelevisionDto;
-import com.example.tie2.dtos.TelevisionInputDto;
+
 import com.example.tie2.exceptions.RecordNotFoundException;
 import com.example.tie2.models.CiModule;
-import com.example.tie2.models.Television;
+
 import com.example.tie2.repositories.CiModuleRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
