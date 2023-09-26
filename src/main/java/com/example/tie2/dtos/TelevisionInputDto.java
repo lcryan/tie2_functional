@@ -23,6 +23,7 @@ public class TelevisionInputDto {
 
     private Double availableSize;
 
+    @NotNull(message = "cannot be null")
     private Double refreshRate;
 
     private String screenType;
