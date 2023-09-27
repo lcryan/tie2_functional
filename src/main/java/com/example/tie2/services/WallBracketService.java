@@ -101,9 +101,9 @@ public class WallBracketService {
 
         wallBracket.setId(wallBracketInputDto.getId());
         wallBracket.setName(wallBracketInputDto.getName());
-        wallBracket.setSize(wallBracket.getSize());
+        wallBracket.setSize(wallBracketInputDto.getSize());
         wallBracket.setAdjustable(wallBracketInputDto.isAdjustable());
-        wallBracket.setPrice(wallBracket.getPrice());
+        wallBracket.setPrice(wallBracketInputDto.getPrice());
 
         return wallBracket;
     }
