@@ -5,6 +5,8 @@ import com.example.tie2.dtos.WallBracketInputDto;
 import com.example.tie2.services.WallBracketService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,9 +30,20 @@ public class WallBracketController {
     }
 
     @PostMapping("/wallbrackets")
-    public ResponseEntity<WallBracketDto> createWallBracket(@RequestBody WallBracketInputDto inputDto) {
+    public ResponseEntity<Object> createWallBracket(@RequestBody WallBracketInputDto inputDto, BindingResult bindingResult) {
         WallBracketDto wallBracket = wallBracketService.createWallBracket(inputDto);
-        return ResponseEntity.created(null).body(wallBracket);
+        if (bindingResult.hasFieldErrors()) {
+            StringBuilder sb = new StringBuilder();
+            for (FieldError fe : bindingResult.getFieldErrors()) {
+                sb.append(fe.getField());
+                sb.append(" : ");
+                sb.append(fe.getDefaultMessage());
+                sb.append("\n");
+            }
+            return ResponseEntity.badRequest().body(sb.toString());
+        } else {
+            return ResponseEntity.created(null).body(wallBracket);
+        }
     }
 
     @GetMapping("/wallbrackets/{id}")
@@ -47,7 +60,8 @@ public class WallBracketController {
     }
 
     @PutMapping("/wallbrackets/{id}")
-    public ResponseEntity<WallBracketDto> updateWallBracket(@PathVariable Long id, @Valid @RequestBody WallBracketInputDto wallBracketInputDto) {
+    public ResponseEntity<WallBracketDto> updateWallBracket(@PathVariable Long
+                                                                    id, @Valid @RequestBody WallBracketInputDto wallBracketInputDto) {
         WallBracketDto wallBracketDto1 = wallBracketService.updateWallbracket(id, wallBracketInputDto);
         return ResponseEntity.ok().body(wallBracketDto1);
     }

@@ -6,6 +6,8 @@ import com.example.tie2.dtos.RemoteControlInputDto;
 import com.example.tie2.services.RemoteControlService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,9 +29,20 @@ public class RemoteControlController {
     }
 
     @PostMapping("/remotecontrols")
-    public ResponseEntity<RemoteControlDto> createRemoteControl(@RequestBody RemoteControlInputDto inputDto) {
+    public ResponseEntity<Object> createRemoteControl(@RequestBody RemoteControlInputDto inputDto, BindingResult bindingResult) {
         RemoteControlDto remoteControlDtoOne = remoteControlService.createRemoteControlDto(inputDto);
-        return ResponseEntity.created(null).body(remoteControlDtoOne);
+        if (bindingResult.hasFieldErrors()) {
+            StringBuilder sb = new StringBuilder();
+            for (FieldError fe : bindingResult.getFieldErrors()) {
+                sb.append(fe.getField());
+                sb.append(" : ");
+                sb.append(fe.getDefaultMessage());
+                sb.append("\n");
+            }
+            return ResponseEntity.badRequest().body(sb.toString());
+        } else {
+            return ResponseEntity.created(null).body(remoteControlDtoOne);
+        }
     }
 
     @GetMapping("/remotecontrols/{id}")
@@ -46,7 +59,8 @@ public class RemoteControlController {
     }
 
     @PutMapping("/remotecontrols/{id}")
-    public ResponseEntity<RemoteControlInputDto> updateTelevision(@PathVariable("id") Long id, @RequestBody RemoteControlInputDto inputDto) {
+    public ResponseEntity<RemoteControlInputDto> updateTelevision(@PathVariable("id") Long
+                                                                          id, @RequestBody RemoteControlInputDto inputDto) {
         remoteControlService.updateRemoteControl(id, inputDto);
         return ResponseEntity.ok(inputDto);
     }
