@@ -68,7 +68,7 @@ public class TelevisionService {
             Television televisionOne = optionalTelevision.get();
 
             televisionOne.setBrand(upTelevision.getBrand());
-            // enz. // // here more adjustments can be added - due to lack of time, I have only added brand //
+            // TODO : nz. // // here more adjustments can be added - due to lack of time, I have only added brand //
             Television updatedTelevision = televisionRepository.save(televisionOne);
 
             return transferTelevisionToTelevisionDto(updatedTelevision);

@@ -5,6 +5,8 @@ import com.example.tie2.dtos.CiModuleInputDto;
 import com.example.tie2.services.CiModuleService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,11 +27,23 @@ public class CiModuleController {
     }
 
     @PostMapping("/cimodules")
-    public ResponseEntity<CiModuleDto> createNewCiModule(@RequestBody CiModuleInputDto inputDto) {
-        CiModuleDto ciModuleDto = ciModuleService.createCiModule(inputDto);
-        return ResponseEntity.created(null).body(ciModuleDto);
+    public ResponseEntity<Object> createNewCiModule(@Valid @RequestBody CiModuleInputDto inputDto, BindingResult bindingResult) {
+        if (bindingResult.hasFieldErrors()) {
+            StringBuilder sb = new StringBuilder();
+            for (FieldError fe : bindingResult.getFieldErrors()) {
+                sb.append(fe.getField());
+                sb.append(" : ");
+                sb.append(fe.getDefaultMessage());
+                sb.append("\n");
+            }
+            return ResponseEntity.badRequest().body(sb.toString());
+        } else {
+            CiModuleDto ciModuleDto = ciModuleService.createCiModule(inputDto);
+            return ResponseEntity.created(null).body(ciModuleDto);
+        }
     }
 
+    // REMEMBER : the binding result makes sure that you see the deafult message in postman and not only in IntelliJ !! //
     @GetMapping("/cimodules/{id}")
     public ResponseEntity<CiModuleDto> getCiModule(@PathVariable Long id) {
         CiModuleDto ciModuleDto = ciModuleService.getOneCiModule(id);

@@ -31,6 +31,7 @@ public class TelevisionController {
     @PostMapping("/televisions")
     public ResponseEntity<Object> createTelevision(@Valid @RequestBody TelevisionInputDto inputDto) { // why do they use Object here instead of just TelevisionDto?? //
         TelevisionDto televisionDto = televisionService.createTelevision(inputDto);
+// save your object here !!! // how do I do this ?? //
         return ResponseEntity.created(null).body(televisionDto);
     }
 

@@ -96,9 +96,9 @@ public class CiModuleService {
         var ciModule = new CiModule();
 
         ciModule.setId(ciModuleInputDto.getId());
-        ciModuleInputDto.setName(ciModuleInputDto.getName());
-        ciModuleInputDto.setType(ciModuleInputDto.getType());
-        ciModuleInputDto.setPrice(ciModuleInputDto.getPrice());
+        ciModule.setName(ciModuleInputDto.getName());
+        ciModule.setType(ciModuleInputDto.getType());
+        ciModule.setPrice(ciModuleInputDto.getPrice());
 
         return ciModule;
     }
