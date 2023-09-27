@@ -8,6 +8,8 @@ import com.example.tie2.dtos.TelevisionInputDto;
 import com.example.tie2.services.TelevisionService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,10 +31,20 @@ public class TelevisionController {
     }
 
     @PostMapping("/televisions")
-    public ResponseEntity<Object> createTelevision(@Valid @RequestBody TelevisionInputDto inputDto) { // why do they use Object here instead of just TelevisionDto?? //
+    public ResponseEntity<Object> createTelevision(@Valid @RequestBody TelevisionInputDto inputDto, BindingResult bindingResult) { // why do they use Object here instead of just TelevisionDto?? //
         TelevisionDto televisionDto = televisionService.createTelevision(inputDto);
-// save your object here !!! // how do I do this ?? //
-        return ResponseEntity.created(null).body(televisionDto);
+        if (bindingResult.hasFieldErrors()) {
+            StringBuilder sb = new StringBuilder();
+            for (FieldError fe : bindingResult.getFieldErrors()) {
+                sb.append(fe.getField());
+                sb.append(" : ");
+                sb.append(fe.getDefaultMessage());
+                sb.append("\n");
+            }
+            return ResponseEntity.badRequest().body(sb.toString());
+        } else {
+            return ResponseEntity.created(null).body(televisionDto);
+        }
     }
 
     @GetMapping("/televisions/{id}")
@@ -49,14 +61,16 @@ public class TelevisionController {
 
 
     @PutMapping("/televisions/{id}")
-    public ResponseEntity<Object> updateTelevision(@PathVariable Long id, @Valid @RequestBody TelevisionInputDto newTele) {
+    public ResponseEntity<Object> updateTelevision(@PathVariable Long id, @Valid @RequestBody TelevisionInputDto
+            newTele) {
         TelevisionDto televisionInputDtoOne = televisionService.updateTelevision(id, newTele);
         return ResponseEntity.ok().body(televisionInputDtoOne);
     }
 
     // assigning remote control to television //
     @PutMapping("/televisions/{id}/remotecontrol")
-    public ResponseEntity<Object> assignRemoteControlToTelevision(@PathVariable("id") Long id, @RequestBody IdInputDto input) {
+    public ResponseEntity<Object> assignRemoteControlToTelevision(@PathVariable("id") Long
+                                                                          id, @RequestBody IdInputDto input) {
         televisionService.assignRemoteControlToTelevision(id, input.id);
         return ResponseEntity.ok().build();
     }
