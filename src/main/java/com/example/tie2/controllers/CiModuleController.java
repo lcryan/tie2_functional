@@ -10,7 +10,6 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class CiModuleController {
@@ -24,7 +23,7 @@ public class CiModuleController {
     public ResponseEntity<List<CiModuleDto>> getAllCiModules() {
         List<CiModuleDto> ciModuleDtoList = ciModuleService.getAllCiModules();
         return ResponseEntity.ok(ciModuleDtoList);
-    }
+    } // functional //
 
     @PostMapping("/cimodules")
     public ResponseEntity<Object> createNewCiModule(@Valid @RequestBody CiModuleInputDto inputDto, BindingResult bindingResult) {
@@ -41,20 +40,20 @@ public class CiModuleController {
             CiModuleDto ciModuleDto = ciModuleService.createCiModule(inputDto);
             return ResponseEntity.created(null).body(ciModuleDto);
         }
-    }
+    } // functional //
 
     // REMEMBER : the binding result makes sure that you see the default message in postman and not only in IntelliJ !! //
     @GetMapping("/cimodules/{id}")
     public ResponseEntity<CiModuleDto> getCiModule(@PathVariable Long id) {
         CiModuleDto ciModuleDto = ciModuleService.getOneCiModule(id);
         return ResponseEntity.ok(ciModuleDto);
-    }
+    } // functional //
 
     @DeleteMapping("/cimodules/{id}")
     public ResponseEntity<Object> deleteCiModule(@PathVariable Long id) {
         ciModuleService.deleteCiModule(id);
         return ResponseEntity.noContent().build();
-    }
+    } // functional //
 
     @PutMapping("cimodules/{id}")
     public ResponseEntity<CiModuleDto> updateCiModule(@PathVariable Long id, @Valid @RequestBody CiModuleInputDto newCiModule) {

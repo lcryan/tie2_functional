@@ -31,8 +31,7 @@ public class TelevisionController {
     }
 
     @PostMapping("/televisions")
-    public ResponseEntity<Object> createTelevision(@Valid @RequestBody TelevisionInputDto inputDto, BindingResult bindingResult) { // why do they use Object here instead of just TelevisionDto?? //
-        TelevisionDto televisionDto = televisionService.createTelevision(inputDto);
+    public ResponseEntity<Object> createTelevision(@Valid @RequestBody TelevisionInputDto inputDto, BindingResult bindingResult) {
         if (bindingResult.hasFieldErrors()) {
             StringBuilder sb = new StringBuilder();
             for (FieldError fe : bindingResult.getFieldErrors()) {
@@ -43,6 +42,7 @@ public class TelevisionController {
             }
             return ResponseEntity.badRequest().body(sb.toString());
         } else {
+            TelevisionDto televisionDto = televisionService.createTelevision(inputDto);
             return ResponseEntity.created(null).body(televisionDto);
         }
     }
@@ -61,7 +61,7 @@ public class TelevisionController {
 
 
     @PutMapping("/televisions/{id}")
-    public ResponseEntity<Object> updateTelevision(@PathVariable Long id, @Valid @RequestBody TelevisionInputDto
+    public ResponseEntity<TelevisionDto> updateTelevision(@PathVariable Long id, @Valid @RequestBody TelevisionInputDto
             newTele) {
         TelevisionDto televisionInputDtoOne = televisionService.updateTelevision(id, newTele);
         return ResponseEntity.ok().body(televisionInputDtoOne);

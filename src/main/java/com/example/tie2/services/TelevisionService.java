@@ -67,8 +67,9 @@ public class TelevisionService {
         if (optionalTelevision.isPresent()) {
             Television televisionOne = optionalTelevision.get();
 
+            /* televisionOne.setId(upTelevision.getId());*/
             televisionOne.setBrand(upTelevision.getBrand());
-            // TODO : nz. // // here more adjustments can be added - due to lack of time, I have only added brand //
+            televisionOne.setType(upTelevision.getType());
             Television updatedTelevision = televisionRepository.save(televisionOne);
 
             return transferTelevisionToTelevisionDto(updatedTelevision);
@@ -125,6 +126,7 @@ public class TelevisionService {
     public Television transferTelevisionInputDtoToTelevision(TelevisionInputDto televisionInputDto) {
         var television = new Television();
         television.setBrand(televisionInputDto.getBrand());
+        television.setType(televisionInputDto.getType());
         television.setName(televisionInputDto.getName());
         television.setPrice(televisionInputDto.getPrice());
         television.setAvailableSize(televisionInputDto.getAvailableSize());
