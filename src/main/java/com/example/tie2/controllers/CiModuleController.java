@@ -43,7 +43,7 @@ public class CiModuleController {
         }
     }
 
-    // REMEMBER : the binding result makes sure that you see the deafult message in postman and not only in IntelliJ !! //
+    // REMEMBER : the binding result makes sure that you see the default message in postman and not only in IntelliJ !! //
     @GetMapping("/cimodules/{id}")
     public ResponseEntity<CiModuleDto> getCiModule(@PathVariable Long id) {
         CiModuleDto ciModuleDto = ciModuleService.getOneCiModule(id);
