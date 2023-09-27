@@ -85,7 +85,7 @@ public class RemoteControlService {
     // HELPER METHODS for conversion REMOTECONTROL:  model - dto - input dto - model //
     public RemoteControlDto transferRemoteControlToRemoteControlDto(RemoteControl remoteControl) {
         RemoteControlDto remoteControlDto = new RemoteControlDto();
-        remoteControlDto.setId(remoteControlDto.getId());
+        remoteControlDto.setId(remoteControl.getId());
         remoteControlDto.setName(remoteControl.getName());
         remoteControlDto.setBrand(remoteControl.getBrand());
         remoteControlDto.setCompatibleWith(remoteControl.getCompatibleWith());
@@ -104,7 +104,7 @@ public class RemoteControlService {
         remoteControl.setCompatibleWith(remoteControlInputDto.getCompatibleWith());
         remoteControl.setBatteryType(remoteControlInputDto.getBatteryType());
         remoteControl.setOriginalStock(remoteControlInputDto.getOriginalStock());
-        remoteControl.setPrice(remoteControl.getPrice());
+        remoteControl.setPrice(remoteControlInputDto.getPrice());
 
         return remoteControl;
     }
