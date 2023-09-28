@@ -67,9 +67,27 @@ public class TelevisionService {
         if (optionalTelevision.isPresent()) {
             Television televisionOne = optionalTelevision.get();
 
-            /* televisionOne.setId(upTelevision.getId());*/
-            televisionOne.setBrand(upTelevision.getBrand());
+            televisionOne.setId(upTelevision.getId());
             televisionOne.setType(upTelevision.getType());
+            televisionOne.setBrand(upTelevision.getBrand());
+            televisionOne.setName(upTelevision.getName());
+            televisionOne.setPrice(upTelevision.getPrice());
+            televisionOne.setAvailableSize(upTelevision.getAvailableSize());
+            televisionOne.setRefreshRate(upTelevision.getRefreshRate());
+            televisionOne.setScreenType(upTelevision.getScreenType());
+            televisionOne.setScreenQuality(upTelevision.getScreenQuality());
+            televisionOne.setSmartTv(upTelevision.isSmartTv());
+            televisionOne.setWifi(upTelevision.isWifi());
+            televisionOne.setVoiceControl(upTelevision.isVoiceControl());
+            televisionOne.setHdr(upTelevision.isHdr());
+            televisionOne.setBluetooth(upTelevision.isBluetooth());
+            televisionOne.setAmbiLight(upTelevision.isAmbiLight());
+            televisionOne.setOriginalStock(upTelevision.getOriginalStock());
+            televisionOne.setSold(upTelevision.getSold());
+            televisionOne.setDateOfPurchase(upTelevision.getDateOfPurchase());
+            televisionOne.setCurrentStock(upTelevision.getCurrentStock());
+            televisionOne.setEnergyLabel(upTelevision.getEnergyLabel());
+
             Television updatedTelevision = televisionRepository.save(televisionOne);
 
             return transferTelevisionToTelevisionDto(updatedTelevision);
