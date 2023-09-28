@@ -84,47 +84,6 @@ public class TelevisionService {
 
     }
 
-
-
-/*    public TelevisionDto updateTelevision(Long id, TelevisionInputDto upTelevision) {
-
-        if (televisionRepository.findById(id).isPresent()) {
-
-
-            Television tv = televisionRepository.findById(id).get();
-            Television tv1 = transferTelevisionInputDtoToTelevision(upTelevision);
-
-
-            tv1.setId(tv.getId());
-            tv1.setType(tv.getType());
-            tv1.setBrand(tv.getBrand());
-            tv1.setName(tv.getName());
-            tv1.setPrice(tv.getPrice());
-            tv1.setAvailableSize(tv.getAvailableSize());
-            tv1.setRefreshRate(tv.getRefreshRate());
-            tv1.setScreenType(tv.getScreenType());
-            tv1.setScreenQuality(tv.getScreenQuality());
-            tv1.setSmartTv(tv.isSmartTv());
-            tv1.setWifi(tv.isWifi());
-            tv1.setVoiceControl(tv.isVoiceControl());
-            tv1.setHdr(tv.isHdr());
-            tv1.setBluetooth(tv.isBluetooth());
-            tv1.setAmbiLight(tv.isAmbiLight());
-            tv1.setOriginalStock(tv.getOriginalStock());
-            tv1.setSold(tv.getSold());
-            tv1.setDateOfPurchase(tv.getDateOfPurchase());
-            tv1.setCurrentStock(tv.getCurrentStock());
-            tv1.setEnergyLabel(tv.getEnergyLabel());
-
-            televisionRepository.save(tv1);
-
-            return transferTelevisionToTelevisionDto(tv1);
-
-        } else {
-            throw new TelevisionNotFoundException("item couldn't be found");
-        }
-    }*/
-
     // assigning remote control to television function //
 
     public void assignRemoteControlToTelevision(Long televisionId, Long remote_ControlId) {
