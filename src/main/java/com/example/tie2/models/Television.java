@@ -67,7 +67,7 @@ public class Television {
     private EnergyLabel energyLabel; // pulling from enum class //
 
     @OneToOne
-    private RemoteControl remoteControl; // this lays the relation to Remote Control // // correct! checked with solution //
+    private RemoteControl remoteControl;
 
 
     public Television() {

@@ -66,7 +66,7 @@ public class WallBracketService {
         if (optionalWallBracket.isPresent()) {
             WallBracket wallBracketOne = optionalWallBracket.get();
 
-            wallBracketOne.setId(upWallBracket.getId());
+            /*wallBracketOne.setId(upWallBracket.getId());*/
             wallBracketOne.setName(upWallBracket.getName());
             wallBracketOne.setSize(upWallBracket.getSize());
             wallBracketOne.setAdjustable(upWallBracket.isAdjustable());
