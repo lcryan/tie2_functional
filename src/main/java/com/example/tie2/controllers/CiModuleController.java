@@ -56,8 +56,8 @@ public class CiModuleController {
     } // functional //
 
     @PutMapping("cimodules/{id}")
-    public ResponseEntity<CiModuleDto> updateCiModule(@PathVariable Long id, @Valid @RequestBody CiModuleInputDto newCiModule) {
-        CiModuleDto ciModuleDtoOne = ciModuleService.updateCiModule(id, newCiModule);
+    public ResponseEntity<CiModuleDto> updateCiModule(@PathVariable Long id, @Valid @RequestBody CiModuleInputDto ciModuleInputDto) {
+        CiModuleDto ciModuleDtoOne = ciModuleService.updateCiModule(id, ciModuleInputDto);
         return ResponseEntity.ok().body(ciModuleDtoOne);
     }
 }

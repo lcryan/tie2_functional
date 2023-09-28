@@ -59,19 +59,18 @@ public class CiModuleService {
         }
     }
 
-    public CiModuleDto updateCiModule(@PathVariable Long id, CiModuleInputDto upCiModule) {
-        Optional<CiModule> optionalCiModule = ciModuleRepository.findById(id);
-        if (optionalCiModule.isPresent()) {
-            CiModule ciModuleOne = optionalCiModule.get();
+    public CiModuleDto updateCiModule(Long id, CiModuleInputDto ciModuleInputDto) {
+        if (ciModuleRepository.findById(id).isPresent()) {
 
-            ciModuleOne.setId(upCiModule.getId());
-            ciModuleOne.setName(upCiModule.getName());
-            ciModuleOne.setType(upCiModule.getType());
-            ciModuleOne.setPrice(upCiModule.getPrice());
+            CiModule ciModule = ciModuleRepository.findById(id).get();
 
-            CiModule updatedCiModule = ciModuleRepository.save(ciModuleOne);
+            CiModule ciModule1 = transferCiModuleInputDtoToCiModule(ciModuleInputDto);
 
-            return transferCiModuleToCiModuleDto(updatedCiModule);
+            ciModule1.setId(ciModule.getId());
+
+            ciModuleRepository.save(ciModule1);
+
+            return transferCiModuleToCiModuleDto(ciModule1);
         } else {
             throw new RecordNotFoundException("Item of type Ci-Module with id: " + id + " could not be found.");
         }
