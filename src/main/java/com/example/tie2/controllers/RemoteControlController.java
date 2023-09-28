@@ -59,9 +59,10 @@ public class RemoteControlController {
     }
 
     @PutMapping("/remotecontrols/{id}")
-    public ResponseEntity<RemoteControlInputDto> updateTelevision(@PathVariable("id") Long
-                                                                          id, @RequestBody RemoteControlInputDto inputDto) {
-        remoteControlService.updateRemoteControl(id, inputDto);
-        return ResponseEntity.ok(inputDto);
+    public ResponseEntity<Object> updateRemoteControl(@PathVariable Long id, @Valid @RequestBody RemoteControlInputDto remoteControlInputDto) {
+
+        RemoteControlDto remoteControlDto = remoteControlService.updateRemoteControl(id, remoteControlInputDto);
+
+        return ResponseEntity.ok().body(remoteControlDto);
     }
 }
