@@ -61,19 +61,17 @@ public class WallBracketService {
     }
 
 
-    public WallBracketDto updateWallbracket(@PathVariable Long id, WallBracketInputDto upWallBracket) {
-        Optional<WallBracket> optionalWallBracket = wallBracketRepository.findById(id);
-        if (optionalWallBracket.isPresent()) {
-            WallBracket wallBracketOne = optionalWallBracket.get();
+    public WallBracketDto updateWallbracket(Long id, WallBracketInputDto inputDto) {
+        if (wallBracketRepository.findById(id).isPresent()) {
 
-            /*wallBracketOne.setId(upWallBracket.getId());*/
-            wallBracketOne.setName(upWallBracket.getName());
-            wallBracketOne.setSize(upWallBracket.getSize());
-            wallBracketOne.setAdjustable(upWallBracket.isAdjustable());
-            wallBracketOne.setPrice(upWallBracket.getPrice());
+            WallBracket wallbracket = wallBracketRepository.findById(id).get();
+            WallBracket wallBracket1 = transferWallBracketInputDtoToWallBracket(inputDto);
+            wallBracket1.setId(wallbracket.getId());
 
-            WallBracket updatedWallbracket = wallBracketRepository.save(wallBracketOne);
-            return transferWallBracketToWallBracketDto(updatedWallbracket);
+            wallBracketRepository.save(wallBracket1);
+
+            return transferWallBracketToWallBracketDto(wallBracket1);
+
         } else {
             throw new RecordNotFoundException("Item of type Wall-bracket with id: " + id + " could not be found.");
         }

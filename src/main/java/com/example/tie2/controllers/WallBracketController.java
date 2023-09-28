@@ -60,8 +60,10 @@ public class WallBracketController {
     }
 
     @PutMapping("/wallbrackets/{id}")
-    public ResponseEntity<WallBracketDto> updateWallBracket(@PathVariable Long id, @Valid @RequestBody WallBracketInputDto wallBracketInputDto) {
-        WallBracketDto wallBracketDto1 = wallBracketService.updateWallbracket(id, wallBracketInputDto);
-        return ResponseEntity.ok().body(wallBracketDto1);
+    public ResponseEntity<Object> updateWallBracket(@PathVariable Long id, @Valid @RequestBody WallBracketInputDto wallBracketInputDto) {
+
+        WallBracketDto wallBracketDto = wallBracketService.updateWallbracket(id, wallBracketInputDto);
+
+        return ResponseEntity.ok().body(wallBracketDto);
     }
 }
