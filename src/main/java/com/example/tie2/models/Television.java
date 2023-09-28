@@ -60,7 +60,7 @@ public class Television {
     private LocalDate dateOfPurchase;
 
     @Column(name = "currentStock")
-    private LocalDateTime currentStock;
+    private Integer currentStock;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "EnergyLabel")
@@ -101,11 +101,11 @@ public class Television {
         this.dateOfPurchase = dateOfPurchase;
     }
 
-    public LocalDateTime getCurrentStock() {
+    public Integer getCurrentStock() {
         return currentStock;
     }
 
-    public void setCurrentStock(LocalDateTime currentStock) {
+    public void setCurrentStock(Integer currentStock) {
         this.currentStock = currentStock;
     }
 

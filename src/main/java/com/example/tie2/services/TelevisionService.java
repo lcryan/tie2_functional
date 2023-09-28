@@ -23,7 +23,7 @@ public class TelevisionService {
     public TelevisionService(TelevisionRepository televisionRepository, RemoteControlRepository remoteControlRepository) {
         this.televisionRepository = televisionRepository;
         this.remoteControlRepository = remoteControlRepository;
-    } // this is an autowired construction injection - use this instead of @Autowired! //
+    } // this is an autowired construction injection - use this instead of @Autowired! // // why did you use this ? Could be  one of the 5 argumentations for taking technical decisions //
 
     public List<TelevisionDto> getAllTelevisions() {
         List<Television> televisions = televisionRepository.findAll();
@@ -120,6 +120,7 @@ public class TelevisionService {
     public TelevisionDto transferTelevisionToTelevisionDto(Television television) {
         TelevisionDto televisionDto = new TelevisionDto();
         televisionDto.setId(television.getId());
+        televisionDto.setType(television.getType());
         televisionDto.setBrand(television.getBrand());
         televisionDto.setName(television.getName());
         televisionDto.setPrice(television.getPrice());
@@ -136,6 +137,8 @@ public class TelevisionService {
         televisionDto.setDateOfPurchase(television.getDateOfPurchase());
         televisionDto.setCurrentStock(television.getCurrentStock());
         televisionDto.setEnergyLabel(television.getEnergyLabel());
+        televisionDto.setRefreshRate(television.getRefreshRate());
+        televisionDto.setScreenType(television.getScreenType());
 
         return televisionDto;
     }
@@ -160,6 +163,8 @@ public class TelevisionService {
         television.setDateOfPurchase(televisionInputDto.getDateOfPurchase());
         television.setCurrentStock(televisionInputDto.getCurrentStock());
         television.setEnergyLabel(televisionInputDto.getEnergyLabel());
+        television.setRefreshRate(televisionInputDto.getRefreshRate());
+        television.setScreenType(televisionInputDto.getScreenType());
         return television;
     }
 }

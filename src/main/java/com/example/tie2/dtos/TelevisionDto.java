@@ -43,7 +43,7 @@ public class TelevisionDto {
 
     private LocalDate dateOfPurchase;
 
-    private LocalDateTime currentStock;
+    private Integer currentStock;
 
     private EnergyLabel energyLabel; // pulling from enum class //
 
@@ -52,7 +52,7 @@ public class TelevisionDto {
     public TelevisionDto() {
     }
 
-    public TelevisionDto(Long id, String type, String brand, String name, Double price, Double availableSize, Double refreshRate, String screenType, String screenQuality, boolean smartTv, boolean wifi, boolean voiceControl, boolean hdr, boolean bluetooth, boolean ambiLight, Integer originalStock, Integer sold, LocalDate dateOfPurchase, LocalDateTime currentStock, EnergyLabel energyLabel) {
+    public TelevisionDto(Long id, String type, String brand, String name, Double price, Double availableSize, Double refreshRate, String screenType, String screenQuality, boolean smartTv, boolean wifi, boolean voiceControl, boolean hdr, boolean bluetooth, boolean ambiLight, Integer originalStock, Integer sold, LocalDate dateOfPurchase, Integer currentStock, EnergyLabel energyLabel) {
         this.id = id;
         this.type = type;
         this.brand = brand;
@@ -219,11 +219,11 @@ public class TelevisionDto {
         this.dateOfPurchase = dateOfPurchase;
     }
 
-    public LocalDateTime getCurrentStock() {
+    public Integer getCurrentStock() {
         return currentStock;
     }
 
-    public void setCurrentStock(LocalDateTime currentStock) {
+    public void setCurrentStock(Integer currentStock) {
         this.currentStock = currentStock;
     }
 
