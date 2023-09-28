@@ -33,3 +33,17 @@ build/
 .vscode/
 ### DB ###
 /db
+/db/base
+/db/base/1
+/db/global
+/db/pg_commit_ts
+/db/pg_twophase
+/db/pg_logical
+/db/pg_multixact
+/db/pg_subtrans
+/db/pg_wal
+/db/pg_wal/000000010000000000000002
+/db/pg_xact
+/db/postgresql.auto.conf
+/db/postgresql.conf
+/db/postmaster.opts
