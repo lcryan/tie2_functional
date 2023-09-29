@@ -5,6 +5,7 @@ import com.example.tie2.dtos.IdInputDto;
 import com.example.tie2.dtos.TelevisionDto;
 import com.example.tie2.dtos.TelevisionInputDto;
 
+import com.example.tie2.exceptions.TelevisionNotFoundException;
 import com.example.tie2.services.TelevisionService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -70,10 +71,10 @@ public class TelevisionController {
 
 
     // 4th step of ONE-TO-ONE relation Television to Remote Control : assigning remote control to television in a @PutMapping NOTE: Don't forget to set up an IdInputDto in dtos - you have to set it up to pass through the id via this param! //
-    @PutMapping("/televisions/{id}/remotecontrol")
-    public ResponseEntity<Object> assignRemoteControlToTelevision(@PathVariable("id") Long
-                                                                          id, @RequestBody IdInputDto input) {
-        televisionService.assignRemoteControlToTelevision(id, input.id);
+
+    @PutMapping("/{id}/remotecontroller")
+    public ResponseEntity<Object> assignRemoteControlToTelevision(@PathVariable("id") Long televisionId, @RequestBody IdInputDto input) {
+        televisionService.assignRemoteControlToTelevision(televisionId, input.id);
         return ResponseEntity.ok().build();
     }
 }

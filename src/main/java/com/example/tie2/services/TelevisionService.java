@@ -8,7 +8,6 @@ import com.example.tie2.models.Television;
 import com.example.tie2.repositories.RemoteControlRepository;
 import com.example.tie2.repositories.TelevisionRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,9 +19,12 @@ public class TelevisionService {
     private final TelevisionRepository televisionRepository;
     private final RemoteControlRepository remoteControlRepository;
 
+
+    // DON"T FORGET TO ADD REMOTE CONTROL REPO!!! //
     public TelevisionService(TelevisionRepository televisionRepository, RemoteControlRepository remoteControlRepository) {
         this.televisionRepository = televisionRepository;
         this.remoteControlRepository = remoteControlRepository;
+
     } // this is an autowired construction injection - use this instead of @Autowired! // // why did you use this ? Could be  one of the 5 argumentations for taking technical decisions //
 
     public List<TelevisionDto> getAllTelevisions() {
@@ -91,13 +93,13 @@ public class TelevisionService {
         Optional<RemoteControl> optionalRemoteControl = remoteControlRepository.findById(remoteControlId);
         if (optionalTelevision.isPresent() && optionalRemoteControl.isPresent()) {
 
-            RemoteControl remoteControl = optionalRemoteControl.get();
-            Television television = optionalTelevision.get();
+            RemoteControl remoteControl1 = optionalRemoteControl.get();
+            Television television1 = optionalTelevision.get();
 
-            television.setRemoteControl(remoteControl);
-            televisionRepository.save(television);
+            television1.setRemoteControl(remoteControl1);
+            televisionRepository.save(television1);
         } else {
-            throw new TelevisionNotFoundException("Item couldn't be found.");
+            throw new TelevisionNotFoundException("Item could not be found.");
         }
     }
 

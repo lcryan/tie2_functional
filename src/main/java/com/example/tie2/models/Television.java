@@ -3,13 +3,12 @@ package com.example.tie2.models;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
 @Table
 public class Television {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column(name = "type")
     private String type;
@@ -22,48 +21,48 @@ public class Television {
     @Column(name = "price")
     private double price;
 
-    @Column(name = "availableSize")
+    @Column(name = "available_size")
     private double availableSize;
 
-    @Column(name = "refreshRate")
+    @Column(name = "refresh_rate")
     private double refreshRate;
 
-    @Column(name = "screenType")
+    @Column(name = "screen_type")
     private String screenType;
 
-    @Column(name = "screenQuality")
+    @Column(name = "screen_quality")
     private String screenQuality;
 
-    @Column(name = "smartTv")
+    @Column(name = "smart_tv")
     private boolean smartTv;
 
     @Column(name = "wifi")
     private boolean wifi;
 
-    @Column(name = "voiceControl")
+    @Column(name = "voice_control")
     private boolean voiceControl;
 
     @Column(name = "hdr")
     private boolean hdr;
-    @Column(name = "bluetooth")
+    @Column(name = "blue_tooth")
     private boolean bluetooth;
 
-    @Column(name = "ambiLight")
+    @Column(name = "ambi_light")
     private boolean ambiLight;
 
-    @Column(name = "originalStock")
+    @Column(name = "original_stock")
     private Integer originalStock;
     @Column(name = "sold")
     private Integer sold;
 
-    @Column(name = "dateOfPurchase")
+    @Column(name = "date_of_purchase")
     private LocalDate dateOfPurchase;
 
-    @Column(name = "currentStock")
+    @Column(name = "current_stock")
     private Integer currentStock;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "EnergyLabel")
+    @Column(name = "energy_label")
     private EnergyLabel energyLabel; // pulling from enum class //
 
 
@@ -237,6 +236,7 @@ public class Television {
     }
 
     // Part of step 1. getter and setter for the Remote Control - which Television has a one-to-one relation //
+
     public RemoteControl getRemoteControl() {
         return remoteControl;
     }
