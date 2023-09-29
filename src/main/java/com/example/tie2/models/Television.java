@@ -68,7 +68,12 @@ public class Television {
 
     // 1. Establishing A one-to-one relation between Television and Remote Control //
     @OneToOne
+    @JoinColumn(name = "compatible_remote_control")
     private RemoteControl remoteControl;
+
+    @ManyToOne
+    @JoinColumn(name = "compatible_ci_module")
+    private CiModule ciModule;
 
 // for every television the is ONE remote control //
 
@@ -243,6 +248,14 @@ public class Television {
 
     public void setRemoteControl(RemoteControl remoteControl) {
         this.remoteControl = remoteControl;
+    }
+
+    public CiModule getCiModule() {
+        return ciModule;
+    }
+
+    public void setCiModule(CiModule ciModule) {
+        this.ciModule = ciModule;
     }
 }
 
