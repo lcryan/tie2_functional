@@ -1,6 +1,8 @@
 package com.example.tie2.dtos;
 
 
+import com.example.tie2.models.Television;
+
 public class RemoteControlDto {
     private Long id;
     private String name;
@@ -9,6 +11,9 @@ public class RemoteControlDto {
     private String batteryType;
     private Integer originalStock;
     private Double price;
+
+    // 2. RemoteControlDto needs to pass through the  Television object. Getter and setter see below. Part of 2nd step of One-To-One relation with Television. //
+    private Television television;
 
     public RemoteControlDto() {
 
@@ -76,7 +81,15 @@ public class RemoteControlDto {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public Television getTelevision() {
+        return television;
+    }
+
+    public void setTelevision(Television television) {
+        this.television = television;
     }
 }
