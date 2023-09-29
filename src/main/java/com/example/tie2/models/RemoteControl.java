@@ -25,9 +25,11 @@ public class RemoteControl {
     @Column(name = "price")
     private double price;
 
-    @OneToOne(mappedBy = "remoteControl") // relation correct on this end - checked with uitwerkingen !!  //
-    // this makes Television the "owner" of the OneToOne relation between RemoteControl and Television //
-    Television television;
+    // 1. Establishing a One-To-One relationship between Television and Remote Control. //
+    @OneToOne(mappedBy = "remoteControl")
+
+    // NOTE: this makes Television the "owner" of the OneToOne relation between RemoteControl and Television //
+    private Television television;
 
     public Long getId() {
         return id;
@@ -85,7 +87,7 @@ public class RemoteControl {
         this.price = price;
     }
 
-
+    // Part of step 1. getter and setter for the Television - which Remote Control has a one-to-one relation with //
     public Television getTelevision() {
         return television;
     }

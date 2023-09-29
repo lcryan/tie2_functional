@@ -67,9 +67,10 @@ public class Television {
     private EnergyLabel energyLabel; // pulling from enum class //
 
 
-    // A one-to-one relation between Television and Remote Control //
+    // 1. Establishing A one-to-one relation between Television and Remote Control //
     @OneToOne
     private RemoteControl remoteControl;
+
 // for every television the is ONE remote control //
 
     public Television() {
@@ -235,7 +236,7 @@ public class Television {
         this.sold = sold;
     }
 
-    // getter and setter for the Remote Control - which Television has a one-to-one relation //
+    // Part of step 1. getter and setter for the Remote Control - which Television has a one-to-one relation //
     public RemoteControl getRemoteControl() {
         return remoteControl;
     }
