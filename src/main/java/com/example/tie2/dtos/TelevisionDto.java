@@ -2,6 +2,7 @@ package com.example.tie2.dtos;
 
 import com.example.tie2.models.EnergyLabel;
 import com.example.tie2.models.RemoteControl;
+import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -46,8 +47,9 @@ public class TelevisionDto {
     private Integer currentStock;
 
     private EnergyLabel energyLabel; // pulling from enum class //
-
-    public RemoteControlDto remoteControlDto;
+    // 2. Step of establishing One-To-One relation with Remote Controller, we also set up getter & setter (see below) //
+    @JsonIncludeProperties("id")
+    private RemoteControlDto remoteControlDto;
 
     public TelevisionDto() {
     }
@@ -233,6 +235,10 @@ public class TelevisionDto {
 
     public void setEnergyLabel(EnergyLabel energyLabel) {
         this.energyLabel = energyLabel;
+    }
+
+    public RemoteControlDto getRemoteControlDto() {
+        return remoteControlDto;
     }
 
     public void setRemoteControlDto(RemoteControlDto remoteControlDto) {
