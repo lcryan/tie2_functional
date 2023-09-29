@@ -69,7 +69,7 @@ public class TelevisionController {
     }
 
 
-    // assigning remote control to television //
+    // 4th step of ONE-TO-ONE relation Television to Remote Control : assigning remote control to television in a @PutMapping NOTE: Don't forget to set up an IdInputDto in dtos - you have to set it up to pass through the id via this param! //
     @PutMapping("/televisions/{id}/remotecontrol")
     public ResponseEntity<Object> assignRemoteControlToTelevision(@PathVariable("id") Long
                                                                           id, @RequestBody IdInputDto input) {
