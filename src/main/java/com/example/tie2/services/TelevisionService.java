@@ -84,11 +84,11 @@ public class TelevisionService {
 
     }
 
-    // assigning remote control to television function //
+    // 3. Third step: assigning remote control to television function - ONE-TO-ONE RELATION between Television and Remote Controller //
 
-    public void assignRemoteControlToTelevision(Long televisionId, Long remote_ControlId) {
+    public void assignRemoteControlToTelevision(Long televisionId, Long remoteControlId) {
         Optional<Television> optionalTelevision = televisionRepository.findById(televisionId);
-        Optional<RemoteControl> optionalRemoteControl = remoteControlRepository.findById(televisionId);
+        Optional<RemoteControl> optionalRemoteControl = remoteControlRepository.findById(remoteControlId);
         if (optionalTelevision.isPresent() && optionalRemoteControl.isPresent()) {
 
             RemoteControl remoteControl = optionalRemoteControl.get();
@@ -96,6 +96,8 @@ public class TelevisionService {
 
             television.setRemoteControl(remoteControl);
             televisionRepository.save(television);
+        } else {
+            throw new TelevisionNotFoundException("Item couldn't be found.");
         }
     }
 
