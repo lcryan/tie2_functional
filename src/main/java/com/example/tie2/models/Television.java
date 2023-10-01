@@ -1,11 +1,13 @@
 package com.example.tie2.models;
 
+import com.example.tie2.dtos.RemoteControlDto;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
-@Table
+@Table(name = "televisions")
 public class Television {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -71,9 +73,14 @@ public class Television {
     @JoinColumn(name = "compatible_remote_control")
     private RemoteControl remoteControl;
 
+    //Establishing ManToOne with CiModule//
     @ManyToOne
     @JoinColumn(name = "compatible_ci_module")
     private CiModule ciModule;
+
+    //Establishing ManyToMany with WallBracket //
+    @ManyToMany
+    private List<WallBracket> wallBracketList;
 
 // for every television the is ONE remote control //
 
@@ -240,7 +247,8 @@ public class Television {
         this.sold = sold;
     }
 
-    // Part of step 1. getter and setter for the Remote Control - which Television has a one-to-one relation //
+    // Part of step 1. getter and setter for the Remote Control DTO ?  - which Television has a one-to-one relation //
+
 
     public RemoteControl getRemoteControl() {
         return remoteControl;

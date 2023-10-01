@@ -3,7 +3,6 @@ package com.example.tie2.services;
 import com.example.tie2.dtos.TelevisionDto;
 import com.example.tie2.dtos.TelevisionInputDto;
 import com.example.tie2.exceptions.TelevisionNotFoundException;
-import com.example.tie2.models.RemoteControl;
 import com.example.tie2.models.Television;
 import com.example.tie2.repositories.RemoteControlRepository;
 import com.example.tie2.repositories.TelevisionRepository;
@@ -19,12 +18,14 @@ public class TelevisionService {
     private final TelevisionRepository televisionRepository;
     private final RemoteControlRepository remoteControlRepository;
 
+    private final RemoteControlService remoteControlService;
 
     // DON"T FORGET TO ADD REMOTE CONTROL REPO!!! //
-    public TelevisionService(TelevisionRepository televisionRepository, RemoteControlRepository remoteControlRepository) {
+    public TelevisionService(TelevisionRepository televisionRepository, RemoteControlRepository remoteControlRepository, RemoteControlService remoteControlService) {
         this.televisionRepository = televisionRepository;
         this.remoteControlRepository = remoteControlRepository;
 
+        this.remoteControlService = remoteControlService;
     } // this is an autowired construction injection - use this instead of @Autowired! // // why did you use this ? Could be  one of the 5 argumentations for taking technical decisions //
 
     public List<TelevisionDto> getAllTelevisions() {
@@ -88,18 +89,16 @@ public class TelevisionService {
 
     // 3. Third step: assigning remote control to television function - ONE-TO-ONE RELATION between Television and Remote Controller //
 
-    public void assignRemoteControlToTelevision(Long televisionId, Long remoteControlId) {
-        Optional<Television> optionalTelevision = televisionRepository.findById(televisionId);
-        Optional<RemoteControl> optionalRemoteControl = remoteControlRepository.findById(remoteControlId);
+    public void assignRemoteControlToTelevision(Long id, Long remoteControlId) {
+        var optionalTelevision = televisionRepository.findById(id);
+        var optionalRemoteControl = remoteControlRepository.findById(remoteControlId);
         if (optionalTelevision.isPresent() && optionalRemoteControl.isPresent()) {
-
-            RemoteControl remoteControl1 = optionalRemoteControl.get();
-            Television television1 = optionalTelevision.get();
-
-            television1.setRemoteControl(remoteControl1);
-            televisionRepository.save(television1);
+            var television = optionalTelevision.get();
+            var remoteControl = optionalRemoteControl.get();
+            television.setRemoteControl(remoteControl);
+            televisionRepository.save(television);
         } else {
-            throw new TelevisionNotFoundException("Item could not be found.");
+            throw new TelevisionNotFoundException("Not found.");
         }
     }
 
@@ -130,6 +129,11 @@ public class TelevisionService {
         televisionDto.setEnergyLabel(television.getEnergyLabel());
         televisionDto.setRefreshRate(television.getRefreshRate());
         televisionDto.setScreenType(television.getScreenType());
+
+        if (television.getRemoteControl() != null) {
+            televisionDto.setRemoteControlDto(remoteControlService.transferRemoteControlToRemoteControlDto(television.getRemoteControl()));
+        }
+
 
         return televisionDto;
     }

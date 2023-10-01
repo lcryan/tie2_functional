@@ -1,6 +1,7 @@
 package com.example.tie2.dtos;
 
 import com.example.tie2.models.EnergyLabel;
+import com.example.tie2.models.RemoteControl;
 
 
 import java.time.LocalDate;
@@ -46,6 +47,8 @@ public class TelevisionDto {
     private Integer currentStock;
 
     private EnergyLabel energyLabel; // pulling from enum class //
+
+    private RemoteControlDto remoteControlDto;
 
     public TelevisionDto() {
     }
@@ -233,5 +236,12 @@ public class TelevisionDto {
         this.energyLabel = energyLabel;
     }
 
+    public RemoteControlDto getRemoteControlDto() {
+        return remoteControlDto;
+    }
+
+    public void setRemoteControlDto(RemoteControlDto remoteControlDto) {
+        this.remoteControlDto = remoteControlDto;
+    }
 }
 
