@@ -10,10 +10,18 @@ public class WallBracketInputDto {
     private String size;
     private boolean adjustable;
     @Positive(message = "Price must be higher than zero.")
-    private double price;
+    private Double price;
 
     public Long getId() {
         return id;
+    }
+
+    public WallBracketInputDto(Long id, String name, String size, boolean adjustable, Double price) {
+        this.id = id;
+        this.name = name;
+        this.size = size;
+        this.adjustable = adjustable;
+        this.price = price;
     }
 
     public void setId(Long id) {
@@ -44,11 +52,11 @@ public class WallBracketInputDto {
         this.adjustable = adjustable;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 }

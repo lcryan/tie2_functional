@@ -2,8 +2,10 @@ package com.example.tie2.services;
 
 import com.example.tie2.dtos.CiModuleDto;
 import com.example.tie2.dtos.CiModuleInputDto;
+
 import com.example.tie2.exceptions.RecordNotFoundException;
 import com.example.tie2.models.CiModule;
+
 import com.example.tie2.repositories.CiModuleRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,22 +20,21 @@ public class CiModuleService {
     private final CiModuleRepository ciModuleRepository;
 
     public CiModuleService(CiModuleRepository ciModuleRepository) {
-
         this.ciModuleRepository = ciModuleRepository;
     }
 
     public List<CiModuleDto> getAllCiModules() {
         List<CiModule> ciModuleList = ciModuleRepository.findAll();
         List<CiModuleDto> ciModuleDtoList = new ArrayList<>();
-        for (CiModule ciModule : ciModuleList) {
-            CiModuleDto ciModuleDto = transferCiModuleToCiModuleDto(ciModule);
+        for (CiModule ci : ciModuleList) {
+            CiModuleDto ciModuleDto = transferCiModuleToCiModuleDto(ci);
             ciModuleDtoList.add(ciModuleDto);
         }
         return ciModuleDtoList;
     }
 
-    public CiModuleDto createCiModule(CiModuleInputDto ciModuleInputDto) {
-        CiModule newCiModule = transferCiModuleInputDtoToCiModule(ciModuleInputDto);
+    public CiModuleDto createCiModule(CiModuleInputDto inputDto) {
+        CiModule newCiModule = transferCiModuleInputDtoToCiModule(inputDto);
         ciModuleRepository.save(newCiModule);
         return transferCiModuleToCiModuleDto(newCiModule);
     }
@@ -41,8 +42,8 @@ public class CiModuleService {
     public CiModuleDto getOneCiModule(Long id) {
         Optional<CiModule> optionalCiModule = ciModuleRepository.findById(id);
         if (optionalCiModule.isPresent()) {
-            CiModule ciModule = optionalCiModule.get();
-            return transferCiModuleToCiModuleDto(ciModule);
+            CiModuleDto ciModule = transferCiModuleToCiModuleDto(optionalCiModule.get());
+            return ciModule;
         } else {
             throw new RecordNotFoundException("Item of type Ci-Module with id: " + id + " could not be found.");
         }
@@ -58,19 +59,18 @@ public class CiModuleService {
         }
     }
 
-    public CiModuleDto updateCiModule(@PathVariable Long id, CiModuleInputDto upCiModule) {
-        Optional<CiModule> optionalCiModule = ciModuleRepository.findById(id);
-        if (optionalCiModule.isPresent()) {
-            CiModule ciModuleOne = optionalCiModule.get();
+    public CiModuleDto updateCiModule(Long id, CiModuleInputDto ciModuleInputDto) {
+        if (ciModuleRepository.findById(id).isPresent()) {
 
-            ciModuleOne.setId(upCiModule.getId());
-            ciModuleOne.setName(upCiModule.getName());
-            ciModuleOne.setType(upCiModule.getType());
-            ciModuleOne.setPrice(upCiModule.getPrice());
+            CiModule ciModule = ciModuleRepository.findById(id).get();
 
-            CiModule updatedCiModule = ciModuleRepository.save(ciModuleOne);
+            CiModule ciModule1 = transferCiModuleInputDtoToCiModule(ciModuleInputDto);
 
-            return transferCiModuleToCiModuleDto(updatedCiModule);
+            ciModule1.setId(ciModule.getId());
+
+            ciModuleRepository.save(ciModule1);
+
+            return transferCiModuleToCiModuleDto(ciModule1);
         } else {
             throw new RecordNotFoundException("Item of type Ci-Module with id: " + id + " could not be found.");
         }
@@ -95,9 +95,9 @@ public class CiModuleService {
         var ciModule = new CiModule();
 
         ciModule.setId(ciModuleInputDto.getId());
-        ciModuleInputDto.setName(ciModuleInputDto.getName());
-        ciModuleInputDto.setType(ciModuleInputDto.getType());
-        ciModuleInputDto.setPrice(ciModuleInputDto.getPrice());
+        ciModule.setName(ciModuleInputDto.getName());
+        ciModule.setType(ciModuleInputDto.getType());
+        ciModule.setPrice(ciModuleInputDto.getPrice());
 
         return ciModule;
     }

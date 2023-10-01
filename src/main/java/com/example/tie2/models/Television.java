@@ -1,20 +1,19 @@
 package com.example.tie2.models;
 
+import com.example.tie2.dtos.RemoteControlDto;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "televisions")
 public class Television {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String television;
     @Column(name = "type")
     private String type;
-
     @Column(name = "brand")
     private String brand;
 
@@ -24,62 +23,68 @@ public class Television {
     @Column(name = "price")
     private double price;
 
-    @Column(name = "availableSize")
+    @Column(name = "available_size")
     private double availableSize;
 
-    @Column(name = "refreshRate")
+    @Column(name = "refresh_rate")
     private double refreshRate;
 
-    @Column(name = "screenType")
+    @Column(name = "screen_type")
     private String screenType;
 
-    @Column(name = "screenQuality")
+    @Column(name = "screen_quality")
     private String screenQuality;
 
-    @Column(name = "smartTv")
+    @Column(name = "smart_tv")
     private boolean smartTv;
 
     @Column(name = "wifi")
     private boolean wifi;
 
-    @Column(name = "voiceControl")
+    @Column(name = "voice_control")
     private boolean voiceControl;
 
     @Column(name = "hdr")
     private boolean hdr;
-    @Column(name = "bluetooth")
+    @Column(name = "blue_tooth")
     private boolean bluetooth;
 
-    @Column(name = "ambiLight")
+    @Column(name = "ambi_light")
     private boolean ambiLight;
 
-    @Column(name = "originalStock")
+    @Column(name = "original_stock")
     private Integer originalStock;
     @Column(name = "sold")
     private Integer sold;
 
-    @Column(name = "dateOfPurchase")
+    @Column(name = "date_of_purchase")
     private LocalDate dateOfPurchase;
 
-    @Column(name = "currentStock")
-    private LocalDateTime currentStock;
+    @Column(name = "current_stock")
+    private Integer currentStock;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "EnergyLabel")
+    @Column(name = "energy_label")
     private EnergyLabel energyLabel; // pulling from enum class //
 
+
+    // 1. Establishing A one-to-one relation between Television and Remote Control //
     @OneToOne
-    private RemoteControl remoteControl; // this lays the relation to Remote Control //
+    @JoinColumn(name = "compatible_remote_control")
+    private RemoteControl remoteControl;
+
+    //Establishing ManToOne with CiModule//
+    @ManyToOne
+    @JoinColumn(name = "compatible_ci_module")
+    private CiModule ciModule;
+
+    //Establishing ManyToMany with WallBracket //
+    @ManyToMany
+    private List<WallBracket> wallBracketList;
+
+// for every television the is ONE remote control //
 
     public Television() {
-    }
-
-    public String getTelevision() {
-        return television;
-    }
-
-    public void setTelevision(String television) {
-        this.television = television;
     }
 
     public Long getId() {
@@ -110,11 +115,11 @@ public class Television {
         this.dateOfPurchase = dateOfPurchase;
     }
 
-    public LocalDateTime getCurrentStock() {
+    public Integer getCurrentStock() {
         return currentStock;
     }
 
-    public void setCurrentStock(LocalDateTime currentStock) {
+    public void setCurrentStock(Integer currentStock) {
         this.currentStock = currentStock;
     }
 
@@ -242,12 +247,23 @@ public class Television {
         this.sold = sold;
     }
 
+    // Part of step 1. getter and setter for the Remote Control DTO ?  - which Television has a one-to-one relation //
+
+
     public RemoteControl getRemoteControl() {
         return remoteControl;
     }
 
     public void setRemoteControl(RemoteControl remoteControl) {
         this.remoteControl = remoteControl;
+    }
+
+    public CiModule getCiModule() {
+        return ciModule;
+    }
+
+    public void setCiModule(CiModule ciModule) {
+        this.ciModule = ciModule;
     }
 }
 

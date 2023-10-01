@@ -5,10 +5,17 @@ public class WallBracketDto {
     private String name;
     private String size;
     private boolean adjustable;
-    private double price;
+    private Double price;
 
     public WallBracketDto() {
+    }
 
+    public WallBracketDto(Long id, String name, String size, boolean adjustable, Double price) {
+        this.id = id;
+        this.name = name;
+        this.size = size;
+        this.adjustable = adjustable;
+        this.price = price;
     }
 
     public Long getId() {
@@ -43,11 +50,11 @@ public class WallBracketDto {
         this.adjustable = adjustable;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 }

@@ -1,9 +1,11 @@
 package com.example.tie2.dtos;
 
 import com.example.tie2.models.EnergyLabel;
+import com.example.tie2.models.RemoteControl;
+
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+
 
 public class TelevisionDto {
     private Long id;
@@ -14,11 +16,11 @@ public class TelevisionDto {
 
     private String name;
 
-    private double price;
+    private Double price;
 
-    private double availableSize;
+    private Double availableSize;
 
-    private double refreshRate;
+    private Double refreshRate;
 
     private String screenType;
 
@@ -42,13 +44,36 @@ public class TelevisionDto {
 
     private LocalDate dateOfPurchase;
 
-    private LocalDateTime currentStock;
+    private Integer currentStock;
 
     private EnergyLabel energyLabel; // pulling from enum class //
 
-    public RemoteControlDto remoteControlDto;
+    private RemoteControlDto remoteControlDto;
 
     public TelevisionDto() {
+    }
+
+    public TelevisionDto(Long id, String type, String brand, String name, Double price, Double availableSize, Double refreshRate, String screenType, String screenQuality, boolean smartTv, boolean wifi, boolean voiceControl, boolean hdr, boolean bluetooth, boolean ambiLight, Integer originalStock, Integer sold, LocalDate dateOfPurchase, Integer currentStock, EnergyLabel energyLabel) {
+        this.id = id;
+        this.type = type;
+        this.brand = brand;
+        this.name = name;
+        this.price = price;
+        this.availableSize = availableSize;
+        this.refreshRate = refreshRate;
+        this.screenType = screenType;
+        this.screenQuality = screenQuality;
+        this.smartTv = smartTv;
+        this.wifi = wifi;
+        this.voiceControl = voiceControl;
+        this.hdr = hdr;
+        this.bluetooth = bluetooth;
+        this.ambiLight = ambiLight;
+        this.originalStock = originalStock;
+        this.sold = sold;
+        this.dateOfPurchase = dateOfPurchase;
+        this.currentStock = currentStock;
+        this.energyLabel = energyLabel;
     }
 
     public Long getId() {
@@ -83,27 +108,27 @@ public class TelevisionDto {
         this.name = name;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
-    public double getAvailableSize() {
+    public Double getAvailableSize() {
         return availableSize;
     }
 
-    public void setAvailableSize(double availableSize) {
+    public void setAvailableSize(Double availableSize) {
         this.availableSize = availableSize;
     }
 
-    public double getRefreshRate() {
+    public Double getRefreshRate() {
         return refreshRate;
     }
 
-    public void setRefreshRate(double refreshRate) {
+    public void setRefreshRate(Double refreshRate) {
         this.refreshRate = refreshRate;
     }
 
@@ -195,11 +220,11 @@ public class TelevisionDto {
         this.dateOfPurchase = dateOfPurchase;
     }
 
-    public LocalDateTime getCurrentStock() {
+    public Integer getCurrentStock() {
         return currentStock;
     }
 
-    public void setCurrentStock(LocalDateTime currentStock) {
+    public void setCurrentStock(Integer currentStock) {
         this.currentStock = currentStock;
     }
 
@@ -209,6 +234,14 @@ public class TelevisionDto {
 
     public void setEnergyLabel(EnergyLabel energyLabel) {
         this.energyLabel = energyLabel;
+    }
+
+    public RemoteControlDto getRemoteControlDto() {
+        return remoteControlDto;
+    }
+
+    public void setRemoteControlDto(RemoteControlDto remoteControlDto) {
+        this.remoteControlDto = remoteControlDto;
     }
 }
 

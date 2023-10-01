@@ -12,7 +12,7 @@ public class RemoteControlInputDto {
     private String batteryType;
     @Positive(message = "Stock has to be higher than zero.")
     private Integer originalStock;
-    private double price;
+    private Double price;
 
     public Long getId() {
         return id;
@@ -62,11 +62,11 @@ public class RemoteControlInputDto {
         this.originalStock = originalStock;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 }

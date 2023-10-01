@@ -5,10 +5,11 @@ import com.example.tie2.dtos.CiModuleInputDto;
 import com.example.tie2.services.CiModuleService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class CiModuleController {
@@ -18,31 +19,45 @@ public class CiModuleController {
         this.ciModuleService = ciModuleService;
     }
 
-    @GetMapping("/ciModules")
+    @GetMapping("/cimodules")
     public ResponseEntity<List<CiModuleDto>> getAllCiModules() {
-        return ResponseEntity.ok(ciModuleService.getAllCiModules());
-    }
+        List<CiModuleDto> ciModuleDtoList = ciModuleService.getAllCiModules();
+        return ResponseEntity.ok(ciModuleDtoList);
+    } // functional //
 
-    @PostMapping("/ciModules")
-    public ResponseEntity<CiModuleDto> createNewCiModule(@Valid @RequestBody CiModuleInputDto ciModuleInputDto) {
-        CiModuleDto ciModuleDto = ciModuleService.createCiModule(ciModuleInputDto);
-        return ResponseEntity.created(null).body(ciModuleDto);
-    }
+    @PostMapping("/cimodules")
+    public ResponseEntity<Object> createNewCiModule(@Valid @RequestBody CiModuleInputDto inputDto, BindingResult bindingResult) {
+        if (bindingResult.hasFieldErrors()) {
+            StringBuilder sb = new StringBuilder();
+            for (FieldError fe : bindingResult.getFieldErrors()) {
+                sb.append(fe.getField());
+                sb.append(" : ");
+                sb.append(fe.getDefaultMessage());
+                sb.append("\n");
+            }
+            return ResponseEntity.badRequest().body(sb.toString());
+        } else {
+            CiModuleDto ciModuleDto = ciModuleService.createCiModule(inputDto);
+            return ResponseEntity.created(null).body(ciModuleDto);
+        }
+    } // functional //
 
-    @GetMapping("/ciModules/{id}")
+    // REMEMBER : the binding result makes sure that you see the default message in postman and not only in IntelliJ !! //
+    @GetMapping("/cimodules/{id}")
     public ResponseEntity<CiModuleDto> getCiModule(@PathVariable Long id) {
-        return ResponseEntity.ok(ciModuleService.getOneCiModule(id));
-    }
+        CiModuleDto ciModuleDto = ciModuleService.getOneCiModule(id);
+        return ResponseEntity.ok(ciModuleDto);
+    } // functional //
 
-    @DeleteMapping("/ciModules/{id}")
-    public ResponseEntity<Optional<CiModuleDto>> deleteCiModule(@PathVariable Long id) {
+    @DeleteMapping("/cimodules/{id}")
+    public ResponseEntity<Object> deleteCiModule(@PathVariable Long id) {
         ciModuleService.deleteCiModule(id);
         return ResponseEntity.noContent().build();
-    }
+    } // functional //
 
-    @PutMapping("ciModules/{id}")
-    public ResponseEntity<CiModuleDto> updateCiModule(@PathVariable Long id, @Valid @RequestBody CiModuleInputDto newCiModule) {
-        CiModuleDto ciModuleDtoOne = ciModuleService.updateCiModule(id, newCiModule);
+    @PutMapping("cimodules/{id}")
+    public ResponseEntity<CiModuleDto> updateCiModule(@PathVariable Long id, @Valid @RequestBody CiModuleInputDto ciModuleInputDto) {
+        CiModuleDto ciModuleDtoOne = ciModuleService.updateCiModule(id, ciModuleInputDto);
         return ResponseEntity.ok().body(ciModuleDtoOne);
     }
 }

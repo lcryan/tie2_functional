@@ -10,9 +10,8 @@ import jakarta.persistence.Table;
 @Table(name = "remote_controls")
 public class RemoteControl {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
-    private String remoteControl;
     @Column(name = "name")
     private String name;
     @Column(name = "brand")
@@ -26,13 +25,10 @@ public class RemoteControl {
     @Column(name = "price")
     private double price;
 
+    // 1. Establishing a One-To-One relationship between Television and Remote Control. //
     @OneToOne(mappedBy = "remoteControl")
-    // this makes Television the "owner" of the OneToOne relation between RemoteControl and Television //
+    // NOTE: this makes Television the "owner" of the OneToOne relation between RemoteControl and Television //
     private Television television;
-
-    public RemoteControl() {
-
-    }
 
     public Long getId() {
         return id;
@@ -90,14 +86,7 @@ public class RemoteControl {
         this.price = price;
     }
 
-    public String getRemoteControl() {
-        return remoteControl;
-    }
-
-    public void setRemoteControl(String remoteControl) {
-        this.remoteControl = remoteControl;
-    }
-
+    // getter and setter for the Television - which Remote Control has a one-to-one relation //
     public Television getTelevision() {
         return television;
     }

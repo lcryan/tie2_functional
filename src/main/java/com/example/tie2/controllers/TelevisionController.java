@@ -1,16 +1,20 @@
 package com.example.tie2.controllers;
 
 import com.example.tie2.dtos.IdInputDto;
+
 import com.example.tie2.dtos.TelevisionDto;
 import com.example.tie2.dtos.TelevisionInputDto;
-import com.example.tie2.models.RemoteControl;
+
+import com.example.tie2.exceptions.TelevisionNotFoundException;
 import com.example.tie2.services.TelevisionService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
+
 
 @RestController
 public class TelevisionController {
@@ -23,37 +27,53 @@ public class TelevisionController {
 
     @GetMapping("/televisions")
     public ResponseEntity<List<TelevisionDto>> getAllTelevisions() {
-        return ResponseEntity.ok(televisionService.getAllTelevisions());
+        List<TelevisionDto> televisionDtoList = televisionService.getAllTelevisions();
+        return ResponseEntity.ok(televisionDtoList);
     }
 
     @PostMapping("/televisions")
-    public ResponseEntity<TelevisionDto> createTelevision(@Valid @RequestBody TelevisionInputDto televisionInputDto) {
-        TelevisionDto televisionDto = televisionService.createTelevision(televisionInputDto);
-        return ResponseEntity.created(null).body(televisionDto);
+    public ResponseEntity<Object> createTelevision(@Valid @RequestBody TelevisionInputDto inputDto, BindingResult bindingResult) {
+        if (bindingResult.hasFieldErrors()) {
+            StringBuilder sb = new StringBuilder();
+            for (FieldError fe : bindingResult.getFieldErrors()) {
+                sb.append(fe.getField());
+                sb.append(" : ");
+                sb.append(fe.getDefaultMessage());
+                sb.append("\n");
+            }
+            return ResponseEntity.badRequest().body(sb.toString());
+        } else {
+            TelevisionDto televisionDto = televisionService.createTelevision(inputDto);
+            return ResponseEntity.created(null).body(televisionDto);
+        }
     }
 
     @GetMapping("/televisions/{id}")
-    public ResponseEntity<TelevisionDto> getTelevision(@PathVariable Long id) {
-        return ResponseEntity.ok(televisionService.getOneTelevision(id));
+    public ResponseEntity<TelevisionDto> getTelevision(@PathVariable("id") Long id) {
+        TelevisionDto television = televisionService.getOneTelevision(id);
+        return ResponseEntity.ok().body(television);
     }
 
     @DeleteMapping("/televisions/{id}")
-    public ResponseEntity<Optional<TelevisionDto>> deleteOneTelevision(@PathVariable Long id) {
+    public ResponseEntity<Object> deleteOneTelevision(@PathVariable Long id) {
         televisionService.deleteTelevision(id); // calling on function in service //
         return ResponseEntity.noContent().build();
     }
 
 
     @PutMapping("/televisions/{id}")
-    public ResponseEntity<TelevisionDto> updateTelevision(@PathVariable Long id, @Valid @RequestBody TelevisionInputDto newTele) {
-        TelevisionDto televisionInputDtoOne = televisionService.updateTelevision(id, newTele);
-        return ResponseEntity.ok().body(televisionInputDtoOne);
+    public ResponseEntity<Object> updateTelevision(@PathVariable Long id, @Valid @RequestBody TelevisionInputDto newTelevision) {
+
+        TelevisionDto dto = televisionService.updateTelevision(id, newTelevision);
+
+        return ResponseEntity.ok().body(dto);
     }
 
-    // assigning remote control to television //
-    @PutMapping("/televisions/{id}/{remoteControl}")
-    public ResponseEntity<Object> assignRemoteControlToTelevision(@PathVariable Long television, @RequestBody IdInputDto input, @PathVariable String remoteControl) {
-        televisionService.assignRemoteControlToTelevision(television, input.id);
+
+    // 4th step of ONE-TO-ONE relation Television to Remote Control : assigning remote control to television in a @PutMapping NOTE: Don't forget to set up an IdInputDto in dtos - you have to set it up to pass through the id via this param! //
+    @PutMapping("/televisions/{id}/remotecontrol")
+    public ResponseEntity<Object> assignRemoteControlToTelevision(@PathVariable("id") Long televisionId, @RequestBody IdInputDto input) {
+        televisionService.assignRemoteControlToTelevision(televisionId, input.id);
         return ResponseEntity.ok().build();
     }
 }

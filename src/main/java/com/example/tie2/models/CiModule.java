@@ -2,6 +2,8 @@ package com.example.tie2.models;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "ci_modules")
 public class CiModule {
@@ -16,17 +18,8 @@ public class CiModule {
     @Column(name = "price")
     private double price;
 
-
-    public CiModule(Long id, String name, double price, String type) {
-        this.id = id;
-        this.name = name;
-        this.price = price;
-        this.type = type;
-    }
-
-    public CiModule() {
-
-    }
+    @OneToMany(mappedBy = "ciModule")
+    private List<Television> televisionList;
 
     public Long getId() {
         return id;
@@ -58,5 +51,13 @@ public class CiModule {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public List<Television> getTelevisionList() {
+        return televisionList;
+    }
+
+    public void setTelevisionList(List<Television> televisionList) {
+        this.televisionList = televisionList;
     }
 }

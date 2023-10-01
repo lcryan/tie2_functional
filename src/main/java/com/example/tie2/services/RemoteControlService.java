@@ -7,7 +7,9 @@ import com.example.tie2.models.RemoteControl;
 import com.example.tie2.repositories.RemoteControlRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.rmi.Remote;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -58,22 +60,18 @@ public class RemoteControlService {
         }
     }
 
-    public RemoteControlDto updateRemoteControl(@PathVariable Long id, RemoteControlInputDto upRemoteControl) {
-        Optional<RemoteControl> optionalRemoteControl = remoteControlRepository.findById(id);
-        if (optionalRemoteControl.isPresent()) {
+    public RemoteControlDto updateRemoteControl(Long id, RemoteControlInputDto remoteControlInputDto) {
+        if (remoteControlRepository.findById(id).isPresent()) {
 
-            RemoteControl remoteControlOne = optionalRemoteControl.get();
+            RemoteControl remoteControl = remoteControlRepository.findById(id).get();
+            RemoteControl remoteControl1 = transferRemoteControlInputDtoToRemoteControl(remoteControlInputDto);
 
-            remoteControlOne.setId(upRemoteControl.getId());
-            remoteControlOne.setName(upRemoteControl.getName());
-            remoteControlOne.setBrand(upRemoteControl.getBrand());
-            remoteControlOne.setCompatibleWith(upRemoteControl.getCompatibleWith());
-            remoteControlOne.setBatteryType(upRemoteControl.getBatteryType());
-            remoteControlOne.setOriginalStock(upRemoteControl.getOriginalStock());
-            remoteControlOne.setPrice(upRemoteControl.getPrice());
+            remoteControl1.setId(remoteControl.getId());
 
-            RemoteControl updatedRemoteControl = remoteControlRepository.save(remoteControlOne);
-            return transferRemoteControlToRemoteControlDto(updatedRemoteControl);
+            remoteControlRepository.save(remoteControl1);
+
+            return transferRemoteControlToRemoteControlDto(remoteControl1);
+
         } else {
             throw new RecordNotFoundException("Item of type Remote Control with id: " + id + " could not be found.");
         }
@@ -85,7 +83,7 @@ public class RemoteControlService {
     // HELPER METHODS for conversion REMOTECONTROL:  model - dto - input dto - model //
     public RemoteControlDto transferRemoteControlToRemoteControlDto(RemoteControl remoteControl) {
         RemoteControlDto remoteControlDto = new RemoteControlDto();
-        remoteControlDto.setId(remoteControlDto.getId());
+        remoteControlDto.setId(remoteControl.getId());
         remoteControlDto.setName(remoteControl.getName());
         remoteControlDto.setBrand(remoteControl.getBrand());
         remoteControlDto.setCompatibleWith(remoteControl.getCompatibleWith());
@@ -104,7 +102,7 @@ public class RemoteControlService {
         remoteControl.setCompatibleWith(remoteControlInputDto.getCompatibleWith());
         remoteControl.setBatteryType(remoteControlInputDto.getBatteryType());
         remoteControl.setOriginalStock(remoteControlInputDto.getOriginalStock());
-        remoteControl.setPrice(remoteControl.getPrice());
+        remoteControl.setPrice(remoteControlInputDto.getPrice());
 
         return remoteControl;
     }

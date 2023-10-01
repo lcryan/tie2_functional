@@ -3,12 +3,10 @@ package com.example.tie2.services;
 import com.example.tie2.dtos.TelevisionDto;
 import com.example.tie2.dtos.TelevisionInputDto;
 import com.example.tie2.exceptions.TelevisionNotFoundException;
-import com.example.tie2.models.RemoteControl;
 import com.example.tie2.models.Television;
 import com.example.tie2.repositories.RemoteControlRepository;
 import com.example.tie2.repositories.TelevisionRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,10 +18,15 @@ public class TelevisionService {
     private final TelevisionRepository televisionRepository;
     private final RemoteControlRepository remoteControlRepository;
 
-    public TelevisionService(TelevisionRepository televisionRepository, RemoteControlRepository remoteControlRepository) {
+    private final RemoteControlService remoteControlService;
+
+    // DON"T FORGET TO ADD REMOTE CONTROL REPO!!! //
+    public TelevisionService(TelevisionRepository televisionRepository, RemoteControlRepository remoteControlRepository, RemoteControlService remoteControlService) {
         this.televisionRepository = televisionRepository;
         this.remoteControlRepository = remoteControlRepository;
-    } // this is an autowired construction injection - use this instead of @Autowired! //
+
+        this.remoteControlService = remoteControlService;
+    } // this is an autowired construction injection - use this instead of @Autowired! // // why did you use this ? Could be  one of the 5 argumentations for taking technical decisions //
 
     public List<TelevisionDto> getAllTelevisions() {
         List<Television> televisions = televisionRepository.findAll();
@@ -62,34 +65,40 @@ public class TelevisionService {
         }
     }
 
-    public TelevisionDto updateTelevision(@PathVariable Long id, TelevisionInputDto upTelevision) {
-        Optional<Television> optionalTelevision = televisionRepository.findById(id);
-        if (optionalTelevision.isPresent()) {
-            Television televisionOne = optionalTelevision.get();
 
-            televisionOne.setBrand(upTelevision.getBrand());
-            // enz. // // here more adjustments can be added - due to lack of time, I have only added brand //
-            Television updatedTelevision = televisionRepository.save(televisionOne);
+    public TelevisionDto updateTelevision(Long id, TelevisionInputDto inputDto) {
 
-            return transferTelevisionToTelevisionDto(updatedTelevision);
+        if (televisionRepository.findById(id).isPresent()) {
+
+            Television tv = televisionRepository.findById(id).get();
+
+            Television tv1 = transferTelevisionInputDtoToTelevision(inputDto);
+            tv1.setId(tv.getId());
+
+            televisionRepository.save(tv1);
+
+            return transferTelevisionToTelevisionDto(tv1);
 
         } else {
-            throw new TelevisionNotFoundException("item couldn't be found");
+
+            throw new TelevisionNotFoundException("No television found");
+
         }
+
     }
 
-    // assigning remote control to television function //
+    // 3. Third step: assigning remote control to television function - ONE-TO-ONE RELATION between Television and Remote Controller //
 
-    public void assignRemoteControlToTelevision(Long televisionId, Long remote_ControlId) {
-        Optional<Television> optionalTelevision = televisionRepository.findById(televisionId);
-        Optional<RemoteControl> optionalRemoteControl = remoteControlRepository.findById(televisionId);
+    public void assignRemoteControlToTelevision(Long id, Long remoteControlId) {
+        var optionalTelevision = televisionRepository.findById(id);
+        var optionalRemoteControl = remoteControlRepository.findById(remoteControlId);
         if (optionalTelevision.isPresent() && optionalRemoteControl.isPresent()) {
-
-            RemoteControl remoteControl = optionalRemoteControl.get();
-            Television television = optionalTelevision.get();
-
+            var television = optionalTelevision.get();
+            var remoteControl = optionalRemoteControl.get();
             television.setRemoteControl(remoteControl);
             televisionRepository.save(television);
+        } else {
+            throw new TelevisionNotFoundException("Not found.");
         }
     }
 
@@ -101,6 +110,7 @@ public class TelevisionService {
     public TelevisionDto transferTelevisionToTelevisionDto(Television television) {
         TelevisionDto televisionDto = new TelevisionDto();
         televisionDto.setId(television.getId());
+        televisionDto.setType(television.getType());
         televisionDto.setBrand(television.getBrand());
         televisionDto.setName(television.getName());
         televisionDto.setPrice(television.getPrice());
@@ -117,29 +127,40 @@ public class TelevisionService {
         televisionDto.setDateOfPurchase(television.getDateOfPurchase());
         televisionDto.setCurrentStock(television.getCurrentStock());
         televisionDto.setEnergyLabel(television.getEnergyLabel());
+        televisionDto.setRefreshRate(television.getRefreshRate());
+        televisionDto.setScreenType(television.getScreenType());
+
+        if (television.getRemoteControl() != null) {
+            televisionDto.setRemoteControlDto(remoteControlService.transferRemoteControlToRemoteControlDto(television.getRemoteControl()));
+        }
+
 
         return televisionDto;
     }
 
     // transferring TelevisionInputDto to Television //
-    public Television transferTelevisionInputDtoToTelevision(TelevisionInputDto televisionInputDto) {
+    public Television transferTelevisionInputDtoToTelevision(TelevisionInputDto inputDto) {
         var television = new Television();
-        television.setBrand(televisionInputDto.getBrand());
-        television.setName(televisionInputDto.getName());
-        television.setPrice(televisionInputDto.getPrice());
-        television.setAvailableSize(televisionInputDto.getAvailableSize());
-        television.setScreenQuality(televisionInputDto.getScreenQuality());
-        television.setSmartTv(televisionInputDto.isSmartTv());
-        television.setWifi(televisionInputDto.isWifi());
-        television.setVoiceControl(televisionInputDto.isVoiceControl());
-        television.setHdr(televisionInputDto.isHdr());
-        television.setBluetooth(televisionInputDto.isBluetooth());
-        television.setAmbiLight(televisionInputDto.isAmbiLight());
-        television.setOriginalStock(televisionInputDto.getOriginalStock());
-        television.setSold(televisionInputDto.getSold());
-        television.setDateOfPurchase(televisionInputDto.getDateOfPurchase());
-        television.setCurrentStock(televisionInputDto.getCurrentStock());
-        television.setEnergyLabel(televisionInputDto.getEnergyLabel());
+
+        television.setBrand(inputDto.getBrand());
+        television.setType(inputDto.getType());
+        television.setName(inputDto.getName());
+        television.setPrice(inputDto.getPrice());
+        television.setAvailableSize(inputDto.getAvailableSize());
+        television.setScreenQuality(inputDto.getScreenQuality());
+        television.setSmartTv(inputDto.isSmartTv());
+        television.setWifi(inputDto.isWifi());
+        television.setVoiceControl(inputDto.isVoiceControl());
+        television.setHdr(inputDto.isHdr());
+        television.setBluetooth(inputDto.isBluetooth());
+        television.setAmbiLight(inputDto.isAmbiLight());
+        television.setOriginalStock(inputDto.getOriginalStock());
+        television.setSold(inputDto.getSold());
+        television.setDateOfPurchase(inputDto.getDateOfPurchase());
+        television.setCurrentStock(inputDto.getCurrentStock());
+        television.setEnergyLabel(inputDto.getEnergyLabel());
+        television.setRefreshRate(inputDto.getRefreshRate());
+        television.setScreenType(inputDto.getScreenType());
         return television;
     }
 }

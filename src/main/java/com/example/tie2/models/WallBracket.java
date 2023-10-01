@@ -2,6 +2,8 @@ package com.example.tie2.models;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "wall_brackets")
 public class WallBracket {
@@ -16,11 +18,9 @@ public class WallBracket {
     private boolean adjustable;
     @Column(name = "price")
     private double price;
-
-
-    public WallBracket() {
-
-    }
+    //Establishing Many to Many
+    @ManyToMany(mappedBy = "wallBracketList")
+    private List<Television> televisionList;
 
     public Long getId() {
         return id;

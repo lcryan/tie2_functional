@@ -4,10 +4,16 @@ public class CiModuleDto {
     private Long id;
     private String name;
     private String type;
-    private double price;
+    private Double price;
 
     public CiModuleDto() {
+    }
 
+    public CiModuleDto(Long id, String name, String type, double price) {
+        this.id = id;
+        this.name = name;
+        this.type = type;
+        this.price = price;
     }
 
     public Long getId() {
@@ -34,11 +40,11 @@ public class CiModuleDto {
         this.type = type;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 }

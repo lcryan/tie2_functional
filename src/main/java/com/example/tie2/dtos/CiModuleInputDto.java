@@ -5,11 +5,11 @@ import jakarta.validation.constraints.Positive;
 
 public class CiModuleInputDto {
     private Long id;
-    @NotEmpty(message = "Name has to be assigend.")
+    @NotEmpty(message = "Name has to be assigned.")
     private String name;
     private String type;
     @Positive(message = "Price must be higher than 0.")
-    private double price;
+    private Double price;
 
     public Long getId() {
         return id;
@@ -35,11 +35,11 @@ public class CiModuleInputDto {
         this.type = type;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 }
