@@ -5,7 +5,6 @@ import com.example.tie2.dtos.IdInputDto;
 import com.example.tie2.dtos.TelevisionDto;
 import com.example.tie2.dtos.TelevisionInputDto;
 
-import com.example.tie2.exceptions.TelevisionNotFoundException;
 import com.example.tie2.services.TelevisionService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
