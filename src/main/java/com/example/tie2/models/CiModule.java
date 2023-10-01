@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-@Table
+@Table(name = "ci_modules")
 public class CiModule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
