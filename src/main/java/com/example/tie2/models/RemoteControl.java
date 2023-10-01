@@ -7,7 +7,7 @@ import jakarta.persistence.Table;
 
 
 @Entity
-@Table
+@Table(name = "remote_controls")
 public class RemoteControl {
     @Id
     @GeneratedValue

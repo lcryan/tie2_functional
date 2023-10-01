@@ -1,6 +1,8 @@
 package com.example.tie2.dtos;
 
 
+import com.example.tie2.models.Television;
+
 public class RemoteControlDto {
     private Long id;
     private String name;
