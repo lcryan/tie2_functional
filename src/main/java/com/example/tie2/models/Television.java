@@ -83,7 +83,6 @@ public class Television {
     @ManyToMany
     private List<WallBracket> wallBracketList;
 
-// for every television the is ONE remote control //
 
     public Television() {
     }
@@ -265,6 +264,14 @@ public class Television {
 
     public void setCiModule(CiModule ciModule) {
         this.ciModule = ciModule;
+    }
+
+    public List<WallBracket> getWallBracketList() {
+        return wallBracketList;
+    }
+
+    public void setWallBracketList(List<WallBracket> wallBracketList) {
+        this.wallBracketList = wallBracketList;
     }
 }
 
