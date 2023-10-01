@@ -48,6 +48,8 @@ public class TelevisionDto {
 
     private EnergyLabel energyLabel; // pulling from enum class //
 
+    // this is for the Many-To-One relationship with Ci Module //
+    private CiModuleDto ciModuleDto;
     private RemoteControlDto remoteControlDto;
 
     public TelevisionDto() {
@@ -242,6 +244,14 @@ public class TelevisionDto {
 
     public void setRemoteControlDto(RemoteControlDto remoteControlDto) {
         this.remoteControlDto = remoteControlDto;
+    }
+
+    public CiModuleDto getCiModuleDto() {
+        return ciModuleDto;
+    }
+
+    public void setCiModuleDto(CiModuleDto ciModuleDto) {
+        this.ciModuleDto = ciModuleDto;
     }
 }
 

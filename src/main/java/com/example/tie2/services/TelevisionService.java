@@ -2,8 +2,11 @@ package com.example.tie2.services;
 
 import com.example.tie2.dtos.TelevisionDto;
 import com.example.tie2.dtos.TelevisionInputDto;
+import com.example.tie2.exceptions.RecordNotFoundException;
 import com.example.tie2.exceptions.TelevisionNotFoundException;
+import com.example.tie2.models.CiModule;
 import com.example.tie2.models.Television;
+import com.example.tie2.repositories.CiModuleRepository;
 import com.example.tie2.repositories.RemoteControlRepository;
 import com.example.tie2.repositories.TelevisionRepository;
 import org.springframework.stereotype.Service;
@@ -18,14 +21,20 @@ public class TelevisionService {
     private final TelevisionRepository televisionRepository;
     private final RemoteControlRepository remoteControlRepository;
 
+    private final CiModuleRepository ciModuleRepository;
+
     private final RemoteControlService remoteControlService;
 
-    // DON"T FORGET TO ADD REMOTE CONTROL REPO!!! //
-    public TelevisionService(TelevisionRepository televisionRepository, RemoteControlRepository remoteControlRepository, RemoteControlService remoteControlService) {
+    private final CiModuleService ciModuleService;
+
+    // DON"T FORGET TO ADD REMOTE CONTROL & CI MODULE REPO && SERVICE !!! //
+    public TelevisionService(TelevisionRepository televisionRepository, RemoteControlRepository remoteControlRepository, CiModuleRepository ciModuleRepository, RemoteControlService remoteControlService, CiModuleService ciModuleService) {
         this.televisionRepository = televisionRepository;
         this.remoteControlRepository = remoteControlRepository;
+        this.ciModuleRepository = ciModuleRepository;
 
         this.remoteControlService = remoteControlService;
+        this.ciModuleService = ciModuleService;
     } // this is an autowired construction injection - use this instead of @Autowired! // // why did you use this ? Could be  one of the 5 argumentations for taking technical decisions //
 
     public List<TelevisionDto> getAllTelevisions() {
@@ -103,6 +112,25 @@ public class TelevisionService {
     }
 
 
+    // MANY-TO-ONE RELATION WITH CI-MODULE - assign CiModule to Television within a function //
+
+    public void assignCiModuleToTelevision(Long televisionId, Long ciModuleId) {
+        var optionalCiModule = ciModuleRepository.findById(ciModuleId);
+        var optionalTelevision = televisionRepository.findById(televisionId);
+
+        if (optionalTelevision.isPresent() && optionalCiModule.isPresent()) {
+            Television television = optionalTelevision.get();
+            CiModule ciModule = optionalCiModule.get();
+
+            television.setCiModule(ciModule);
+            televisionRepository.save(television);
+
+        } else {
+            throw new RecordNotFoundException("Item with id " + ciModuleId + "could not be found.");
+        }
+    }
+
+
 // ******* helper methods here: ******* //
 
 
@@ -133,7 +161,9 @@ public class TelevisionService {
         if (television.getRemoteControl() != null) {
             televisionDto.setRemoteControlDto(remoteControlService.transferRemoteControlToRemoteControlDto(television.getRemoteControl()));
         }
-
+        if (television.getCiModule() != null) {
+            televisionDto.setCiModuleDto(ciModuleService.transferCiModuleToCiModuleDto(television.getCiModule()));
+        }
 
         return televisionDto;
     }

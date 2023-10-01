@@ -75,6 +75,14 @@ public class TelevisionController {
         televisionService.assignRemoteControlToTelevision(televisionId, input.id);
         return ResponseEntity.ok().build();
     }
+
+    // MANY-TO-ONE relation with CiModule //
+
+    @PutMapping("televisions/{id}/{ciModuleId}")
+    public ResponseEntity<Object> assignCiModuleToTelevision(@PathVariable("id") Long televisionId, @PathVariable("ciModuleId") Long ciModuleId) {
+        televisionService.assignCiModuleToTelevision(televisionId, ciModuleId);
+        return ResponseEntity.ok().build();
+    }
 }
 
 

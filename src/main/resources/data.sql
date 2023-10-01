@@ -36,3 +36,18 @@ WHERE id = 1003;
 UPDATE televisions
 SET compatible_remote_control = 1004
 WHERE id = 1004;
+
+INSERT INTO ci_modules (id, name, price, type)
+VALUES (2385, 'QCiModule', 34.99, 'Interactive Module'),
+       (2386, 'QUEST', 46.89, 'NetflixMasterModule'),
+       (2387, 'BirdView', 99.00, 'LaserCiModule');
+
+UPDATE televisions
+SET compatible_ci_module = 2385
+WHERE id = 1002;
+UPDATE televisions
+SET compatible_ci_module = 2386
+WHERE id = 1003;
+UPDATE televisions
+SET compatible_ci_module = 2387
+WHERE id = 1004;
