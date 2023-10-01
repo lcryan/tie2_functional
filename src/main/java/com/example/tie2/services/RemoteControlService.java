@@ -61,6 +61,7 @@ public class RemoteControlService {
     public RemoteControlDto updateRemoteControl(@PathVariable Long id, RemoteControlInputDto upRemoteControl) {
         Optional<RemoteControl> optionalRemoteControl = remoteControlRepository.findById(id);
         if (optionalRemoteControl.isPresent()) {
+
             RemoteControl remoteControlOne = optionalRemoteControl.get();
 
             remoteControlOne.setId(upRemoteControl.getId());

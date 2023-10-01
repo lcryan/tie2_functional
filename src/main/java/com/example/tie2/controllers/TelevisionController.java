@@ -1,7 +1,9 @@
 package com.example.tie2.controllers;
 
+import com.example.tie2.dtos.IdInputDto;
 import com.example.tie2.dtos.TelevisionDto;
 import com.example.tie2.dtos.TelevisionInputDto;
+import com.example.tie2.models.RemoteControl;
 import com.example.tie2.services.TelevisionService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -43,10 +45,16 @@ public class TelevisionController {
 
 
     @PutMapping("/televisions/{id}")
+    public ResponseEntity<TelevisionDto> updateTelevision(@PathVariable Long id, @Valid @RequestBody TelevisionInputDto newTele) {
+        TelevisionDto televisionInputDtoOne = televisionService.updateTelevision(id, newTele);
+        return ResponseEntity.ok().body(televisionInputDtoOne);
+    }
 
-    public ResponseEntity<TelevisionDto> updateTelevision(@PathVariable Long id, @Valid @RequestBody TelevisionInputDto televisionInputDto) {
-        TelevisionDto televisionInputDto1 = televisionService.updateTelevision(id, televisionInputDto);
-        return ResponseEntity.ok().body(televisionInputDto1);
+    // assigning remote control to television //
+    @PutMapping("/televisions/{id}/{remoteControl}")
+    public ResponseEntity<Object> assignRemoteControlToTelevision(@PathVariable Long television, @RequestBody IdInputDto input, @PathVariable String remoteControl) {
+        televisionService.assignRemoteControlToTelevision(television, input.id);
+        return ResponseEntity.ok().build();
     }
 }
 

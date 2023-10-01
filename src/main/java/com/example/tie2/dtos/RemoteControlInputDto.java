@@ -12,7 +12,6 @@ public class RemoteControlInputDto {
     private String batteryType;
     @Positive(message = "Stock has to be higher than zero.")
     private Integer originalStock;
-    @Positive(message = "Price has to be assigned a positive number.")
     private double price;
 
     public Long getId() {

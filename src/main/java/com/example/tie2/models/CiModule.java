@@ -3,10 +3,10 @@ package com.example.tie2.models;
 import jakarta.persistence.*;
 
 @Entity
-@Table
+@Table(name = "ci_modules")
 public class CiModule {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "name")
     private String name;
