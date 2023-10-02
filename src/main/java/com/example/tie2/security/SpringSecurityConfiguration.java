@@ -4,26 +4,31 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-@Configuration
-public class SpringSecurityConfiguration {
-/*    @Bean
-    public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
-    }*/
+import javax.sql.DataSource;
 
-    // sets up pw encoder //
+@Configuration
+
+public class SpringSecurityConfiguration {
+    private final DataSource dataSource;
+
+    public SpringSecurityConfiguration(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+
     @Bean
-    public PasswordEncoder passwordEncoder() {
+    PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-
-    // ------ To implement authorisation here ------- -//
- /*   @Bean
+// ------- This throws errors from IntelliJ - has to be discussed - //
+/*    @Bean
     protected SecurityFilterChain filter(HttpSecurity http) throws Exception {
 
         http
@@ -39,8 +44,21 @@ public class SpringSecurityConfiguration {
 
                 .anyRequest().denyAll()
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
+        return http.build();
     }*/
+
+    @Bean
+    public AuthenticationManager authManager(HttpSecurity http) throws Exception {
+        AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
+        authenticationManagerBuilder.jdbcAuthentication().dataSource(dataSource)
+                .usersByUsernameQuery("SELECT username, password, enabled" +
+                        " FROM users" +
+                        " WHERE username=?")
+                .authoritiesByUsernameQuery("SELECT username, authority" +
+                        " FROM authorities " +
+                        " WHERE username=?");
+        return authenticationManagerBuilder.build();
+    }
 }
 
 
