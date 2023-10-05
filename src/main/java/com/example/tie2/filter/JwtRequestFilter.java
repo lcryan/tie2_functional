@@ -1,2 +1,4 @@
-package com.example.tie2.filter;public class JwtRequestFilter {
+package com.example.tie2.filter;
+
+public class JwtRequestFilter {
 }
