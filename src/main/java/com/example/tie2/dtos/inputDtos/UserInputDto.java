@@ -1,4 +1,4 @@
-package com.example.tie2.dtos;
+package com.example.tie2.dtos.inputDtos;
 
 public class UserInputDto {
 }
