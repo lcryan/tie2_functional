@@ -1,3 +1,4 @@
+/*
 package com.example.tie2.security;
 
 import org.springframework.context.annotation.Bean;
@@ -29,7 +30,8 @@ public class SpringSecurityConfiguration {
         return new BCryptPasswordEncoder();
     }
 
-// ------- This throws errors from IntelliJ - has to be discussed - //
+// ------- This throws errors from IntelliJ - has to be discussed - here we need to use LAMBDA !- //
+*/
 /*    @Bean
     protected SecurityFilterChain filter(HttpSecurity http) throws Exception {
 
@@ -47,7 +49,8 @@ public class SpringSecurityConfiguration {
                 .anyRequest().denyAll()
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         return http.build();
-    }*/
+    }*//*
+
 
     @Bean
     public AuthenticationManager authManager(HttpSecurity http) throws Exception {
@@ -64,3 +67,4 @@ public class SpringSecurityConfiguration {
 }
 
 
+*/
