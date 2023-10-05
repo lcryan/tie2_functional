@@ -1,15 +1,12 @@
 package com.example.tie2.services;
 
 import com.example.tie2.dtos.RemoteControlDto;
-import com.example.tie2.dtos.RemoteControlInputDto;
+import com.example.tie2.dtos.inputDtos.RemoteControlInputDto;
 import com.example.tie2.exceptions.RecordNotFoundException;
 import com.example.tie2.models.RemoteControl;
 import com.example.tie2.repositories.RemoteControlRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.rmi.Remote;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;

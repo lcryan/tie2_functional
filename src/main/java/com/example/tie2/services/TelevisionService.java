@@ -1,7 +1,7 @@
 package com.example.tie2.services;
 
 import com.example.tie2.dtos.TelevisionDto;
-import com.example.tie2.dtos.TelevisionInputDto;
+import com.example.tie2.dtos.inputDtos.TelevisionInputDto;
 import com.example.tie2.exceptions.RecordNotFoundException;
 import com.example.tie2.exceptions.TelevisionNotFoundException;
 import com.example.tie2.models.CiModule;

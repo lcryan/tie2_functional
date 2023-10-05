@@ -51,3 +51,6 @@ WHERE id = 1003;
 UPDATE televisions
 SET compatible_ci_module = 2387
 WHERE id = 1004;
+
+
+/* TODO FOR SECURITY : Update de data.sql met users en authorities.*/
