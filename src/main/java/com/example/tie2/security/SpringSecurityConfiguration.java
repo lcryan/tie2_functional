@@ -28,6 +28,8 @@ public class SpringSecurityConfiguration {
     public SpringSecurityConfiguration(UserDetailsService userDetailsService, JwtRequestFilter jwtRequestFilter) {
         this.userDetailsService = userDetailsService;
         this.jwtRequestFilter = jwtRequestFilter;
+
+        //TODO : jwt requestfilter still needs to be set up //
     }
 
     @Bean
