@@ -1,2 +1,4 @@
-package com.example.tie2.exceptions;public class BadRequestException {
+package com.example.tie2.exceptions;
+
+public class BadRequestException {
 }

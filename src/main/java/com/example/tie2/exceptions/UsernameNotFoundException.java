@@ -1,2 +1,4 @@
-package com.example.tie2.exceptions;public class UsernameNotFoundException {
+package com.example.tie2.exceptions;
+
+public class UsernameNotFoundException {
 }
