@@ -53,4 +53,4 @@ SET compatible_ci_module = 2387
 WHERE id = 1004;
 
 
-/* TODO FOR SECURITY : Update de data.sql met users en authorities.*/
+/* TODO FOR SECURITY : Update the data.sql with users and authorities.*/
