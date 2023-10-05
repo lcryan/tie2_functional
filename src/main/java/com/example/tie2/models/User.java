@@ -48,6 +48,7 @@ public class User {
         this.authoritySet = authoritySet;
     }
 
+    // set up relation to auth //
     @OneToMany(
             targetEntity = Authority.class,
             mappedBy = "username",
@@ -55,6 +56,7 @@ public class User {
             orphanRemoval = true,
             fetch = FetchType.EAGER)
 
+    // methods to add and remove auth from user //
     private Set<Authority> authoritySet = new HashSet<>();
 
     public Set<Authority> getAuthoritySet() {
