@@ -1,2 +1,4 @@
-package com.example.tie2.controllers;public class UserController {
+package com.example.tie2.controllers;
+
+public class UserController {
 }

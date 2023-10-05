@@ -2,7 +2,7 @@ package com.example.tie2.controllers;
 
 
 import com.example.tie2.dtos.RemoteControlDto;
-import com.example.tie2.dtos.RemoteControlInputDto;
+import com.example.tie2.dtos.inputDtos.RemoteControlInputDto;
 import com.example.tie2.services.RemoteControlService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +11,6 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class RemoteControlController {

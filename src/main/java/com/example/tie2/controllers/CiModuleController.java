@@ -1,7 +1,7 @@
 package com.example.tie2.controllers;
 
 import com.example.tie2.dtos.CiModuleDto;
-import com.example.tie2.dtos.CiModuleInputDto;
+import com.example.tie2.dtos.inputDtos.CiModuleInputDto;
 import com.example.tie2.services.CiModuleService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
