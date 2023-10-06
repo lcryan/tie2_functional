@@ -2,6 +2,7 @@ package com.example.tie2.services;
 
 import com.example.tie2.dtos.UserDto;
 import com.example.tie2.exceptions.UsernameNotFoundException;
+import com.example.tie2.models.Authority;
 import com.example.tie2.models.User;
 import com.example.tie2.repositories.UserRepository;
 import com.example.tie2.utils.RandomStringGenerator;
@@ -22,7 +23,7 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    // --- getting all existing users --- //
+    // --- GETTING LIST OF USERS --- //
     public List<UserDto> getAllUsers() {
         List<UserDto> userDtoList = new ArrayList<>();
         List<User> userList = userRepository.findAll();
@@ -33,13 +34,13 @@ public class UserService {
         return userDtoList;
     }
 
-    // --- creating a new user --- //
+    // --- CREATING NEW USER --- //
     public String createNewUser(UserDto userDto) {
         String randomString = RandomStringGenerator.generateString(33);
         userDto.setApikey(randomString);
         User newUser = userRepository.save(userDtotoUser(userDto));
         return newUser.getUsername();
-    }
+    } // missing password encoding! //
 
     // --- getting a user by username --- //
     public UserDto getUser(String username) {
@@ -56,6 +57,7 @@ public class UserService {
         return userRepository.existsById(Long.valueOf(username));
     }
 
+    // --- UPDATING USER --- //
     public void updateUser(String username, UserDto newUser) {
         if (userRepository.existsById(Long.valueOf(username))) {
             User user = userRepository.findById(Long.valueOf(username)).get();
@@ -65,13 +67,38 @@ public class UserService {
             user.setFirstname(newUser.getFirstname());
             user.setLastname(newUser.getLastname());
             user.setEmail(newUser.getEmail());
-
-            return userRepository.save();
+            userRepository.save(user);
 
         } else {
             throw new UsernameNotFoundException(username);
         }
+    }
 
+    // --- DELETE USER --- //
+    public void deleteUser(String username) {
+        userRepository.deleteById(Long.valueOf(username));
+    }
+
+    // --- ADDING AUTHORITY to USER -- //
+    public void addAuthority(String username, String authority) {
+        if (userRepository.existsById(Long.valueOf(username))) {
+            User user = userRepository.findById(Long.valueOf(username)).get();
+            user.addAuthority(new Authority(username, authority));
+            userRepository.save(user);
+        } else {
+            throw new UsernameNotFoundException(username);
+        }
+    }
+
+    public void removeAuthority(String username, String authority) {
+        if (userRepository.existsById(Long.valueOf(username))) {
+            User user = userRepository.findById(Long.valueOf(username)).get();
+            Authority toRemoveAuth = user.getAuthoritySet().stream().filter((a) -> a.getAuthority().equalsIgnoreCase(authority)).findAny().get();
+            user.removeAuthority(toRemoveAuth);
+            userRepository.save(user);
+        } else {
+            throw new UsernameNotFoundException(username);
+        }
     }
 
 
