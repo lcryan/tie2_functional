@@ -135,5 +135,3 @@ public class UserService {
     }
 }
 
-
-// TODO  Zorg dat in de createUser methode het password encode wordt, zodat een nieuwe gebruiker ook kan inloggen.//
