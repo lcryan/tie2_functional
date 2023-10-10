@@ -55,12 +55,13 @@ public class UserService {
     }
 
     // --- checking, if user actually exists --- //
+    // not quite sure about this one though //
     public boolean userExists(String username) {
         return userRepository.existsById(Long.valueOf(username));
     }
 
     // --- UPDATING USER --- //
-    public void updateUser(String username, UserDto newUser) {
+    public UserDto updateUser(String username, UserDto newUser) {
         if (userRepository.existsById(Long.valueOf(username))) {
             User user = userRepository.findById(Long.valueOf(username)).get();
 
@@ -74,11 +75,19 @@ public class UserService {
         } else {
             throw new UsernameNotFoundException(username);
         }
+        return newUser;
     }
 
     // --- DELETE USER --- //
     public void deleteUser(String username) {
-        userRepository.deleteById(Long.valueOf(username));
+        if (userRepository.existsById(Long.valueOf(username))) {
+            Optional<User> toBeDeletedUser = userRepository.findById(Long.valueOf(username));
+            User userD = toBeDeletedUser.get();
+            userRepository.delete(userD);
+        } else {
+            throw new UsernameNotFoundException(username);
+        }
+
     }
 
     // --- ADDING AUTHORITY to USER -- //
