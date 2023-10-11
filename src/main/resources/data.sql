@@ -53,4 +53,12 @@ SET compatible_ci_module = 2387
 WHERE id = 1004;
 
 
-/* TODO FOR SECURITY : Update the data.sql with users and authorities.*/
+INSERT INTO users (username, password, enabled, apikey, email)
+VALUES ('Amy', '$2a$12$fhN.Gmc/rzO7G8t9e5ai.ORJhv1p1p92Bi.JEugHQu8QHORFwpo6q', true, '9880285',
+        amywinehouse@london.co.uk),
+       ('Kurt', '$2a$12$8GAc/F.rwJyDrV6YgEx6cOGHTL.UFuoo4VNetwRjugzm7s//LjpcW', true, '0142853',
+        kurt@seattlehouse.com);
+
+INSERT INTO authorities(username, authority)
+VALUES ('Amy', 'ROLE_ADMIN'),
+       ('Kurt', 'ROLE_USER');
