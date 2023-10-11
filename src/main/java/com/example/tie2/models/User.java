@@ -31,10 +31,7 @@ public class User {
     @Column
     private String email;
 
-    // setting up OneToMany with Authority Class - NOT KEY !!!  //
-
     public User() {
-
     }
 
     public User(String username, String password, boolean enabled, String apikey, String firstname, String lastname, String email, Set<Authority> authoritySet) {
@@ -48,7 +45,7 @@ public class User {
         this.authoritySet = authoritySet;
     }
 
-    // set up relation to auth //
+    //---  set up relation to Authority --- //
     @OneToMany(
             targetEntity = Authority.class,
             mappedBy = "username",
