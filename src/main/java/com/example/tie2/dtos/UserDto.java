@@ -3,15 +3,17 @@ package com.example.tie2.dtos;
 import com.example.tie2.models.Authority;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-import jakarta.validation.constraints.NotBlank;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Objects;
 import java.util.Set;
 
+@Getter
+@Setter
 public class UserDto {
-    @NotBlank
     private String username;
-    @NotBlank
+
     private String password;
     private Boolean enabled;
     private String apikey;
@@ -29,70 +31,6 @@ public class UserDto {
     public Set<Authority> authoritySet;
 
     // equals // comparing two objects for equality - comparing two instances of the class, that should be equal- & hashcode - used to calculate a hashcode - important if objects are stored as a hash table as in HashSet etc.  //
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Boolean getEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(Boolean enabled) {
-        this.enabled = enabled;
-    }
-
-    public String getApikey() {
-        return apikey;
-    }
-
-    public void setApikey(String apikey) {
-        this.apikey = apikey;
-    }
-
-    public String getFirstname() {
-        return firstname;
-    }
-
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Set<Authority> getAuthoritySet() {
-        return authoritySet;
-    }
-
-    public void setAuthoritySet(Set<Authority> authoritySet) {
-        this.authoritySet = authoritySet;
-    }
 
     @Override
     public boolean equals(Object o) {
