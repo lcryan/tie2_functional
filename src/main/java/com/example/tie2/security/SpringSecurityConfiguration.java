@@ -2,6 +2,7 @@ package com.example.tie2.security;
 
 import com.example.tie2.filter.JwtRequestFilter;
 import com.example.tie2.services.CustomUserDetailService;
+import com.example.tie2.services.JwtService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -68,7 +69,7 @@ public class SpringSecurityConfiguration {
                 )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .csrf(AbstractHttpConfigurer::disable)
-                .addFilterBefore(new JwtRequestFilter(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class))
+                .addFilterBefore(new JwtRequestFilter(JwtService, UsernamePasswordAuthenticationFilter.class))
 
         ; return http.build();
     }
