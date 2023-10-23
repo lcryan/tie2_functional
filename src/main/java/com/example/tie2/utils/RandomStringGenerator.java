@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class RandomStringGenerator {
 
-    public static String generatedAlphaNumber(int randomNumber) {
+    public static String generateAlphaNumeric(int randomNumber) {
         int leftLimit = 48; // number '0'
         int rightLimit = 122; // letter 'z'
         int targetStringLength = 10;
