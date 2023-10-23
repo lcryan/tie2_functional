@@ -35,7 +35,7 @@ public class TelevisionService {
 
         this.remoteControlService = remoteControlService;
         this.ciModuleService = ciModuleService;
-    } // this is an autowired construction injection - use this instead of @Autowired! // // why did you use this ? Could be  one of the 5 argumentations for taking technical decisions //
+    }
 
     public List<TelevisionDto> getAllTelevisions() {
         List<Television> televisions = televisionRepository.findAll();
