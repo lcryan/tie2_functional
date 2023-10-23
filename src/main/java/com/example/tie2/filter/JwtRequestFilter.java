@@ -1,6 +1,5 @@
 package com.example.tie2.filter;
 
-
 import com.example.tie2.services.CustomUserDetailService;
 import com.example.tie2.utils.JwtUtil;
 import jakarta.servlet.FilterChain;
@@ -20,10 +19,15 @@ import java.io.IOException;
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
 
-    private CustomUserDetailService customUserDetailService;
-    private JwtUtil jwtUtil;
+    private final CustomUserDetailService userDetailService;
 
-// TODO: solve the related problem error below //
+    private final JwtUtil jwtUtil;
+
+    public JwtRequestFilter(CustomUserDetailService userDetailsService, JwtUtil jwtUtil) {
+        this.userDetailService = userDetailsService;
+        this.jwtUtil = jwtUtil;
+    }
+
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -39,7 +43,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         }
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = this.customUserDetailService.loadUserByUsername(username);
+            UserDetails userDetails = this.userDetailService.loadUserByUsername(username);
 
             if (jwtUtil.validateToken(jwt, userDetails)) {
 

@@ -26,15 +26,29 @@ public class User {
     @Column(nullable = false, length = 50)
     private String password;
 
+    @Column(nullable = false)
+    private boolean enabled = true;
+
+    @Column
+    private String apikey;
+
     @OneToMany(
             targetEntity = Authority.class,
             mappedBy = "username",
             cascade = CascadeType.ALL,
             orphanRemoval = true,
             fetch = FetchType.EAGER)
-    private Set<Authority> authorities = new HashSet<>(); // here it is a set, but it could also be a list //
+    private Set<Authority> authoritySet = new HashSet<>();
 
     @Column
     private String email;
+
+    public void addAuthority(Authority authority) {
+        this.authoritySet.add(authority);
+    }
+
+    public void removeAuthority(Authority authority) {
+        this.authoritySet.remove(authority);
+    }
 }
 

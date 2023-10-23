@@ -1,48 +1,45 @@
 package com.example.tie2.security;
 
 import com.example.tie2.filter.JwtRequestFilter;
+import com.example.tie2.services.UserService;
 import com.example.tie2.services.CustomUserDetailService;
-import com.example.tie2.services.JwtService;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.Customizer;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import javax.sql.DataSource;
 
-@EnableWebSecurity
 @Configuration
+@EnableWebSecurity
 
 public class SpringSecurityConfiguration {
 
-    private UserDetailsService userDetailsService;
-    private JwtRequestFilter jwtRequestFilter;
 
-    private CustomUserDetailService customUserDetailService;
+    public final CustomUserDetailService customUserDetailService;
+    private final JwtRequestFilter jwtRequestFilter;
 
-    public SpringSecurityConfiguration(UserDetailsService userDetailsService, JwtRequestFilter jwtRequestFilter) {
-        this.userDetailsService = userDetailsService;
+
+    public SpringSecurityConfiguration(CustomUserDetailService customUserDetailService, JwtRequestFilter jwtRequestFilter, UserService userService) {
+        this.customUserDetailService = customUserDetailService;
         this.jwtRequestFilter = jwtRequestFilter;
 
-        //TODO : jwt requestfilter still needs to be set up //
     }
 
 
     @Bean
-    public AuthenticationManager authenticationManager(HttpSecurity http, PasswordEncoder passwordEncoder) throws Exception {
+    public AuthenticationManager authenticationManager(HttpSecurity httpSecurity, PasswordEncoder passwordEncoder) throws Exception {
         var auth = new DaoAuthenticationProvider();
         auth.setPasswordEncoder(passwordEncoder);
         auth.setUserDetailsService(customUserDetailService);
@@ -57,25 +54,24 @@ public class SpringSecurityConfiguration {
 
     @Bean
     protected SecurityFilterChain filter(HttpSecurity http) throws Exception {
-
-        //JWT token authentication
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(HttpMethod.GET, "/users").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.POST, "/users/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/users/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/users").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/auth").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/*").permitAll()
+                        .requestMatchers(HttpMethod.DELETE, "/*").hasRole("ADMIN")
+
+                        .requestMatchers("/secret").hasRole("ADMIN")
                         .requestMatchers("/authenticated").authenticated()
-                        .anyRequest().denyAll()
+                        .requestMatchers("/authenticate").permitAll()
                 )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .csrf(AbstractHttpConfigurer::disable)
-                .addFilterBefore(new JwtRequestFilter(JwtService, UsernamePasswordAuthenticationFilter.class))
-
-        ; return http.build();
+                .csrf(csrf -> csrf.disable())
+                .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+        return http.build();
     }
 
+}
 
-}
-}
 
 

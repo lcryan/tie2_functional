@@ -25,34 +25,35 @@ public class UserController {
 
     // --- GETTING UserList --- //
     @GetMapping(value = "")
+    public ResponseEntity<List<UserDto>> getUsers() {
 
-    public ResponseEntity<List<UserDto>> getUsersList() {
-        List<UserDto> userDtoList = userService.getAllUsers();
-
-        return ResponseEntity.ok().build();
+        List<UserDto> userDtos = userService.getUsers();
+        return ResponseEntity.ok().body(userDtos);
     }
+
 
     // ---  GETTING one existing user ---  //
-    @GetMapping(value = "/{username}")
     public ResponseEntity<UserDto> getUser(@PathVariable("username") String username) {
-        UserDto userDto = userService.getUser(username);
 
-        return ResponseEntity.ok().build(); // is this right ??? Not quite sure, if this will be functional //
+        UserDto optionalUser = userService.getUser(username);
+        return ResponseEntity.ok().body(optionalUser);
+
     }
-
 
     // --- CREATING NEW USER --- //
     @PostMapping(value = "")
 
     public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto) {
 
-        String newUserName = userService.createNewUser(userDto);
+        String newUserName = userService.createUser(userDto);
+
         //adding authority to user: //
+
         userService.addAuthority(newUserName, "ROLE_USER");
 
         // -- ADDING location to user via URI --- //
 
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/username").buildAndExpand().toUri();
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/username").buildAndExpand(newUserName).toUri();
 
         return ResponseEntity.created(location).build();
     }
@@ -61,8 +62,7 @@ public class UserController {
     @PutMapping(value = "/{username}")
     public ResponseEntity<UserDto> updateUser(@PathVariable("username") String username, @RequestBody UserDto userDto) {
 
-        UserDto userDto1 = userService.updateUser(username, userDto);
-
+        userService.updateUser(username, userDto);
         return ResponseEntity.noContent().build(); // could we also add okay here ??? //
     }
 
@@ -74,6 +74,14 @@ public class UserController {
 
     // --- SECTION AUTHORITIES TO USER --- //
 
+    // getting user authorities //
+    @GetMapping("/{username}/authorities")
+    public ResponseEntity<Object> getUserAuthorities(@PathVariable("username") String username) {
+
+        return ResponseEntity.ok().body(userService.getAuthorities(username));
+    }
+
+    // ADDING AUTHORITY to user //
     @PostMapping(value = "/{username}/authorities")
 
     public ResponseEntity<Object> addUserAuthority(@PathVariable("username") String username, @RequestBody Map<String, Object> fields) {
@@ -84,5 +92,12 @@ public class UserController {
         } catch (Exception exception) {
             throw new BadRequestException();
         }
+    }
+
+    // REMOVING AUTHORITY FROM USER //
+    @DeleteMapping(value = "{username}/authorities/{authority}")
+    public ResponseEntity<Object> deleteUserAuthority(@PathVariable("username") String username, @PathVariable("authority") String authority) {
+        userService.removeAuthority(username, authority);
+        return ResponseEntity.noContent().build();
     }
 }

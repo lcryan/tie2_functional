@@ -8,9 +8,14 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class ExceptionController extends RuntimeException {
 
-    @ExceptionHandler
-    public ResponseEntity<String> exception(TelevisionNotFoundException exception, UsernameNotFoundException usernameNotFoundException) {
+    @ExceptionHandler(value = TelevisionNotFoundException.class)
+    public ResponseEntity<Object> exception(TelevisionNotFoundException exception) {
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
-        new ResponseEntity<>(usernameNotFoundException.getMessage(), HttpStatus.NOT_FOUND);
+
+    }
+
+    @ExceptionHandler(value = UsernameNotFoundException.class)
+    public ResponseEntity<Object> exception(UsernameNotFoundException exception) {
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
     }
 }

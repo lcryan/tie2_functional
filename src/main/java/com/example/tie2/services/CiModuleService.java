@@ -41,8 +41,7 @@ public class CiModuleService {
     public CiModuleDto getOneCiModule(Long id) {
         Optional<CiModule> optionalCiModule = ciModuleRepository.findById(id);
         if (optionalCiModule.isPresent()) {
-            CiModuleDto ciModule = transferCiModuleToCiModuleDto(optionalCiModule.get());
-            return ciModule;
+            return transferCiModuleToCiModuleDto(optionalCiModule.get());
         } else {
             throw new RecordNotFoundException("Item of type Ci-Module with id: " + id + " could not be found.");
         }
