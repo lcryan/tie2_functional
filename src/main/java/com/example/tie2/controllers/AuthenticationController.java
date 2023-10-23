@@ -1,8 +1,7 @@
 package com.example.tie2.controllers;
 
-
 import com.example.tie2.dtos.AuthenticationDto;
-import com.example.tie2.models.TechUserDetails;
+import com.example.tie2.models.User;
 import com.example.tie2.services.JwtService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -34,7 +33,7 @@ public class AuthenticationController {
         try {
             Authentication auth = authenticationManager.authenticate(up);
 
-            TechUserDetails ud = (TechUserDetails) auth.getPrincipal();
+            User ud = (User) auth.getPrincipal();
             String token = jwtService.generateToken(ud);
 
             return ResponseEntity.ok()

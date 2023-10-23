@@ -2,10 +2,15 @@ package com.example.tie2.models;
 
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
+
+@AllArgsConstructor
+@NoArgsConstructor
 
 @Getter
 @Setter
@@ -21,12 +26,4 @@ public class Authority implements Serializable {
     @Id
     @Column
     private String authority;
-
-    public Authority() {
-    }
-
-    public Authority(String username, String authority) {
-        this.username = username;
-        this.authority = authority;
-    }
 }
