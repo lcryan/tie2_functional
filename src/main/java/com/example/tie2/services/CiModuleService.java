@@ -1,14 +1,13 @@
 package com.example.tie2.services;
 
 import com.example.tie2.dtos.CiModuleDto;
-import com.example.tie2.dtos.CiModuleInputDto;
+import com.example.tie2.dtos.inputDtos.CiModuleInputDto;
 
 import com.example.tie2.exceptions.RecordNotFoundException;
 import com.example.tie2.models.CiModule;
 
 import com.example.tie2.repositories.CiModuleRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,8 +41,7 @@ public class CiModuleService {
     public CiModuleDto getOneCiModule(Long id) {
         Optional<CiModule> optionalCiModule = ciModuleRepository.findById(id);
         if (optionalCiModule.isPresent()) {
-            CiModuleDto ciModule = transferCiModuleToCiModuleDto(optionalCiModule.get());
-            return ciModule;
+            return transferCiModuleToCiModuleDto(optionalCiModule.get());
         } else {
             throw new RecordNotFoundException("Item of type Ci-Module with id: " + id + " could not be found.");
         }

@@ -1,7 +1,7 @@
 package com.example.tie2.controllers;
 
 import com.example.tie2.dtos.WallBracketDto;
-import com.example.tie2.dtos.WallBracketInputDto;
+import com.example.tie2.dtos.inputDtos.WallBracketInputDto;
 import com.example.tie2.services.WallBracketService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +10,6 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 
 @RestController

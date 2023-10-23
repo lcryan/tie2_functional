@@ -1,5 +1,6 @@
 package com.example.tie2.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -18,9 +19,12 @@ public class CiModule {
     @Column(name = "price")
     private double price;
 
+    // Establishing One-TO-Many relation with Television  - this is the target side : there is nothing in the db here //
     @OneToMany(mappedBy = "ciModule")
+    @JsonIgnore
     private List<Television> televisionList;
 
+    //NOTE: there is no getter or setter here!!! //
     public Long getId() {
         return id;
     }
@@ -53,11 +57,4 @@ public class CiModule {
         this.type = type;
     }
 
-    public List<Television> getTelevisionList() {
-        return televisionList;
-    }
-
-    public void setTelevisionList(List<Television> televisionList) {
-        this.televisionList = televisionList;
-    }
 }

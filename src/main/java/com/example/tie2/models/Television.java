@@ -73,16 +73,16 @@ public class Television {
     @JoinColumn(name = "compatible_remote_control")
     private RemoteControl remoteControl;
 
-    //Establishing ManToOne with CiModule//
-    @ManyToOne
+    //Establishing ManToOne with CiModule //
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "compatible_ci_module")
+    // this is the name we gave the joined column - this usually is ci_module_id //
     private CiModule ciModule;
 
     //Establishing ManyToMany with WallBracket //
     @ManyToMany
     private List<WallBracket> wallBracketList;
 
-// for every television the is ONE remote control //
 
     public Television() {
     }
@@ -264,6 +264,14 @@ public class Television {
 
     public void setCiModule(CiModule ciModule) {
         this.ciModule = ciModule;
+    }
+
+    public List<WallBracket> getWallBracketList() {
+        return wallBracketList;
+    }
+
+    public void setWallBracketList(List<WallBracket> wallBracketList) {
+        this.wallBracketList = wallBracketList;
     }
 }
 

@@ -1,7 +1,7 @@
 package com.example.tie2.controllers;
 
 import com.example.tie2.dtos.CiModuleDto;
-import com.example.tie2.dtos.CiModuleInputDto;
+import com.example.tie2.dtos.inputDtos.CiModuleInputDto;
 import com.example.tie2.services.CiModuleService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +18,7 @@ public class CiModuleController {
     public CiModuleController(CiModuleService ciModuleService) {
         this.ciModuleService = ciModuleService;
     }
-
+// comment test //
     @GetMapping("/cimodules")
     public ResponseEntity<List<CiModuleDto>> getAllCiModules() {
         List<CiModuleDto> ciModuleDtoList = ciModuleService.getAllCiModules();

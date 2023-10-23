@@ -36,3 +36,29 @@ WHERE id = 1003;
 UPDATE televisions
 SET compatible_remote_control = 1004
 WHERE id = 1004;
+
+INSERT INTO ci_modules (id, name, price, type)
+VALUES (2385, 'QCiModule', 34.99, 'Interactive Module'),
+       (2386, 'QUEST', 46.89, 'NetflixMasterModule'),
+       (2387, 'BirdView', 99.00, 'LaserCiModule');
+
+UPDATE televisions
+SET compatible_ci_module = 2385
+WHERE id = 1002;
+UPDATE televisions
+SET compatible_ci_module = 2386
+WHERE id = 1003;
+UPDATE televisions
+SET compatible_ci_module = 2387
+WHERE id = 1004;
+
+
+INSERT INTO users (username, password, enabled, apikey, email)
+VALUES ('Amy', '$2a$12$fhN.Gmc/rzO7G8t9e5ai.ORJhv1p1p92Bi.JEugHQu8QHORFwpo6q', true, '9880285',
+        amywinehouse@london.co.uk),
+       ('Kurt', '$2a$12$8GAc/F.rwJyDrV6YgEx6cOGHTL.UFuoo4VNetwRjugzm7s//LjpcW', true, '0142853',
+        kurt@seattlehouse.com);
+
+INSERT INTO authorities(username, authority)
+VALUES ('Amy', 'ROLE_ADMIN'),
+       ('Kurt', 'ROLE_USER');

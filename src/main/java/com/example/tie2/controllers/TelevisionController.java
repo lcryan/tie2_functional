@@ -1,11 +1,10 @@
 package com.example.tie2.controllers;
 
-import com.example.tie2.dtos.IdInputDto;
+import com.example.tie2.dtos.inputDtos.IdInputDto;
 
 import com.example.tie2.dtos.TelevisionDto;
-import com.example.tie2.dtos.TelevisionInputDto;
+import com.example.tie2.dtos.inputDtos.TelevisionInputDto;
 
-import com.example.tie2.exceptions.TelevisionNotFoundException;
 import com.example.tie2.services.TelevisionService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -74,6 +73,14 @@ public class TelevisionController {
     @PutMapping("/televisions/{id}/remotecontrol")
     public ResponseEntity<Object> assignRemoteControlToTelevision(@PathVariable("id") Long televisionId, @RequestBody IdInputDto input) {
         televisionService.assignRemoteControlToTelevision(televisionId, input.id);
+        return ResponseEntity.ok().build();
+    }
+
+    // MANY-TO-ONE relation with CiModule //
+
+    @PutMapping("televisions/{id}/{ciModuleId}")
+    public ResponseEntity<Object> assignCiModuleToTelevision(@PathVariable("id") Long televisionId, @PathVariable("ciModuleId") Long ciModuleId) {
+        televisionService.assignCiModuleToTelevision(televisionId, ciModuleId);
         return ResponseEntity.ok().build();
     }
 }

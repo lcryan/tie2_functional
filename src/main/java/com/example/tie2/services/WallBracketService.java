@@ -1,14 +1,12 @@
 package com.example.tie2.services;
 
 import com.example.tie2.dtos.WallBracketDto;
-import com.example.tie2.dtos.WallBracketInputDto;
+import com.example.tie2.dtos.inputDtos.WallBracketInputDto;
 import com.example.tie2.exceptions.RecordNotFoundException;
 import com.example.tie2.models.WallBracket;
 import com.example.tie2.repositories.WallBracketRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
-import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;

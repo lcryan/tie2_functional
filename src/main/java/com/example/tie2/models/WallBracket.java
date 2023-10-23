@@ -18,7 +18,7 @@ public class WallBracket {
     private boolean adjustable;
     @Column(name = "price")
     private double price;
-    //Establishing Many to Many
+    //Establishing Many to Many with Wallbracket //
     @ManyToMany(mappedBy = "wallBracketList")
     private List<Television> televisionList;
 
@@ -60,5 +60,13 @@ public class WallBracket {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public List<Television> getTelevisionList() {
+        return televisionList;
+    }
+
+    public void setTelevisionList(List<Television> televisionList) {
+        this.televisionList = televisionList;
     }
 }
