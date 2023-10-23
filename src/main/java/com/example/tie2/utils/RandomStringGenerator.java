@@ -4,25 +4,16 @@ import java.util.Random;
 
 public class RandomStringGenerator {
 
-    public static String generateString(int randomNumber) {
-        int leftLimit = 97; // letter 'a'
+    public static String generatedAlphaNumber(int randomNumber) {
+        int leftLimit = 48; // number '0'
         int rightLimit = 122; // letter 'z'
         int targetStringLength = 10;
         Random random = new Random();
-        StringBuilder buffer = new StringBuilder(targetStringLength);
-        for (int i = 0; i < targetStringLength; i++) {
-            int randomLimitedInt = leftLimit + (int)
-                    (random.nextFloat() * (rightLimit - leftLimit + 1));
-            buffer.append((char) randomLimitedInt);
-        }
-        String generatedString = buffer.toString();
 
-        System.out.println(generatedString);
-
-        return generatedString;
+        return random.ints(leftLimit, rightLimit + 1)
+                .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
+                .limit(randomNumber)
+                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                .toString();
     }
 }
-
-
-// String generator example derived from Baeldung as an example //
-// Method still has to be used// //wondering if the params should be empty ? //
