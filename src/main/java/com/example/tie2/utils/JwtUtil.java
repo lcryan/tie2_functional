@@ -19,8 +19,7 @@ import java.security.Key;
 @Service
 public class JwtUtil {
 
-    // De secret key moet minimaal 256 bits lang zijn, of grofweg 45 characters
-    private final static String SECRET_KEY = "need a secret key here";
+    private final static String SECRET_KEY = "MY_SECRET_KEY_HERE";
 
     private Key getSigningKey() {
         byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
@@ -41,11 +40,7 @@ public class JwtUtil {
     }
 
     private Claims extractAllClaims(String token) {
-        return Jwts.parserBuilder()
-                .setSigningKey(SECRET_KEY)
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
+        return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
     }
 
     private Boolean isTokenExpired(String token) {
@@ -62,7 +57,7 @@ public class JwtUtil {
                 .setClaims(claims)
                 .setSubject(subject)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24)) //TODO: de JWT vervalt nu na 24 uur. Zorg dat de JWT 10 dagen geldig is.
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 72))
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
